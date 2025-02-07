@@ -6,6 +6,7 @@ import { Form, FormField, FormItem, FormLabel, FormControl } from "@/components/
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
 import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { z } from "zod";
@@ -57,6 +58,32 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
               ))}
             </SelectContent>
           </Select>
+        );
+
+      case "multiselect":
+        return (
+          <div className="space-y-2">
+            {question.options.map((opt: any) => (
+              <div key={opt.value} className="flex items-center space-x-2">
+                <Checkbox
+                  id={opt.value}
+                  onCheckedChange={(checked) => {
+                    const currentValue = form.watch(`responses.${question.id}`) || [];
+                    const newValue = checked
+                      ? [...currentValue, opt.value]
+                      : currentValue.filter((v: string) => v !== opt.value);
+                    form.setValue(`responses.${question.id}`, newValue);
+                  }}
+                />
+                <label
+                  htmlFor={opt.value}
+                  className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  {opt.label}
+                </label>
+              </div>
+            ))}
+          </div>
         );
 
       case "radio":

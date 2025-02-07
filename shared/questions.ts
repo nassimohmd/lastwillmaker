@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export const questions = [
   {
     id: "social_media",
@@ -11,8 +13,19 @@ export const questions = [
         options: [
           { value: "delete", label: "Delete it" },
           { value: "memorialize", label: "Memorialize it" },
-          { value: "keep", label: "Keep it as is" }
+          { value: "keep", label: "Keep it as is" },
+          { value: "other", label: "Other" }
         ]
+      },
+      {
+        id: "instagram_other",
+        text: "Please specify what should be done with your Instagram account:",
+        type: "text",
+        placeholder: "Enter your preference",
+        conditional: {
+          field: "instagram",
+          value: "other"
+        }
       },
       {
         id: "messaging_apps",
@@ -54,13 +67,18 @@ export function generateContent(responses: Record<string, any>): string {
 
   // Instagram handling
   if (responses.instagram) {
-    const action = {
-      delete: "should be deleted",
-      memorialize: "should be memorialized",
-      keep: "should be kept as is"
-    }[responses.instagram];
-    
-    content += `1. My Instagram account ${action}.\n\n`;
+    let instagramAction;
+    if (responses.instagram === "other" && responses.instagram_other) {
+      instagramAction = responses.instagram_other;
+    } else {
+      instagramAction = {
+        delete: "should be deleted",
+        memorialize: "should be memorialized",
+        keep: "should be kept as is"
+      }[responses.instagram] || "should be handled as specified";
+    }
+
+    content += `1. My Instagram account ${instagramAction}.\n\n`;
   }
 
   // Messaging apps
@@ -75,7 +93,7 @@ export function generateContent(responses: Record<string, any>): string {
       content += ` Specifically, conversations with ${responses.important_chats} should be preserved as they may contain important evidence or documentation.`;
     }
     content += "\n\n";
-  } else {
+  } else if (responses.backup_chats === "no") {
     content += "3. All chat histories should be deleted.\n\n";
   }
 
