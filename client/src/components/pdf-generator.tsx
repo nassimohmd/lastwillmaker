@@ -5,6 +5,7 @@ import { Download, RefreshCw } from "lucide-react";
 import { generateContent } from "@shared/questions";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { motion } from "framer-motion";
 
 interface PdfGeneratorProps {
   responses: Record<string, any>;
@@ -48,18 +49,34 @@ export default function PdfGenerator({ responses }: PdfGeneratorProps) {
   return (
     <>
       <CardHeader className="space-y-3 border-b border-border/5 pb-7 mb-2">
-        <CardTitle className="text-xl sm:text-2xl font-bold">Preview Your Will & Testament</CardTitle>
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <CardTitle className="text-xl sm:text-2xl font-bold">Preview Your Will & Testament</CardTitle>
+        </motion.div>
       </CardHeader>
 
       <CardContent className="space-y-6">
-        <div className="bg-muted/50 p-4 sm:p-6 rounded-lg whitespace-pre-wrap font-mono text-sm sm:text-base overflow-auto border border-border/10 shadow-inner">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="bg-muted/50 p-4 sm:p-6 rounded-lg whitespace-pre-wrap font-mono text-sm sm:text-base overflow-auto border border-border/10 shadow-inner"
+        >
           {content}
-        </div>
+        </motion.div>
 
-        <div className="flex flex-col sm:flex-row justify-end gap-3 sm:gap-4 pt-2">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="flex flex-col sm:flex-row justify-end gap-3 sm:gap-4 pt-2"
+        >
           <Button
             variant="outline"
-            className="w-full sm:w-auto h-12 hover:bg-muted/50 transition-colors"
+            className="w-full sm:w-auto h-12 hover:bg-muted/50 transition-colors duration-200"
             onClick={() => window.location.reload()}
           >
             <RefreshCw className="mr-2 h-4 w-4" />
@@ -74,7 +91,7 @@ export default function PdfGenerator({ responses }: PdfGeneratorProps) {
             <Download className="mr-2 h-4 w-4" />
             Download PDF
           </Button>
-        </div>
+        </motion.div>
       </CardContent>
     </>
   );
