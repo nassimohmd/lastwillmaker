@@ -49,19 +49,19 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
             transition={{ duration: 0.3 }}
           >
             <Select
-              onValueChange={(value) => 
+              onValueChange={(value) =>
                 form.setValue(`responses.${question.id}`, value)
               }
             >
-              <SelectTrigger className="w-full h-12 bg-muted/50 border-border/10 transition-all duration-200 hover:border-primary/50 focus:border-primary">
+              <SelectTrigger className="w-full h-12 bg-white/5 border-white/10 transition-all duration-200 hover:border-white/50 focus:border-white">
                 <SelectValue placeholder="Select an option" />
               </SelectTrigger>
               <SelectContent>
                 {question.options.map((opt: any) => (
-                  <SelectItem 
-                    key={opt.value} 
+                  <SelectItem
+                    key={opt.value}
                     value={opt.value}
-                    className="h-12 transition-colors hover:bg-primary/10"
+                    className="h-12 transition-colors hover:bg-white/10"
                   >
                     {opt.label}
                   </SelectItem>
@@ -73,15 +73,15 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
 
       case "multiselect":
         return (
-          <motion.div 
+          <motion.div
             className="space-y-3"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
           >
             {question.options.map((opt: any, index: number) => (
-              <motion.div 
-                key={opt.value} 
+              <motion.div
+                key={opt.value}
                 className="flex items-center space-x-3 min-h-[2.5rem] group"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -89,7 +89,7 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
               >
                 <Checkbox
                   id={opt.value}
-                  className="h-5 w-5 border-border/20 data-[state=checked]:bg-primary transition-all duration-200"
+                  className="h-5 w-5 border-white/20 data-[state=checked]:bg-white/20 transition-all duration-200"
                   onCheckedChange={(checked) => {
                     const currentValue = form.watch(`responses.${question.id}`) || [];
                     const newValue = checked
@@ -100,7 +100,7 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
                 />
                 <label
                   htmlFor={opt.value}
-                  className="text-base leading-none select-none group-hover:text-primary transition-colors duration-200"
+                  className="text-base leading-none select-none group-hover:text-white transition-colors duration-200"
                 >
                   {opt.label}
                 </label>
@@ -123,21 +123,21 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
               className="space-y-3"
             >
               {question.options.map((opt: any, index: number) => (
-                <motion.div 
-                  key={opt.value} 
+                <motion.div
+                  key={opt.value}
                   className="flex items-center space-x-3 min-h-[2.5rem] group"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.2, delay: index * 0.1 }}
                 >
-                  <RadioGroupItem 
-                    value={opt.value} 
-                    id={opt.value} 
-                    className="h-5 w-5 border-border/20 data-[state=checked]:bg-primary transition-all duration-200"
+                  <RadioGroupItem
+                    value={opt.value}
+                    id={opt.value}
+                    className="h-5 w-5 border-white/20 data-[state=checked]:bg-white/20 transition-all duration-200"
                   />
-                  <label 
-                    htmlFor={opt.value} 
-                    className="text-base leading-none select-none group-hover:text-primary transition-colors duration-200"
+                  <label
+                    htmlFor={opt.value}
+                    className="text-base leading-none select-none group-hover:text-white transition-colors duration-200"
                   >
                     {opt.label}
                   </label>
@@ -155,7 +155,7 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
             transition={{ duration: 0.3 }}
           >
             <Input
-              className="h-12 bg-muted/50 border-border/10 transition-all duration-200 hover:border-primary/50 focus:border-primary"
+              className="h-12 bg-white/5 border-white/10 transition-all duration-200 hover:border-white/50 focus:border-white"
               placeholder={question.placeholder}
               onChange={(e) =>
                 form.setValue(`responses.${question.id}`, e.target.value)
@@ -171,7 +171,7 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
 
   return (
     <>
-      <CardHeader className="space-y-3 border-b border-border/5 pb-7 mb-2">
+      <CardHeader className="space-y-3 border-b border-white/5 pb-7 mb-2">
         <motion.div
           key={currentSection.title}
           initial={{ opacity: 0, x: -20 }}
@@ -185,7 +185,7 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
-          <Progress value={progress} className="h-2 bg-muted/50" />
+          <Progress value={progress} className="h-2 bg-white/50" />
         </motion.div>
       </CardHeader>
 
@@ -224,15 +224,15 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
               })}
             </AnimatePresence>
 
-            <motion.div 
+            <motion.div
               className="pt-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.3 }}
             >
-              <Button 
-                type="submit" 
-                className="w-full h-12 text-base bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200"
+              <Button
+                type="submit"
+                className="w-full h-12 text-base bg-white/10 hover:bg-white/20 text-white shadow-lg hover:shadow-xl transition-all duration-200"
               >
                 {form.watch("currentStep") < questions.length - 1
                   ? "Next"

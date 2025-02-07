@@ -63,7 +63,7 @@ export default function PdfGenerator({ responses }: PdfGeneratorProps) {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-muted/50 p-4 sm:p-6 rounded-lg whitespace-pre-wrap font-mono text-sm sm:text-base overflow-auto border border-border/10 shadow-inner"
+          className="bg-white/5 p-4 sm:p-6 rounded-lg whitespace-pre-wrap font-mono text-sm sm:text-base overflow-auto border border-white/10 shadow-inner"
         >
           {content}
         </motion.div>
@@ -76,17 +76,17 @@ export default function PdfGenerator({ responses }: PdfGeneratorProps) {
         >
           <Button
             variant="outline"
-            className="w-full sm:w-auto h-12 hover:bg-muted/50 transition-colors duration-200"
+            className="w-full sm:w-auto h-12 hover:bg-white/10 transition-colors duration-200 border-white/20"
             onClick={() => window.location.reload()}
           >
             <RefreshCw className="mr-2 h-4 w-4" />
             Start Over
           </Button>
 
-          <Button 
-            onClick={handleDownload} 
+          <Button
+            onClick={handleDownload}
             disabled={isLoading}
-            className="w-full sm:w-auto h-12 bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200"
+            className="w-full sm:w-auto h-12 bg-white/10 hover:bg-white/20 text-white shadow-lg hover:shadow-xl transition-all duration-200"
           >
             <Download className="mr-2 h-4 w-4" />
             Download PDF
