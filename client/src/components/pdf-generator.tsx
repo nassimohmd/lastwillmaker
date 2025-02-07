@@ -47,25 +47,30 @@ export default function PdfGenerator({ responses }: PdfGeneratorProps) {
 
   return (
     <>
-      <CardHeader>
-        <CardTitle>Preview Your Will & Testament</CardTitle>
+      <CardHeader className="space-y-3">
+        <CardTitle className="text-xl sm:text-2xl">Preview Your Will & Testament</CardTitle>
       </CardHeader>
 
       <CardContent className="space-y-6">
-        <div className="bg-muted p-6 rounded-lg whitespace-pre-wrap font-mono text-sm">
+        <div className="bg-muted p-4 sm:p-6 rounded-lg whitespace-pre-wrap font-mono text-sm sm:text-base overflow-auto">
           {content}
         </div>
 
-        <div className="flex justify-end gap-4">
+        <div className="flex flex-col sm:flex-row justify-end gap-3 sm:gap-4">
           <Button
             variant="outline"
+            className="w-full sm:w-auto h-12"
             onClick={() => window.location.reload()}
           >
             <RefreshCw className="mr-2 h-4 w-4" />
             Start Over
           </Button>
-          
-          <Button onClick={handleDownload} disabled={isLoading}>
+
+          <Button 
+            onClick={handleDownload} 
+            disabled={isLoading}
+            className="w-full sm:w-auto h-12"
+          >
             <Download className="mr-2 h-4 w-4" />
             Download PDF
           </Button>
