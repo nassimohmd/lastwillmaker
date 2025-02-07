@@ -47,19 +47,19 @@ export default function PdfGenerator({ responses }: PdfGeneratorProps) {
 
   return (
     <>
-      <CardHeader className="space-y-3">
-        <CardTitle className="text-xl sm:text-2xl">Preview Your Will & Testament</CardTitle>
+      <CardHeader className="space-y-3 border-b border-border/5 pb-7 mb-2">
+        <CardTitle className="text-xl sm:text-2xl font-bold">Preview Your Will & Testament</CardTitle>
       </CardHeader>
 
       <CardContent className="space-y-6">
-        <div className="bg-muted p-4 sm:p-6 rounded-lg whitespace-pre-wrap font-mono text-sm sm:text-base overflow-auto">
+        <div className="bg-muted/50 p-4 sm:p-6 rounded-lg whitespace-pre-wrap font-mono text-sm sm:text-base overflow-auto border border-border/10 shadow-inner">
           {content}
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-end gap-3 sm:gap-4">
+        <div className="flex flex-col sm:flex-row justify-end gap-3 sm:gap-4 pt-2">
           <Button
             variant="outline"
-            className="w-full sm:w-auto h-12"
+            className="w-full sm:w-auto h-12 hover:bg-muted/50 transition-colors"
             onClick={() => window.location.reload()}
           >
             <RefreshCw className="mr-2 h-4 w-4" />
@@ -69,7 +69,7 @@ export default function PdfGenerator({ responses }: PdfGeneratorProps) {
           <Button 
             onClick={handleDownload} 
             disabled={isLoading}
-            className="w-full sm:w-auto h-12"
+            className="w-full sm:w-auto h-12 bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200"
           >
             <Download className="mr-2 h-4 w-4" />
             Download PDF

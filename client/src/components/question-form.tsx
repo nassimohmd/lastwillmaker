@@ -47,7 +47,7 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
               form.setValue(`responses.${question.id}`, value)
             }
           >
-            <SelectTrigger className="w-full h-12">
+            <SelectTrigger className="w-full h-12 bg-muted/50 border-border/10">
               <SelectValue placeholder="Select an option" />
             </SelectTrigger>
             <SelectContent>
@@ -68,10 +68,10 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
         return (
           <div className="space-y-3">
             {question.options.map((opt: any) => (
-              <div key={opt.value} className="flex items-center space-x-3 min-h-[2.5rem]">
+              <div key={opt.value} className="flex items-center space-x-3 min-h-[2.5rem] group">
                 <Checkbox
                   id={opt.value}
-                  className="h-5 w-5"
+                  className="h-5 w-5 border-border/20 data-[state=checked]:bg-primary"
                   onCheckedChange={(checked) => {
                     const currentValue = form.watch(`responses.${question.id}`) || [];
                     const newValue = checked
@@ -82,7 +82,7 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
                 />
                 <label
                   htmlFor={opt.value}
-                  className="text-base leading-none select-none"
+                  className="text-base leading-none select-none group-hover:text-primary transition-colors"
                 >
                   {opt.label}
                 </label>
@@ -100,9 +100,16 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
             className="space-y-3"
           >
             {question.options.map((opt: any) => (
-              <div key={opt.value} className="flex items-center space-x-3 min-h-[2.5rem]">
-                <RadioGroupItem value={opt.value} id={opt.value} className="h-5 w-5" />
-                <label htmlFor={opt.value} className="text-base leading-none select-none">
+              <div key={opt.value} className="flex items-center space-x-3 min-h-[2.5rem] group">
+                <RadioGroupItem 
+                  value={opt.value} 
+                  id={opt.value} 
+                  className="h-5 w-5 border-border/20 data-[state=checked]:bg-primary"
+                />
+                <label 
+                  htmlFor={opt.value} 
+                  className="text-base leading-none select-none group-hover:text-primary transition-colors"
+                >
                   {opt.label}
                 </label>
               </div>
@@ -113,7 +120,7 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
       case "text":
         return (
           <Input
-            className="h-12"
+            className="h-12 bg-muted/50 border-border/10"
             placeholder={question.placeholder}
             onChange={(e) =>
               form.setValue(`responses.${question.id}`, e.target.value)
@@ -128,9 +135,9 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
 
   return (
     <>
-      <CardHeader className="space-y-3">
-        <CardTitle className="text-xl sm:text-2xl">{currentSection.title}</CardTitle>
-        <Progress value={progress} className="h-2" />
+      <CardHeader className="space-y-3 border-b border-border/5 pb-7 mb-2">
+        <CardTitle className="text-xl sm:text-2xl font-bold">{currentSection.title}</CardTitle>
+        <Progress value={progress} className="h-2 bg-muted/50" />
       </CardHeader>
 
       <CardContent>
@@ -151,7 +158,7 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
                   name={`responses.${question.id}`}
                   render={() => (
                     <FormItem className="space-y-3">
-                      <FormLabel className="text-base">{question.text}</FormLabel>
+                      <FormLabel className="text-base font-medium">{question.text}</FormLabel>
                       <FormControl>{renderField(question)}</FormControl>
                     </FormItem>
                   )}
@@ -160,7 +167,10 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
             })}
 
             <div className="pt-4">
-              <Button type="submit" className="w-full h-12 text-base">
+              <Button 
+                type="submit" 
+                className="w-full h-12 text-base bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200"
+              >
                 {form.watch("currentStep") < questions.length - 1
                   ? "Next"
                   : "Complete"}

@@ -22,9 +22,9 @@ export default function Questionnaire() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-b from-background to-muted p-4">
+    <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-b from-background via-background/80 to-background/50 p-4">
       <ThemeToggle />
-      <Card className="w-full max-w-lg mx-auto">
+      <Card className="w-full max-w-lg mx-auto shadow-lg border-2 border-border/5">
         {!completed ? (
           <QuestionForm
             questions={questions}
