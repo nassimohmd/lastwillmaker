@@ -11,12 +11,12 @@ export default function Home() {
       <Card className="w-full max-w-md mx-auto shadow-lg border-2 border-border/5">
         <CardContent className="pt-6 text-center">
           <div className="flex justify-center mb-6">
-            <div className="p-3 rounded-full bg-white/5">
-              <FileText className="h-12 w-12 sm:h-16 sm:w-16 text-white" />
+            <div className="p-3 rounded-full bg-primary/10">
+              <FileText className="h-12 w-12 sm:h-16 sm:w-16 text-primary" />
             </div>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent tracking-tight mb-4">
+          <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-br from-primary to-primary/60 bg-clip-text text-transparent tracking-tight mb-4">
             Will & Testament Generator
           </h1>
 
@@ -25,7 +25,7 @@ export default function Home() {
           </p>
 
           <Link href="/questionnaire">
-            <Button size="lg" className="w-full sm:w-auto h-12 bg-white/10 hover:bg-white/20 text-white shadow-lg hover:shadow-xl transition-all duration-200">
+            <Button size="lg" className="w-full sm:w-auto h-12 bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200">
               Start Questionnaire
             </Button>
           </Link>
