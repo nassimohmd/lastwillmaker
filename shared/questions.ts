@@ -4,7 +4,6 @@ export const questions = [
   {
     id: "social_media",
     section: "Social Media Accounts",
-    title: "Funeral arrangements",
     questions: [
       {
         id: "remains_handling",
@@ -78,6 +77,25 @@ export const questions = [
       },
     ],
   },
+];
+
+{
+  id: "2",
+  section: "2",
+  questions: [
+    {
+      id: "thendi",
+      text: "Poda patti",
+      type: "select",
+      options: [
+        { value: "burial", label: "Burial" },
+        { value: "cremation", label: "Cremation" },
+        { value: "donation", label: " Donation to science" },
+        { value: "other", label: "Other" },
+      ],
+    },
+  ],
+},
 ];
 
 export function generateContent(responses: Record<string, any>): string {
