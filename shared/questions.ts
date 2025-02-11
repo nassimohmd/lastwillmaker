@@ -100,9 +100,9 @@ export function generateContent(responses: Record<string, any>): string {
   
   // Add greeting with name and father's name
   if (responses.name && responses.father_name) {
-    content += `I, ${responses.name}, son of ${responses.father_name}, do hereby revoke all my formal Wills, Codicils and Testamentary disposition made by m. I declare this to be my last Will and Testament\n\n`;
+    content += `I, ${responses.name}, son of ${responses.father_name}, do hereby revoke all my formal Wills, Codicils and Testamentary disposition made by me. I declare this to be my last Will and Testament\n\n`;
 
-     content += `I maintain good health, and possess a sound mind. This Will is made by me on my own independent decision and free volition. Have not be influenced, cajoled or coerced in any manner whatsoever\n\n`;
+    content += `I maintain good health, and possess a sound mind. This Will is made by me on my own independent decision and free volition. Have not be influenced, cajoled or coerced in any manner whatsoever\n\n`;
   }
 
   // Social Media Section
@@ -124,7 +124,54 @@ export function generateContent(responses: Record<string, any>): string {
     content += `1. My Instagram account ${instagramAction}.\n\n`;
   }
 
-  // Funeral arrangements}
+  // Remains Handling Section
+  content += "II. REMAINS HANDLING\n\n";
+  
+  if (responses.remains_handling) {
+    let remainsContent = "";
+    switch (responses.remains_handling) {
+      case "burial":
+        remainsContent = "I wish for my remains to be buried";
+        if (responses.remains_burial) {
+          if (responses.remains_burial === "other" && responses.burial_other) {
+            remainsContent += ` at ${responses.burial_other}`;
+          } else {
+            const locations = {
+              home: "at my home",
+              mosque: "at the local mosque",
+              cemetery: "at the local cemetery",
+              public: "at any suitable public place"
+            };
+            remainsContent += ` ${locations[responses.remains_burial] || ''}`;
+          }
+        }
+        break;
+      case "cremation":
+        remainsContent = "I wish for my remains to be cremated";
+        if (responses.remains_cremation) {
+          if (responses.remains_cremation === "other" && responses.cremate_other) {
+            remainsContent += ` at ${responses.cremate_other}`;
+          } else {
+            const locations = {
+              home: "at my home",
+              crematorium: "at a public crematorium",
+              Temple: "at a temple"
+            };
+            remainsContent += ` ${locations[responses.remains_cremation] || ''}`;
+          }
+        }
+        break;
+      case "donation":
+        remainsContent = "I wish to donate my remains to science";
+        break;
+      case "other":
+        if (responses.remains_other) {
+          remainsContent = responses.remains_other;
+        }
+        break;
+    }
+    content += `1. ${remainsContent}.\n\n`;
+  }
 
   return content;
 }
