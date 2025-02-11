@@ -43,9 +43,15 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
       case "select":
         return (
           <Select
-            onValueChange={(value) => 
-              form.setValue(`responses.${question.id}`, value)
-            }
+            onValueChange={(value) => {
+              form.setValue(`responses.${question.id}`, value);
+              // Clear any conditional fields that depend on this field
+              currentSection.questions.forEach((q: any) => {
+                if (q.conditional?.field === question.id) {
+                  form.setValue(`responses.${q.id}`, '');
+                }
+              });
+            }}
           >
             <SelectTrigger className="w-full h-12 bg-muted/50 border-border/10">
               <SelectValue placeholder="Select an option" />
