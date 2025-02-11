@@ -82,7 +82,6 @@ export const questions = [
 
 export function generateContent(responses: Record<string, any>): string {
   let content = "LAST WILL AND TESTAMENT\n\n";
-  content += "DIGITAL ASSETS AND ACCOUNTS\n\n";
 
   // Social Media Section
   content += "I. SOCIAL MEDIA ACCOUNTS\n\n";
