@@ -1,3 +1,4 @@
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "@shared/schema";
@@ -9,6 +10,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
 import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Pagination, PaginationContent, PaginationItem, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import type { z } from "zod";
 
 type FormData = z.infer<typeof formSchema>;
@@ -38,6 +40,18 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
     }
   };
 
+  const handlePrevious = () => {
+    if (form.watch("currentStep") > 0) {
+      form.setValue("currentStep", form.watch("currentStep") - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (form.watch("currentStep") < questions.length - 1) {
+      form.setValue("currentStep", form.watch("currentStep") + 1);
+    }
+  };
+
   const renderField = (question: any) => {
     switch (question.type) {
       case "select":
@@ -45,7 +59,6 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
           <Select
             onValueChange={(value) => {
               form.setValue(`responses.${question.id}`, value);
-              // Clear any conditional fields that depend on this field
               currentSection.questions.forEach((q: any) => {
                 if (q.conditional?.field === question.id) {
                   form.setValue(`responses.${q.id}`, '');
@@ -173,14 +186,23 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
             })}
 
             <div className="pt-4">
-              <Button 
-                type="submit" 
-                className="w-full h-12 text-base bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200"
-              >
-                {form.watch("currentStep") < questions.length - 1
-                  ? "Next"
-                  : "Complete"}
-              </Button>
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious 
+                      onClick={handlePrevious}
+                      className={form.watch("currentStep") === 0 ? "opacity-50 cursor-not-allowed" : ""}
+                    />
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationNext 
+                      onClick={form.watch("currentStep") === questions.length - 1 ? form.handleSubmit(onComplete) : handleNext}
+                    >
+                      {form.watch("currentStep") === questions.length - 1 ? "Complete" : "Next"}
+                    </PaginationNext>
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
             </div>
           </form>
         </Form>
