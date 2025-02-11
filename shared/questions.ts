@@ -100,7 +100,9 @@ export function generateContent(responses: Record<string, any>): string {
   
   // Add greeting with name and father's name
   if (responses.name && responses.father_name) {
-    content += `Hi ${responses.name}, I know you're son of ${responses.father_name}\n\n`;
+    content += `I, ${responses.name}, son of ${responses.father_name}, do hereby revoke all my formal Wills, Codicils and Testamentary disposition made by m. I declare this to be my last Will and Testament\n\n`;
+
+     content += `I maintain good health, and possess a sound mind. This Will is made by me on my own independent decision and free volition. Have not be influenced, cajoled or coerced in any manner whatsoever\n\n`;
   }
 
   // Social Media Section
@@ -122,67 +124,7 @@ export function generateContent(responses: Record<string, any>): string {
     content += `1. My Instagram account ${instagramAction}.\n\n`;
   }
 
-  // Other social media accounts
-  if (responses.other_social_accounts?.length) {
-    content += `2. My other social media accounts (${responses.other_social_accounts.join(", ")}) `;
-    if (responses.social_media_instruction) {
-      const action = {
-        delete_all: "should all be deleted",
-        memorialize_all: "should be memorialized",
-        transfer: "should be transferred to my designated family member",
-      }[responses.social_media_instruction];
-      content += `${action}.\n\n`;
-    }
-  }
-
-  // Messaging Apps Section
-  content += "II. MESSAGING APPLICATIONS\n\n";
-
-  if (responses.messaging_apps?.length) {
-    content += `1. I use the following messaging applications: ${responses.messaging_apps.join(", ")}.\n\n`;
-  }
-
-  if (responses.backup_chats === "yes") {
-    content += "2. My chat history should be backed up securely.";
-    if (responses.important_chats) {
-      content += ` Specifically, conversations with ${responses.important_chats} should be preserved as they may contain important evidence or documentation.`;
-    }
-    content += "\n\n";
-  } else if (responses.backup_chats === "no") {
-    content += "2. All chat histories should be deleted.\n\n";
-  }
-
-  // Digital Finance Section
-  content += "III. DIGITAL FINANCIAL ASSETS\n\n";
-
-  if (responses.crypto_wallets === "yes") {
-    content += "1. I own cryptocurrency wallets. ";
-    if (responses.wallet_instructions) {
-      content += `Instructions for accessing these wallets: ${responses.wallet_instructions}\n\n`;
-    }
-  }
-
-  if (responses.online_banking === "yes" && responses.banking_details) {
-    content += `2. I maintain online banking accounts with the following institutions: ${responses.banking_details}. Proper legal procedures should be followed to transfer or close these accounts.\n\n`;
-  }
-
-  // Email Accounts Section
-  content += "IV. EMAIL ACCOUNTS\n\n";
-
-  if (responses.primary_email) {
-    const emailAction = {
-      delete: "should be deleted after 30 days",
-      archive: "should have important emails archived and then be deleted",
-      transfer: "should be transferred to a designated family member",
-      auto_reply: "should remain active with an automatic reply message",
-    }[responses.primary_email];
-
-    content += `1. My primary email account ${emailAction}.`;
-    if (responses.primary_email === "archive" && responses.important_emails) {
-      content += ` The following emails/folders should be preserved: ${responses.important_emails}`;
-    }
-    content += "\n\n";
-  }
+  // Funeral arrangements}
 
   return content;
 }
