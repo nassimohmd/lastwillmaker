@@ -1,254 +1,145 @@
 import { z } from "zod";
 
+// Replace existing questions with the funeral preferences questionnaire
 export const questions = [
   {
-    id: "social_media",
-    section: "Social Media Accounts",
-    title: "Social Media Accounts",
+    id: "funeral_preferences",
+    section: "Funeral Preferences",
+    title: "Funeral Arrangements",
     questions: [
       {
-        id: "instagram",
-        text: "What should be done with your Instagram account?",
+        id: "funeral_remains",
+        text: "How would you like your remains to be handled?",
         type: "select",
         options: [
-          { value: "delete", label: "Delete it" },
-          { value: "memorialize", label: "Memorialize it" },
-          { value: "keep", label: "Keep it as is" },
+          { value: "burial", label: "Burial" },
+          { value: "cremation", label: "Cremation" },
+          { value: "donation", label: "Donation to science" },
           { value: "other", label: "Other" }
         ]
       },
       {
-        id: "instagram_other",
-        text: "Please specify what should be done with your Instagram account:",
+        id: "funeral_remains_other",
+        text: "Please specify how you would like your remains to be handled:",
         type: "text",
         placeholder: "Enter your preference",
-        conditional: {
-          field: "instagram",
-          value: "other"
-        }
+        conditional: { field: "funeral_remains", value: "other" }
       },
       {
-        id: "other_social_accounts",
-        text: "Do you have any other social media accounts that need to be managed?",
-        type: "multiselect",
-        options: [
-          { value: "facebook", label: "Facebook" },
-          { value: "twitter", label: "Twitter/X" },
-          { value: "linkedin", label: "LinkedIn" },
-          { value: "tiktok", label: "TikTok" }
-        ]
-      },
-      {
-        id: "social_media_instruction",
-        text: "What should be done with these accounts?",
+        id: "funeral_location",
+        text: "Do you have a preferred location for your final resting place?",
         type: "select",
         options: [
-          { value: "delete_all", label: "Delete all accounts" },
-          { value: "memorialize_all", label: "Memorialize all accounts" },
-          { value: "transfer", label: "Transfer to a family member" }
-        ],
-        conditional: {
-          field: "other_social_accounts",
-          value: ["facebook", "twitter", "linkedin", "tiktok"]
-        }
-      }
-    ]
-  },
-  {
-    id: "messaging",
-    section: "Messaging Applications",
-    title: "Messaging Apps & Communication",
-    questions: [
-      {
-        id: "messaging_apps",
-        text: "Which messaging apps do you use?",
-        type: "multiselect",
-        options: [
-          { value: "whatsapp", label: "WhatsApp" },
-          { value: "telegram", label: "Telegram" },
-          { value: "signal", label: "Signal" },
-          { value: "instagram_dm", label: "Instagram Direct" }
+          { value: "yes", label: "Yes (please specify)" },
+          { value: "no_preference", label: "No preference" }
         ]
       },
       {
-        id: "backup_chats",
-        text: "Should your chats be backed up?",
-        type: "radio",
-        options: [
-          { value: "yes", label: "Yes" },
-          { value: "no", label: "No" }
-        ]
-      },
-      {
-        id: "important_chats",
-        text: "Are there any specific chats that should be preserved as evidence?",
+        id: "funeral_location_text",
+        text: "Please specify the location:",
         type: "text",
-        placeholder: "Enter names separated by commas",
-        conditional: {
-          field: "backup_chats",
-          value: "yes"
-        }
-      }
-    ]
-  },
-  {
-    id: "digital_finance",
-    section: "Digital Financial Assets",
-    title: "Digital Financial Assets",
-    questions: [
-      {
-        id: "crypto_wallets",
-        text: "Do you own any cryptocurrency wallets?",
-        type: "radio",
-        options: [
-          { value: "yes", label: "Yes" },
-          { value: "no", label: "No" }
-        ]
+        placeholder: "Enter location",
+        conditional: { field: "funeral_location", value: "yes" }
       },
       {
-        id: "wallet_instructions",
-        text: "Please provide instructions for accessing your crypto wallets:",
-        type: "text",
-        placeholder: "Enter secure instructions for wallet access",
-        conditional: {
-          field: "crypto_wallets",
-          value: "yes"
-        }
-      },
-      {
-        id: "online_banking",
-        text: "Do you have any online-only bank accounts?",
-        type: "radio",
-        options: [
-          { value: "yes", label: "Yes" },
-          { value: "no", label: "No" }
-        ]
-      },
-      {
-        id: "banking_details",
-        text: "List your online banking institutions:",
-        type: "text",
-        placeholder: "Enter bank names separated by commas",
-        conditional: {
-          field: "online_banking",
-          value: "yes"
-        }
-      }
-    ]
-  },
-  {
-    id: "email_accounts",
-    section: "Email Accounts",
-    title: "Email Accounts",
-    questions: [
-      {
-        id: "primary_email",
-        text: "What should be done with your primary email account?",
+        id: "funeral_religious",
+        text: "Would you like your funeral to follow any specific religious traditions?",
         type: "select",
         options: [
-          { value: "delete", label: "Delete after 30 days" },
-          { value: "archive", label: "Archive important emails and delete" },
-          { value: "transfer", label: "Transfer to a family member" },
-          { value: "auto_reply", label: "Set up auto-reply and keep active" }
+          { value: "yes", label: "Yes (please specify religion)" },
+          { value: "non_religious", label: "No, I prefer a non-religious ceremony" },
+          { value: "no_preference", label: "No preference" }
         ]
       },
       {
-        id: "important_emails",
-        text: "Are there any important emails that should be preserved?",
+        id: "funeral_religious_details",
+        text: "Please specify the religion:",
         type: "text",
-        placeholder: "Describe important emails or folders to preserve",
-        conditional: {
-          field: "primary_email",
-          value: "archive"
-        }
+        placeholder: "Enter the religion",
+        conditional: { field: "funeral_religious", value: "yes" }
+      },
+      {
+        id: "funeral_requests",
+        text: "Do you have any specific requests for your funeral service?",
+        type: "select",
+        options: [
+          { value: "yes", label: "Yes (please describe)" },
+          { value: "no", label: "No specific requests" }
+        ]
+      },
+      {
+        id: "funeral_requests_details",
+        text: "Please describe your specific requests for your funeral service:",
+        type: "text",
+        placeholder: "Enter your requests",
+        conditional: { field: "funeral_requests", value: "yes" }
+      },
+      {
+        id: "funeral_elements",
+        text: "Would you like any specific music, readings, or other elements included in your funeral service?",
+        type: "select",
+        options: [
+          { value: "yes", label: "Yes (please specify)" },
+          { value: "no", label: "No specific requests" }
+        ]
+      },
+      {
+        id: "funeral_elements_details",
+        text: "Please specify the music, readings, or other elements:",
+        type: "text",
+        placeholder: "Enter details",
+        conditional: { field: "funeral_elements", value: "yes" }
       }
     ]
   }
 ];
 
+// Update generateContent to output funeral preferences dynamically
 export function generateContent(responses: Record<string, any>): string {
   let content = "LAST WILL AND TESTAMENT\n\n";
   content += "DIGITAL ASSETS AND ACCOUNTS\n\n";
+  // ...existing sections...
 
-  // Social Media Section
-  content += "I. SOCIAL MEDIA ACCOUNTS\n\n";
+  // Append Funeral Preferences Section
+  content += "V. FUNERAL PREFERENCES\n\n";
+  const name = responses.name || "I";
+  content += `${name}, hereby express my wishes regarding my funeral arrangements. `;
 
-  // Instagram handling
-  if (responses.instagram) {
-    let instagramAction;
-    if (responses.instagram === "other" && responses.instagram_other) {
-      instagramAction = responses.instagram_other;
-    } else {
-      instagramAction = {
-        delete: "should be deleted",
-        memorialize: "should be memorialized",
-        keep: "should be kept as is"
-      }[responses.instagram] || "should be handled as specified";
-    }
-    content += `1. My Instagram account ${instagramAction}.\n\n`;
+  if (responses.funeral_remains) {
+    const remainsAction = responses.funeral_remains === "other" && responses.funeral_remains_other
+      ? responses.funeral_remains_other
+      : {
+        burial: "be handled through burial",
+        cremation: "be cremated",
+        donation: "be donated to science"
+      }[responses.funeral_remains] || "";
+    content += `I desire that my remains ${remainsAction}. `;
   }
 
-  // Other social media accounts
-  if (responses.other_social_accounts?.length) {
-    content += `2. My other social media accounts (${responses.other_social_accounts.join(", ")}) `;
-    if (responses.social_media_instruction) {
-      const action = {
-        delete_all: "should all be deleted",
-        memorialize_all: "should be memorialized",
-        transfer: "should be transferred to my designated family member"
-      }[responses.social_media_instruction];
-      content += `${action}.\n\n`;
-    }
+  if (responses.funeral_location === "yes" && responses.funeral_location_text) {
+    content += `I would like my final resting place to be at ${responses.funeral_location_text}. `;
   }
 
-  // Messaging Apps Section
-  content += "II. MESSAGING APPLICATIONS\n\n";
-
-  if (responses.messaging_apps?.length) {
-    content += `1. I use the following messaging applications: ${responses.messaging_apps.join(", ")}.\n\n`;
-  }
-
-  if (responses.backup_chats === "yes") {
-    content += "2. My chat history should be backed up securely.";
-    if (responses.important_chats) {
-      content += ` Specifically, conversations with ${responses.important_chats} should be preserved as they may contain important evidence or documentation.`;
-    }
-    content += "\n\n";
-  } else if (responses.backup_chats === "no") {
-    content += "2. All chat histories should be deleted.\n\n";
-  }
-
-  // Digital Finance Section
-  content += "III. DIGITAL FINANCIAL ASSETS\n\n";
-
-  if (responses.crypto_wallets === "yes") {
-    content += "1. I own cryptocurrency wallets. ";
-    if (responses.wallet_instructions) {
-      content += `Instructions for accessing these wallets: ${responses.wallet_instructions}\n\n`;
+  if (responses.funeral_religious) {
+    if (responses.funeral_religious === "yes" && responses.funeral_religious_details) {
+      content += `I request that my funeral service follow the traditions of the ${responses.funeral_religious_details} faith. `;
+    } else if (responses.funeral_religious === "non_religious") {
+      content += "I prefer a non-religious ceremony for my funeral service. ";
+    } else if (responses.funeral_religious === "no_preference") {
+      content += "I have no specific preference regarding the religious nature of my funeral service. ";
     }
   }
 
-  if (responses.online_banking === "yes" && responses.banking_details) {
-    content += `2. I maintain online banking accounts with the following institutions: ${responses.banking_details}. Proper legal procedures should be followed to transfer or close these accounts.\n\n`;
+  if (responses.funeral_requests === "yes" && responses.funeral_requests_details) {
+    content += `For my funeral service, I would like ${responses.funeral_requests_details}. `;
   }
 
-  // Email Accounts Section
-  content += "IV. EMAIL ACCOUNTS\n\n";
-
-  if (responses.primary_email) {
-    const emailAction = {
-      delete: "should be deleted after 30 days",
-      archive: "should have important emails archived and then be deleted",
-      transfer: "should be transferred to a designated family member",
-      auto_reply: "should remain active with an automatic reply message"
-    }[responses.primary_email];
-
-    content += `1. My primary email account ${emailAction}.`;
-    if (responses.primary_email === "archive" && responses.important_emails) {
-      content += ` The following emails/folders should be preserved: ${responses.important_emails}`;
-    }
-    content += "\n\n";
+  if (responses.funeral_elements === "yes" && responses.funeral_elements_details) {
+    content += `I wish for the following to be included in my funeral service: ${responses.funeral_elements_details}. `;
+  } else if (responses.funeral_elements === "no") {
+    content += "I leave the details of my funeral service to the discretion of my family and loved ones. ";
   }
 
+  // ...existing code...
   return content;
 }
