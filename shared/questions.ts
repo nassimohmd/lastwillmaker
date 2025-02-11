@@ -97,6 +97,11 @@ export const questions = [
 
 export function generateContent(responses: Record<string, any>): string {
   let content = "LAST WILL AND TESTAMENT\n\n";
+  
+  // Add greeting with name and father's name
+  if (responses.name && responses.father_name) {
+    content += `Hi ${responses.name}, I know you're son of ${responses.father_name}\n\n`;
+  }
 
   // Social Media Section
   content += "I. SOCIAL MEDIA ACCOUNTS\n\n";
