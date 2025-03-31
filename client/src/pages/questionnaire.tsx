@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import QuestionForm from "@/components/question-form";
 import PdfGenerator from "@/components/pdf-generator";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { questions } from "@shared/questions";
 import { formSchema } from "@shared/schema";
 import type { z } from "zod";
@@ -26,7 +25,6 @@ export default function Questionnaire() {
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-b from-background via-background/80 to-background/50 p-4">
-      <ThemeToggle />
       
       {/* Back Button */}
       <Link href="/">

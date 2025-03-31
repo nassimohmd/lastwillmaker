@@ -2,12 +2,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { FileText } from "lucide-react";
 import { Link } from "wouter";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Home() {
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-b from-background via-background/80 to-background/50 px-4 py-8 sm:p-4">
-      <ThemeToggle />
       <Card className="w-full max-w-md mx-auto shadow-lg border-2 border-border/5">
         <CardContent className="pt-6 text-center">
           <div className="flex justify-center mb-6">
