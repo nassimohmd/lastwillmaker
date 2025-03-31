@@ -21,6 +21,50 @@ export const questions = [
     ],
   },
   {
+    id: "remains_handling",
+    section: "Remains Handling",
+    title: "Remains Handling",
+    questions: [
+      {
+        id: "remains_handling",
+        text: "How would you like your remains to be handled?",
+        type: "radio",
+        options: [
+          { value: "burial", label: "Burial" },
+          { value: "cremation", label: "Cremation" },
+          { value: "donation", label: "Donate to Science" },
+          { value: "other", label: "Other" }
+        ]
+      },
+      {
+        id: "remains_burial",
+        text: "Where would you like to be buried?",
+        type: "radio",
+        options: [
+          { value: "home", label: "At Home" },
+          { value: "mosque", label: "At Local Mosque" },
+          { value: "cemetery", label: "At Local Cemetery" },
+          { value: "public", label: "At Any Suitable Public Place" },
+          { value: "other", label: "Other Location" }
+        ],
+        conditional: {
+          field: "remains_handling",
+          value: "burial"
+        }
+      },
+      {
+        id: "burial_other",
+        text: "Please specify the burial location:",
+        type: "text",
+        placeholder: "Enter burial location",
+        conditional: {
+          field: "remains_burial",
+          value: "other"
+        }
+      }
+    ]
+  },
+  {
     id: "funeral_preferences",
     section: "Funeral and Memorial Preferences",
     title: "Funeral and Memorial Preferences",
