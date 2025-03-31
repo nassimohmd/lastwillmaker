@@ -47,20 +47,19 @@ export default function PdfGenerator({ responses }: PdfGeneratorProps) {
 
   return (
     <>
-      <CardHeader className="space-y-4 border-b border-zinc-800 pb-7 mb-4">
-        <CardTitle className="text-xl sm:text-2xl font-medium text-white">Your Digital Will & Testament</CardTitle>
-        <p className="text-sm text-zinc-400">Review your document and download the PDF</p>
+      <CardHeader className="space-y-3 border-b border-border/5 pb-7 mb-2">
+        <CardTitle className="text-xl sm:text-2xl font-bold">Preview Your Will & Testament</CardTitle>
       </CardHeader>
 
       <CardContent className="space-y-6">
-        <div className="bg-zinc-800 p-5 sm:p-6 rounded-md whitespace-pre-wrap font-mono text-sm sm:text-base overflow-auto border-0 shadow-sm text-zinc-300">
+        <div className="bg-muted/50 p-4 sm:p-6 rounded-lg whitespace-pre-wrap font-mono text-sm sm:text-base overflow-auto border border-border/10 shadow-inner">
           {content}
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-end gap-3 sm:gap-4 pt-4">
+        <div className="flex flex-col sm:flex-row justify-end gap-3 sm:gap-4 pt-2">
           <Button
             variant="outline"
-            className="w-full sm:w-auto bg-zinc-800 border-0 text-zinc-300 hover:bg-zinc-700 transition-colors"
+            className="w-full sm:w-auto h-12 hover:bg-muted/50 transition-colors"
             onClick={() => window.location.reload()}
           >
             <RefreshCw className="mr-2 h-4 w-4" />
@@ -70,14 +69,10 @@ export default function PdfGenerator({ responses }: PdfGeneratorProps) {
           <Button 
             onClick={handleDownload} 
             disabled={isLoading}
-            className="w-full sm:w-auto bg-white text-black hover:bg-zinc-200 transition-colors rounded-md border-0"
+            className="w-full sm:w-auto h-12 bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200"
           >
-            {isLoading ? (
-              <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              <Download className="mr-2 h-4 w-4" />
-            )}
-            {isLoading ? "Generating..." : "Download PDF"}
+            <Download className="mr-2 h-4 w-4" />
+            Download PDF
           </Button>
         </div>
       </CardContent>

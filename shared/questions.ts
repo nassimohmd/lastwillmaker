@@ -1,102 +1,73 @@
-// Define types for the question structure
-export interface Option {
-  value: string;
-  label: string;
-}
+import { z } from "zod";
 
-export interface Question {
-  id: string;
-  text: string;
-  type: string;
-  placeholder?: string;
-  options?: Option[];
-  conditional?: {
-    field: string;
-    value: string;
-  };
-}
-
-export interface QuestionSection {
-  id: string;
-  title: string;
-  questions: Question[];
-}
-
-// Define all questions for the digital assets will and testament
-export const questions: QuestionSection[] = [
-  {
-    id: "basic",
-    title: "Basic Information",
-    questions: [
-      {
-        id: "name",
-        text: "What is your full name?",
-        type: "text",
-        placeholder: "Enter your full legal name"
-      },
-      {
-        id: "email",
-        text: "What is your email address?",
-        type: "text",
-        placeholder: "Enter your primary email"
-      }
-    ]
-  },
+export const questions = [
   {
     id: "social_media",
+    section: "Social Media Accounts",
     title: "Social Media Accounts",
     questions: [
       {
-        id: "instagram_action",
+        id: "instagram",
         text: "What should be done with your Instagram account?",
-        type: "radio",
+        type: "select",
         options: [
-          { value: "delete", label: "Delete it completely" },
+          { value: "delete", label: "Delete it" },
           { value: "memorialize", label: "Memorialize it" },
-          { value: "keep", label: "Keep it as it is" },
-          { value: "transfer", label: "Transfer ownership to someone" }
+          { value: "keep", label: "Keep it as is" },
+          { value: "other", label: "Other" }
         ]
       },
       {
-        id: "instagram_transfer",
-        text: "Who should receive access to your Instagram account?",
+        id: "instagram_other",
+        text: "Please specify what should be done with your Instagram account:",
         type: "text",
-        placeholder: "Enter full name of the person",
+        placeholder: "Enter your preference",
         conditional: {
-          field: "instagram_action",
-          value: "transfer"
+          field: "instagram",
+          value: "other"
         }
       },
       {
         id: "other_social_accounts",
-        text: "Which other social media platforms do you use?",
+        text: "Do you have any other social media accounts that need to be managed?",
         type: "multiselect",
         options: [
           { value: "facebook", label: "Facebook" },
           { value: "twitter", label: "Twitter/X" },
           { value: "linkedin", label: "LinkedIn" },
-          { value: "tiktok", label: "TikTok" },
-          { value: "youtube", label: "YouTube" },
-          { value: "pinterest", label: "Pinterest" },
-          { value: "snapchat", label: "Snapchat" }
+          { value: "tiktok", label: "TikTok" }
         ]
+      },
+      {
+        id: "social_media_instruction",
+        text: "What should be done with these accounts?",
+        type: "select",
+        options: [
+          { value: "delete_all", label: "Delete all accounts" },
+          { value: "memorialize_all", label: "Memorialize all accounts" },
+          { value: "transfer", label: "Transfer to a family member" }
+        ],
+        conditional: {
+          field: "other_social_accounts",
+          value: ["facebook", "twitter", "linkedin", "tiktok"]
+        }
       }
     ]
   },
   {
-    id: "messaging_apps",
-    title: "Messaging Applications",
+    id: "messaging",
+    section: "Messaging Applications",
+    title: "Messaging Apps & Communication",
     questions: [
       {
-        id: "messaging_apps_used",
+        id: "messaging_apps",
         text: "Which messaging apps do you use?",
         type: "multiselect",
         options: [
           { value: "whatsapp", label: "WhatsApp" },
           { value: "telegram", label: "Telegram" },
           { value: "signal", label: "Signal" },
-          { value: "instagram_dm", label: "Instagram DMs" },
-          { value: "fb_messenger", label: "Facebook Messenger" }
+          { value: "instagram_dm", label: "Instagram Direct" }
         ]
       },
       {
@@ -104,43 +75,30 @@ export const questions: QuestionSection[] = [
         text: "Should your chats be backed up?",
         type: "radio",
         options: [
-          { value: "yes", label: "Yes, back up all chats" },
-          { value: "selective", label: "Only back up specific conversations" },
-          { value: "no", label: "No, delete all chats" }
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" }
         ]
       },
       {
-        id: "specific_chats",
-        text: "Are there specific conversations that should be preserved as evidence (e.g., loan agreements)?",
+        id: "important_chats",
+        text: "Are there any specific chats that should be preserved as evidence?",
         type: "text",
-        placeholder: "List names of people and why their chats should be preserved",
+        placeholder: "Enter names separated by commas",
         conditional: {
           field: "backup_chats",
-          value: "selective"
+          value: "yes"
         }
       }
     ]
   },
   {
-    id: "digital_finances",
+    id: "digital_finance",
+    section: "Digital Financial Assets",
     title: "Digital Financial Assets",
     questions: [
       {
-        id: "digital_payment",
-        text: "Which digital payment services do you use?",
-        type: "multiselect",
-        options: [
-          { value: "paypal", label: "PayPal" },
-          { value: "venmo", label: "Venmo" },
-          { value: "cashapp", label: "Cash App" },
-          { value: "apple_pay", label: "Apple Pay" },
-          { value: "google_pay", label: "Google Pay" },
-          { value: "crypto", label: "Cryptocurrency wallets" }
-        ]
-      },
-      {
-        id: "crypto_ownership",
-        text: "Do you own any cryptocurrency?",
+        id: "crypto_wallets",
+        text: "Do you own any cryptocurrency wallets?",
         type: "radio",
         options: [
           { value: "yes", label: "Yes" },
@@ -148,16 +106,31 @@ export const questions: QuestionSection[] = [
         ]
       },
       {
-        id: "crypto_instructions",
-        text: "How should your cryptocurrency assets be handled?",
-        type: "select",
-        options: [
-          { value: "transfer", label: "Transfer to specific beneficiary" },
-          { value: "sell", label: "Sell and add to estate" },
-          { value: "donate", label: "Donate to charity" }
-        ],
+        id: "wallet_instructions",
+        text: "Please provide instructions for accessing your crypto wallets:",
+        type: "text",
+        placeholder: "Enter secure instructions for wallet access",
         conditional: {
-          field: "crypto_ownership",
+          field: "crypto_wallets",
+          value: "yes"
+        }
+      },
+      {
+        id: "online_banking",
+        text: "Do you have any online-only bank accounts?",
+        type: "radio",
+        options: [
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" }
+        ]
+      },
+      {
+        id: "banking_details",
+        text: "List your online banking institutions:",
+        type: "text",
+        placeholder: "Enter bank names separated by commas",
+        conditional: {
+          field: "online_banking",
           value: "yes"
         }
       }
@@ -165,267 +138,117 @@ export const questions: QuestionSection[] = [
   },
   {
     id: "email_accounts",
+    section: "Email Accounts",
     title: "Email Accounts",
     questions: [
       {
-        id: "email_providers",
-        text: "Which email providers do you use?",
-        type: "multiselect",
+        id: "primary_email",
+        text: "What should be done with your primary email account?",
+        type: "select",
         options: [
-          { value: "gmail", label: "Gmail" },
-          { value: "outlook", label: "Outlook/Hotmail" },
-          { value: "yahoo", label: "Yahoo Mail" },
-          { value: "proton", label: "ProtonMail" },
-          { value: "work", label: "Work Email" },
-          { value: "other", label: "Other Email" }
+          { value: "delete", label: "Delete after 30 days" },
+          { value: "archive", label: "Archive important emails and delete" },
+          { value: "transfer", label: "Transfer to a family member" },
+          { value: "auto_reply", label: "Set up auto-reply and keep active" }
         ]
       },
       {
-        id: "email_action",
-        text: "What should happen to your email accounts?",
-        type: "radio",
-        options: [
-          { value: "delete", label: "Delete all accounts" },
-          { value: "archive", label: "Archive important emails and delete accounts" },
-          { value: "transfer", label: "Provide access to a trusted person" }
-        ]
-      },
-      {
-        id: "email_person",
-        text: "Who should receive access to your email accounts?",
+        id: "important_emails",
+        text: "Are there any important emails that should be preserved?",
         type: "text",
-        placeholder: "Enter full name of the person",
+        placeholder: "Describe important emails or folders to preserve",
         conditional: {
-          field: "email_action",
-          value: "transfer"
+          field: "primary_email",
+          value: "archive"
         }
-      }
-    ]
-  },
-  {
-    id: "cloud_storage",
-    title: "Cloud Storage",
-    questions: [
-      {
-        id: "cloud_services",
-        text: "Which cloud storage services do you use?",
-        type: "multiselect",
-        options: [
-          { value: "google_drive", label: "Google Drive" },
-          { value: "dropbox", label: "Dropbox" },
-          { value: "onedrive", label: "Microsoft OneDrive" },
-          { value: "icloud", label: "Apple iCloud" },
-          { value: "box", label: "Box" }
-        ]
-      },
-      {
-        id: "cloud_content",
-        text: "What type of content is stored in your cloud accounts?",
-        type: "multiselect",
-        options: [
-          { value: "photos", label: "Personal photos" },
-          { value: "documents", label: "Important documents" },
-          { value: "backups", label: "Device backups" },
-          { value: "work", label: "Work-related files" },
-          { value: "creative", label: "Creative works/projects" }
-        ]
-      },
-      {
-        id: "cloud_action",
-        text: "How should your cloud storage be handled?",
-        type: "radio",
-        options: [
-          { value: "preserve_all", label: "Preserve all content" },
-          { value: "selective", label: "Preserve selective content" },
-          { value: "delete", label: "Delete all content" }
-        ]
       }
     ]
   }
 ];
 
-// Helper for typescript casting
-const getOptionsOrEmpty = (question: Question): Option[] => {
-  return question.options || [];
-};
+export function generateContent(responses: Record<string, any>): string {
+  let content = "LAST WILL AND TESTAMENT\n\n";
+  content += "DIGITAL ASSETS AND ACCOUNTS\n\n";
 
-// Function to get option label by value
-const getOptionLabel = (optionsList: Option[], value: string): string => {
-  const option = optionsList.find(opt => opt.value === value);
-  return option ? option.label : value;
-};
+  // Social Media Section
+  content += "I. SOCIAL MEDIA ACCOUNTS\n\n";
 
-// Function to format array of values into a readable list
-const formatList = (values: string[], options: Option[] | undefined): string => {
-  if (!values || values.length === 0) return "";
-  if (!options) return values.join(", ");
-  
-  const labels = values.map(val => getOptionLabel(options, val));
-  
-  if (labels.length === 1) return labels[0];
-  if (labels.length === 2) return `${labels[0]} and ${labels[1]}`;
-  
-  return labels.slice(0, -1).join(", ") + ", and " + labels[labels.length - 1];
-};
+  // Instagram handling
+  if (responses.instagram) {
+    let instagramAction;
+    if (responses.instagram === "other" && responses.instagram_other) {
+      instagramAction = responses.instagram_other;
+    } else {
+      instagramAction = {
+        delete: "should be deleted",
+        memorialize: "should be memorialized",
+        keep: "should be kept as is"
+      }[responses.instagram] || "should be handled as specified";
+    }
+    content += `1. My Instagram account ${instagramAction}.\n\n`;
+  }
 
-// Generate content for the will and testament document
-export const generateContent = (responses: Record<string, any>): string => {
-  const date = new Date().toLocaleDateString("en-US", {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-  
-  let content = `DIGITAL ASSETS WILL AND TESTAMENT\n\nDate: ${date}\n\n`;
-  
-  // Basic Information
-  if (responses.name) {
-    content += `I, ${responses.name}, being of sound mind, hereby declare this as my will and testament regarding my digital assets and accounts.\n\n`;
-  }
-  
-  // Social Media Accounts
-  content += "SOCIAL MEDIA ACCOUNTS\n\n";
-  
-  // Instagram
-  if (responses.instagram_action) {
-    content += "Instagram Account: ";
-    
-    switch (responses.instagram_action) {
-      case "delete":
-        content += "I direct that my Instagram account should be deleted completely after my passing.\n\n";
-        break;
-      case "memorialize":
-        content += "I wish for my Instagram account to be memorialized as a remembrance.\n\n";
-        break;
-      case "keep":
-        content += "My Instagram account should remain as is without any changes.\n\n";
-        break;
-      case "transfer":
-        content += `I direct that ownership and access to my Instagram account should be transferred to ${responses.instagram_transfer || "my designated digital executor"}.\n\n`;
-        break;
+  // Other social media accounts
+  if (responses.other_social_accounts?.length) {
+    content += `2. My other social media accounts (${responses.other_social_accounts.join(", ")}) `;
+    if (responses.social_media_instruction) {
+      const action = {
+        delete_all: "should all be deleted",
+        memorialize_all: "should be memorialized",
+        transfer: "should be transferred to my designated family member"
+      }[responses.social_media_instruction];
+      content += `${action}.\n\n`;
     }
   }
-  
-  // Other social media
-  if (responses.other_social_accounts && responses.other_social_accounts.length > 0) {
-    const socialOptions = getOptionsOrEmpty(questions[1].questions[2]);
-    const socialPlatformsList = formatList(responses.other_social_accounts, socialOptions);
-    
-    content += `Other Social Media Accounts: I maintain accounts on ${socialPlatformsList}. These accounts should be handled in accordance with the same directive as my Instagram account unless specified otherwise in a separate document.\n\n`;
+
+  // Messaging Apps Section
+  content += "II. MESSAGING APPLICATIONS\n\n";
+
+  if (responses.messaging_apps?.length) {
+    content += `1. I use the following messaging applications: ${responses.messaging_apps.join(", ")}.\n\n`;
   }
-  
-  // Messaging Apps
-  content += "MESSAGING APPLICATIONS\n\n";
-  
-  if (responses.messaging_apps_used && responses.messaging_apps_used.length > 0) {
-    const messagingOptions = getOptionsOrEmpty(questions[2].questions[0]);
-    const messagingAppsList = formatList(responses.messaging_apps_used, messagingOptions);
-    
-    content += `I use the following messaging applications: ${messagingAppsList}.\n\n`;
-    
-    if (responses.backup_chats) {
-      switch (responses.backup_chats) {
-        case "yes":
-          content += "All my chat conversations should be backed up securely before closing any accounts.\n\n";
-          break;
-        case "no":
-          content += "All my chat conversations should be deleted without being reviewed or backed up.\n\n";
-          break;
-        case "selective":
-          content += `Specific conversations that should be preserved: ${responses.specific_chats || "None specifically noted"}. All other conversations can be deleted.\n\n`;
-          break;
-      }
+
+  if (responses.backup_chats === "yes") {
+    content += "2. My chat history should be backed up securely.";
+    if (responses.important_chats) {
+      content += ` Specifically, conversations with ${responses.important_chats} should be preserved as they may contain important evidence or documentation.`;
+    }
+    content += "\n\n";
+  } else if (responses.backup_chats === "no") {
+    content += "2. All chat histories should be deleted.\n\n";
+  }
+
+  // Digital Finance Section
+  content += "III. DIGITAL FINANCIAL ASSETS\n\n";
+
+  if (responses.crypto_wallets === "yes") {
+    content += "1. I own cryptocurrency wallets. ";
+    if (responses.wallet_instructions) {
+      content += `Instructions for accessing these wallets: ${responses.wallet_instructions}\n\n`;
     }
   }
-  
-  // Digital Financial Assets
-  content += "DIGITAL FINANCIAL ASSETS\n\n";
-  
-  if (responses.digital_payment && responses.digital_payment.length > 0) {
-    const paymentOptions = getOptionsOrEmpty(questions[3].questions[0]);
-    const paymentServicesList = formatList(responses.digital_payment, paymentOptions);
-    
-    content += `Digital Payment Services: I maintain accounts with ${paymentServicesList}. These accounts should be properly closed after any funds are transferred to my estate.\n\n`;
+
+  if (responses.online_banking === "yes" && responses.banking_details) {
+    content += `2. I maintain online banking accounts with the following institutions: ${responses.banking_details}. Proper legal procedures should be followed to transfer or close these accounts.\n\n`;
   }
-  
-  if (responses.crypto_ownership === "yes") {
-    content += "Cryptocurrency Assets: ";
-    
-    if (responses.crypto_instructions) {
-      switch (responses.crypto_instructions) {
-        case "transfer":
-          content += "I direct that all my cryptocurrency holdings be transferred to my designated beneficiary as specified in my detailed digital asset inventory.\n\n";
-          break;
-        case "sell":
-          content += "I direct that all my cryptocurrency holdings be sold and the proceeds added to my estate for distribution.\n\n";
-          break;
-        case "donate":
-          content += "I direct that all my cryptocurrency holdings be donated to charitable organizations as specified in my detailed digital asset inventory.\n\n";
-          break;
-      }
+
+  // Email Accounts Section
+  content += "IV. EMAIL ACCOUNTS\n\n";
+
+  if (responses.primary_email) {
+    const emailAction = {
+      delete: "should be deleted after 30 days",
+      archive: "should have important emails archived and then be deleted",
+      transfer: "should be transferred to a designated family member",
+      auto_reply: "should remain active with an automatic reply message"
+    }[responses.primary_email];
+
+    content += `1. My primary email account ${emailAction}.`;
+    if (responses.primary_email === "archive" && responses.important_emails) {
+      content += ` The following emails/folders should be preserved: ${responses.important_emails}`;
     }
+    content += "\n\n";
   }
-  
-  // Email Accounts
-  content += "EMAIL ACCOUNTS\n\n";
-  
-  if (responses.email_providers && responses.email_providers.length > 0) {
-    const emailOptions = getOptionsOrEmpty(questions[4].questions[0]);
-    const emailProvidersList = formatList(responses.email_providers, emailOptions);
-    
-    content += `I maintain email accounts with the following providers: ${emailProvidersList}.\n\n`;
-    
-    if (responses.email_action) {
-      switch (responses.email_action) {
-        case "delete":
-          content += "I direct that all my email accounts be deleted after my passing without review.\n\n";
-          break;
-        case "archive":
-          content += "I direct that important emails be archived and preserved before the accounts are closed.\n\n";
-          break;
-        case "transfer":
-          content += `I direct that access to my email accounts be granted to ${responses.email_person || "my designated digital executor"} for proper management and eventual closure.\n\n`;
-          break;
-      }
-    }
-  }
-  
-  // Cloud Storage
-  content += "CLOUD STORAGE\n\n";
-  
-  if (responses.cloud_services && responses.cloud_services.length > 0) {
-    const cloudOptions = getOptionsOrEmpty(questions[5].questions[0]);
-    const cloudServicesList = formatList(responses.cloud_services, cloudOptions);
-    
-    content += `I use the following cloud storage services: ${cloudServicesList}.\n\n`;
-    
-    if (responses.cloud_content && responses.cloud_content.length > 0) {
-      const contentOptions = getOptionsOrEmpty(questions[5].questions[1]);
-      const contentTypesList = formatList(responses.cloud_content, contentOptions);
-      
-      content += `These cloud accounts contain: ${contentTypesList}.\n\n`;
-    }
-    
-    if (responses.cloud_action) {
-      switch (responses.cloud_action) {
-        case "preserve_all":
-          content += "I direct that all content in my cloud accounts be preserved and transferred to my heirs.\n\n";
-          break;
-        case "selective":
-          content += "I direct that only important documents and personal photos be preserved from my cloud accounts, and the rest can be deleted.\n\n";
-          break;
-        case "delete":
-          content += "I direct that all content in my cloud accounts be deleted after my passing.\n\n";
-          break;
-      }
-    }
-  }
-  
-  // Conclusion
-  content += "EXECUTION\n\n";
-  content += "This document represents my wishes regarding the handling of my digital assets. I understand that additional technical steps and documentation may be required to implement these directives.\n\n";
-  content += `Signed: ${responses.name || "_____________________"}\n\n`;
-  content += `Date: ${date}\n\n`;
-  
+
   return content;
-};
+}
