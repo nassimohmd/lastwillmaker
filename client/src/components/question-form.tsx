@@ -106,19 +106,20 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
             {question.options.map((opt: any) => {
               const optId = `${question.id}-${opt.value}`;
               return (
-                <div key={opt.value} className="relative w-full">
+                <label
+                  key={opt.value}
+                  htmlFor={optId}
+                  className="flex items-center space-x-3 min-h-[3rem] p-3 rounded-md cursor-pointer border border-border/10 bg-muted/30 hover:bg-muted/80 transition-colors w-full"
+                >
                   <RadioGroupItem 
                     value={opt.value} 
                     id={optId}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 border-border/20 data-[state=checked]:bg-primary data-[state=checked]:text-background"
+                    className="h-5 w-5 border-border/20 data-[state=checked]:bg-primary data-[state=checked]:text-background"
                   />
-                  <label 
-                    htmlFor={optId}
-                    className="flex items-center py-3 px-10 min-h-[3rem] rounded-md cursor-pointer border border-border/10 bg-muted/30 hover:bg-muted/80 transition-colors w-full"
-                  >
-                    <span className="text-base select-none">{opt.label}</span>
-                  </label>
-                </div>
+                  <span className="text-base select-none flex-1">
+                    {opt.label}
+                  </span>
+                </label>
               );
             })}
           </RadioGroup>
