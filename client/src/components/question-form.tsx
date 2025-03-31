@@ -67,27 +67,31 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
       case "multiselect":
         return (
           <div className="space-y-3">
-            {question.options.map((opt: any) => (
-              <div key={opt.value} className="flex items-center space-x-3 min-h-[2.5rem] group">
-                <Checkbox
-                  id={opt.value}
-                  className="h-5 w-5 border-border/20 data-[state=checked]:bg-primary"
-                  onCheckedChange={(checked) => {
-                    const currentValue = form.watch(`responses.${question.id}`) || [];
-                    const newValue = checked
-                      ? [...currentValue, opt.value]
-                      : currentValue.filter((v: string) => v !== opt.value);
-                    form.setValue(`responses.${question.id}`, newValue);
-                  }}
-                />
+            {question.options.map((opt: any) => {
+              const optId = `${question.id}-${opt.value}`;
+              return (
                 <label
-                  htmlFor={opt.value}
-                  className="text-base leading-none select-none group-hover:text-primary transition-colors"
+                  key={opt.value}
+                  htmlFor={optId}
+                  className="flex items-center space-x-3 min-h-[3rem] p-3 rounded-md cursor-pointer border border-border/10 bg-muted/30 hover:bg-muted/80 transition-colors w-full"
                 >
-                  {opt.label}
+                  <Checkbox
+                    id={optId}
+                    className="h-5 w-5 border-border/20 data-[state=checked]:bg-primary data-[state=checked]:text-background"
+                    onCheckedChange={(checked) => {
+                      const currentValue = form.watch(`responses.${question.id}`) || [];
+                      const newValue = checked
+                        ? [...currentValue, opt.value]
+                        : currentValue.filter((v: string) => v !== opt.value);
+                      form.setValue(`responses.${question.id}`, newValue);
+                    }}
+                  />
+                  <span className="text-base select-none flex-1">
+                    {opt.label}
+                  </span>
                 </label>
-              </div>
-            ))}
+              );
+            })}
           </div>
         );
 
@@ -99,21 +103,24 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
             }
             className="space-y-3"
           >
-            {question.options.map((opt: any) => (
-              <div key={opt.value} className="flex items-center space-x-3 min-h-[2.5rem] group">
-                <RadioGroupItem 
-                  value={opt.value} 
-                  id={opt.value} 
-                  className="h-5 w-5 border-border/20 data-[state=checked]:bg-primary"
-                />
-                <label 
-                  htmlFor={opt.value} 
-                  className="text-base leading-none select-none group-hover:text-primary transition-colors"
-                >
-                  {opt.label}
-                </label>
-              </div>
-            ))}
+            {question.options.map((opt: any) => {
+              const optId = `${question.id}-${opt.value}`;
+              return (
+                <div key={opt.value} className="relative w-full">
+                  <RadioGroupItem 
+                    value={opt.value} 
+                    id={optId}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 border-border/20 data-[state=checked]:bg-primary data-[state=checked]:text-background"
+                  />
+                  <label 
+                    htmlFor={optId}
+                    className="flex items-center py-3 px-10 min-h-[3rem] rounded-md cursor-pointer border border-border/10 bg-muted/30 hover:bg-muted/80 transition-colors w-full"
+                  >
+                    <span className="text-base select-none">{opt.label}</span>
+                  </label>
+                </div>
+              );
+            })}
           </RadioGroup>
         );
 
