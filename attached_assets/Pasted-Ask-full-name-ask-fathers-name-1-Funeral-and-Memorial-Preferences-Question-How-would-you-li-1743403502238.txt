@@ -1,0 +1,70 @@
+Ask full name
+ask fathers name
+
+1. Funeral and Memorial Preferences
+    * Question: How would you like your funeral or memorial to be handled?
+        * Options:
+            * Traditional religious ceremony
+            * Simple cremation or burial without ceremony
+            * Memorial gathering with friends and family
+            * I want someone else to decide
+    * Logic flow: I would like my final rites to be conducted as [selected option], in a way that respects my beliefs and brings comfort to my loved ones.
+2. Organ Donations
+    * Question: Are you willing to donate your organs after death?
+        * Options:
+            * Yes, donate all usable organs
+            * Yes, but only specific organs
+            * No, I do not wish to donate
+    * Logic flow: I wish for [selected option] to be donated after my passing, as a final act of giving.
+3. Health and Life Insurance
+    * Question: Do you have any health or life insurance policies?
+        * Options:
+            * Yes, both
+            * Only life insurance
+            * Only health insurance
+            * No insurance
+    * Logic flow: I have [selected option], and I would like the benefits to be claimed and used as per the nominee details mentioned in the policy.
+4. Are You Employed? (Employment Benefits)
+    * Question: Are you currently employed?
+        * Options:
+            * Yes, full-time
+            * Yes, part-time or freelance
+            * No, unemployed
+    * Logic flow: At the time of writing this, I am [selected option], and any benefits or dues from my employer should be claimed by my nominee or legal heir.
+5. Bank Accounts
+    * Question: Do you have bank accounts that need to be managed or closed?
+        * Options:
+            * Yes
+            * No
+    * Logic flow: I have bank accounts that should be accessed and closed, with balances transferred to my nominee or heirs.
+6. Investments (Stocks, Mutual Funds, etc.)
+    * Question: Do you have any financial investments?
+        * Options:
+            * Yes, in various forms
+            * No
+    * Logic flow: I have made investments in [selected option], and I want them to be transferred or liquidated as per the needs of my family.
+7. Debts, Loans, EMIs, Pay Later
+    * Question: Do you have any debts or financial obligations?
+        * Options:
+            * Yes
+            * No
+    * Logic flow: I request my family to settle the following obligations, if any, from my estate: [user will list debts].
+8. Jewellery and Ornamentals
+    * Question: Do you own any jewellery or ornamentals?
+        * Options:
+            * Yes, and I wish to specify who gets them
+            * Yes, but let my family decide
+            * No
+    * Logic flow: My jewellery and ornamentals should be [distributed as specified/decided by my family].
+9. Receivables (Money owed to you)
+    * Question: Are there any people who owe you money?
+        * Options:
+            * Yes
+            * No
+    * Logic flow: If anyone owes me money, I would like my family or executor to recover it, as appropriate.
+10. Legal Documents (House Documents, etc.)
+* Question: Do you have any important legal documents?
+    * Options:
+        * Yes
+        * No
+* Logic flow: My important documents should be secured and handed over to my legal heir or executor.
