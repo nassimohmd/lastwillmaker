@@ -1,177 +1,78 @@
-import { z } from "zod";
+import React, { useState } from "react";
 
-export const questions = [
+// Define questions in structure as per your logic
+const questions = [
   {
     id: "2",
     section: "2",
     questions: [
       {
         id: "name",
-        text: "Full Name",
+        text: "What is your full name?",
         type: "text",
       },
       {
         id: "father_name",
-        text: "Father's Name",
+        text: "What is your father's full name?",
         type: "text",
-      },
-    ],
-  },
-  {
-    id: "social_media",
-    section: "Social Media Accounts",
-    questions: [
-      {
-        id: "remains_handling",
-        text: "How would you like your remains to be handled?",
-        type: "select",
-        options: [
-          { value: "burial", label: "Burial" },
-          { value: "cremation", label: "Cremation" },
-          { value: "donation", label: " Donation to science" },
-          { value: "other", label: "Other" },
-        ],
-      },
-      { id: "remains_burial",
-          text: "Where should be buried",
-          type: "select",
-          options: [
-            { value: "home", label: "Home" },
-            { value: "mosque", label: "Local Mosque" },
-            { value: "cemetery", label: "Local cemetery" },
-            { value: "Public", label: "Any public place" },
-            { value: "other", label: "Other" },
-            ],
-          conditional: {
-            field: "remains_handling",
-            value: "burial",
-          },
-        },
-      {
-        id: "burial_other",
-        text: "Please specify where to bury",
-        type: "text",
-        placeholder: "Enter your preference",
-        conditional: {
-          field: "remains_burial",
-          value: "other",
-        },
-      },
-      { id: "remains_cremation",
-        text: "Where should be cremated",
-        type: "select",
-        options: [
-          { value: "home", label: "Home" },
-          { value: "crematorium", label: "Public Crematoriums" },
-          { value: "Temple", label: "Temple" },
-          { value: "other", label: "Other" },
-          ],
-        conditional: {
-          field: "remains_handling",
-          value: "cremation",
-        },
-      },
-      {
-        id: "cremate_other",
-        text: "Please specify where to cremate",
-        type: "text",
-        placeholder: "Enter your preference",
-        conditional: {
-          field: "remains_cremation",
-          value: "other",
-        },
-      },
-      {
-        id: "remains_other",
-        text: "Please specify what should be done with your remains",
-        type: "text",
-        placeholder: "Enter your preference",
-        conditional: {
-          field: "remains_handling",
-          value: "other",
-        },
       },
     ],
   },
 ];
 
-export function generateContent(responses: Record<string, any>): string {
-  let content = "LAST WILL AND TESTAMENT\n\n";
-  
-  // Add greeting with name and father's name
-  if (responses.name && responses.father_name) {
-    content += `I, ${responses.name}, son of ${responses.father_name}, do hereby revoke all my formal Wills, Codicils and Testamentary disposition made by me. I declare this to be my last Will and Testament\n\n`;
+export default function WillCreatorTool() {
+  const [step, setStep] = useState(1);
+  const [responses, setResponses] = useState({});
 
-    content += `I maintain good health, and possess a sound mind. This Will is made by me on my own independent decision and free volition. Have not be influenced, cajoled or coerced in any manner whatsoever\n\n`;
-  }
+  const handleChange = (e, id) => {
+    setResponses((prev) => ({ ...prev, [id]: e.target.value }));
+  };
 
-  // Social Media Section
-  content += "I. SOCIAL MEDIA ACCOUNTS\n\n";
-
-  // Instagram handling
-  if (responses.instagram) {
-    let instagramAction;
-    if (responses.instagram === "other" && responses.instagram_other) {
-      instagramAction = responses.instagram_other;
+  const handleSubmitDetails = (e) => {
+    e.preventDefault();
+    if (responses.name && responses.father_name) {
+      setStep(2);
     } else {
-      instagramAction =
-        {
-          delete: "should be deleted",
-          memorialize: "should be memorialized",
-          keep: "should be kept as is",
-        }[responses.instagram] || "should be handled as specified";
+      alert("Please fill in all the details");
     }
-    content += `1. My Instagram account ${instagramAction}.\n\n`;
-  }
+  };
 
-  // Remains Handling Section
-  content += "II. REMAINS HANDLING\n\n";
-  
-  if (responses.remains_handling) {
-    let remainsContent = "";
-    switch (responses.remains_handling) {
-      case "burial":
-        remainsContent = "I wish for my remains to be buried";
-        if (responses.remains_burial) {
-          if (responses.remains_burial === "other" && responses.burial_other) {
-            remainsContent += ` at ${responses.burial_other}`;
-          } else {
-            const locations = {
-              home: "at my home",
-              mosque: "at the local mosque",
-              cemetery: "at the local cemetery",
-              public: "at any suitable public place"
-            };
-            remainsContent += ` ${locations[responses.remains_burial] || ''}`;
-          }
-        }
-        break;
-      case "cremation":
-        remainsContent = "I wish for my remains to be cremated";
-        if (responses.remains_cremation) {
-          if (responses.remains_cremation === "other" && responses.cremate_other) {
-            remainsContent += ` at ${responses.cremate_other}`;
-          } else {
-            const locations = {
-              home: "at my home",
-              crematorium: "at a public crematorium",
-              Temple: "at a temple"
-            };
-            remainsContent += ` ${locations[responses.remains_cremation] || ''}`;
-          }
-        }
-        break;
-      case "donation":
-        remainsContent = "I wish to donate my remains to science";
-        break;
-      case "other":
-        if (responses.remains_other) {
-          remainsContent = responses.remains_other;
-        }
-        break;
-    }
-    content += `1. ${remainsContent}.\n\n`;
-  }
+  return (
+    <div className="p-6 max-w-xl mx-auto">
+      {step === 1 && (
+        <form onSubmit={handleSubmitDetails} className="space-y-4">
+          <h1 className="text-xl font-bold">Enter Your Basic Details</h1>
+          {questions[0].questions.map((q) => (
+            <div key={q.id}>
+              <label className="block mb-1">{q.text}</label>
+              <input
+                type="text"
+                name={q.id}
+                value={responses[q.id] || ""}
+                onChange={(e) => handleChange(e, q.id)}
+                className="w-full border p-2 rounded"
+                required
+              />
+            </div>
+          ))}
 
-  return content;
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 rounded"
+          >
+            Continue
+          </button>
+        </form>
+      )}
+
+      {step === 2 && (
+        <div>
+          <h2 className="text-lg font-semibold">
+            Hi {responses.name}, let’s begin your Will creation journey.
+          </h2>
+          {/* Questions will appear here in the next step */}
+        </div>
+      )}
+    </div>
+  );
 }
