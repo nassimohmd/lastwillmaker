@@ -67,15 +67,15 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
               });
             }}
           >
-            <SelectTrigger className="w-full h-12 bg-muted/30 border border-border focus:border-foreground hover:bg-muted">
+            <SelectTrigger className="w-full h-12 bg-background border border-border/40 shadow-sm focus:border-primary hover:border-primary/80 transition-all">
               <SelectValue placeholder="Select an option" />
             </SelectTrigger>
-            <SelectContent className="bg-background border border-foreground/20">
+            <SelectContent className="bg-background border border-border/40 shadow-md">
               {question.options.map((opt: any) => (
                 <SelectItem 
                   key={opt.value} 
                   value={opt.value}
-                  className="h-12 hover:bg-muted/80 focus:bg-muted/80"
+                  className="h-12 hover:bg-primary/10 focus:bg-primary/10"
                 >
                   {opt.label}
                 </SelectItem>
@@ -97,8 +97,8 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
               return (
                 <div
                   key={opt.value}
-                  className={`flex items-center space-x-3 min-h-[3rem] px-3 py-2 rounded-md cursor-pointer select-none transition-all
-                             ${isSelected ? 'bg-background border-2 border-foreground' : 'bg-muted/30 border border-border hover:bg-muted'}`}
+                  className={`flex items-center space-x-3 min-h-[3rem] px-4 py-3 rounded-lg cursor-pointer select-none transition-all
+                             ${isSelected ? 'bg-primary/10 border border-primary shadow-sm' : 'bg-background border border-border/40 hover:border-primary/50 shadow-sm hover:shadow'}`}
                   onClick={() => {
                     const newValue = isSelected
                       ? currentMultiValue.filter((v: string) => v !== opt.value)
@@ -107,7 +107,7 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
                   }}
                 >
                   <div className="relative flex h-5 w-5 items-center justify-center">
-                    <div className={`absolute inset-0 rounded-sm border ${isSelected ? 'border-foreground' : 'border-foreground/30'}`}></div>
+                    <div className={`absolute inset-0 rounded-sm border-2 ${isSelected ? 'border-primary' : 'border-border/60'}`}></div>
                     {isSelected && (
                       <svg 
                         xmlns="http://www.w3.org/2000/svg" 
@@ -119,7 +119,7 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
                         strokeWidth="3" 
                         strokeLinecap="round" 
                         strokeLinejoin="round" 
-                        className="text-foreground"
+                        className="text-primary"
                       >
                         <polyline points="20 6 9 17 4 12"></polyline>
                       </svg>
@@ -147,15 +147,15 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
               return (
                 <div
                   key={opt.value}
-                  className={`flex items-center space-x-3 min-h-[3rem] px-3 py-2 rounded-md cursor-pointer select-none transition-all
-                             ${isSelected ? 'bg-background border-2 border-foreground' : 'bg-muted/30 border border-border hover:bg-muted'}`}
+                  className={`flex items-center space-x-3 min-h-[3rem] px-4 py-3 rounded-lg cursor-pointer select-none transition-all
+                             ${isSelected ? 'bg-primary/10 border border-primary shadow-sm' : 'bg-background border border-border/40 hover:border-primary/50 shadow-sm hover:shadow'}`}
                   onClick={() => {
                     form.setValue(`responses.${question.id}`, opt.value);
                   }}
                 >
                   <div className="relative flex h-5 w-5 items-center justify-center">
-                    <div className={`absolute inset-0 rounded-full border ${isSelected ? 'border-foreground' : 'border-foreground/30'}`}></div>
-                    {isSelected && <div className="h-2.5 w-2.5 rounded-full bg-foreground"></div>}
+                    <div className={`absolute inset-0 rounded-full border-2 ${isSelected ? 'border-primary' : 'border-border/60'}`}></div>
+                    {isSelected && <div className="h-2.5 w-2.5 rounded-full bg-primary"></div>}
                   </div>
                   <span className="pl-3 text-base leading-none flex-1">
                     {opt.label}
@@ -169,7 +169,7 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
       case "text":
         return (
           <Input
-            className="h-12 bg-muted/30 border border-border focus:border-foreground"
+            className="h-12 bg-background border border-border/40 shadow-sm focus:border-primary focus:shadow-sm transition-all"
             placeholder={question.placeholder}
             onChange={(e) =>
               form.setValue(`responses.${question.id}`, e.target.value)
@@ -184,9 +184,9 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
 
   return (
     <>
-      <CardHeader className="space-y-3 border-b border-border/5 pb-7 mb-2">
-        <CardTitle className="text-xl sm:text-2xl font-bold">{currentSection.title}</CardTitle>
-        <Progress value={progress} className="h-2 bg-muted/50" />
+      <CardHeader className="space-y-4 border-b border-border/10 pb-7 mb-4">
+        <CardTitle className="text-2xl sm:text-3xl font-bold tracking-tight">{currentSection.title}</CardTitle>
+        <Progress value={progress} className="h-2 bg-muted/30" indicatorClassName="bg-primary" />
       </CardHeader>
 
       <CardContent>
@@ -222,14 +222,14 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
                     <PaginationPrevious 
                       onClick={handlePrevious}
                       className={form.watch("currentStep") === 0 ? 
-                        "opacity-50 cursor-not-allowed bg-muted/30 border border-border text-foreground/60" : 
-                        "bg-muted/30 border border-border hover:bg-muted hover:border-foreground transition-colors text-foreground"}
+                        "opacity-50 cursor-not-allowed bg-background border border-border/40 text-foreground/50" : 
+                        "bg-background border border-border/60 hover:border-primary hover:text-primary transition-all shadow-sm"}
                     />
                   </PaginationItem>
                   <PaginationItem>
                     <PaginationNext 
                       onClick={form.watch("currentStep") === questions.length - 1 ? form.handleSubmit(onComplete) : handleNext}
-                      className="bg-background border-2 border-foreground hover:bg-foreground hover:text-background transition-colors"
+                      className="bg-primary text-primary-foreground border border-primary hover:bg-primary/90 transition-colors shadow-sm"
                     >
                       {form.watch("currentStep") === questions.length - 1 ? "Complete" : "Next"}
                     </PaginationNext>

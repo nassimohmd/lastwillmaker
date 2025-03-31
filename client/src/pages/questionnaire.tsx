@@ -24,19 +24,20 @@ export default function Questionnaire() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-background p-4">
+    <div className="min-h-screen w-full flex items-center justify-center bg-background p-4 py-12">
       <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>
       
       <div className="absolute top-4 left-4">
-        <Link href="/" className="flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors">
-          <ArrowLeft className="mr-1 h-4 w-4" />
+        <Link href="/" className="flex items-center text-sm text-muted-foreground hover:text-primary transition-all group">
+          <ArrowLeft className="mr-1.5 h-4 w-4 group-hover:-translate-x-0.5 transition-transform" />
           Back to home
         </Link>
       </div>
       
-      <Card className="w-full max-w-lg mx-auto border border-border/20 shadow-sm">
+      <Card className="w-full max-w-lg mx-auto border border-border/20 shadow-sm rounded-xl overflow-hidden">
+        <div className="h-1.5 w-full bg-primary" />
         {!completed ? (
           <QuestionForm
             questions={questions}
