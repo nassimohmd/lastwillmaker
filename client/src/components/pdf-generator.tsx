@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Download, RefreshCw } from "lucide-react";
+import { ArrowLeft, Download, RefreshCw } from "lucide-react";
 import { generateContent } from "@shared/questions";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
 interface PdfGeneratorProps {
   responses: Record<string, any>;
+  onBack?: () => void;
 }
 
-export default function PdfGenerator({ responses }: PdfGeneratorProps) {
+export default function PdfGenerator({ responses, onBack }: PdfGeneratorProps) {
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -56,24 +57,35 @@ export default function PdfGenerator({ responses }: PdfGeneratorProps) {
           {content}
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-end gap-3 sm:gap-4 pt-2">
+        <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-4 pt-2">
           <Button
             variant="outline"
             className="w-full sm:w-auto h-12 hover:bg-muted/50 transition-colors"
-            onClick={() => window.location.reload()}
+            onClick={onBack}
           >
-            <RefreshCw className="mr-2 h-4 w-4" />
-            Start Over
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Questions
           </Button>
+          
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <Button
+              variant="outline"
+              className="w-full sm:w-auto h-12 hover:bg-muted/50 transition-colors"
+              onClick={() => window.location.reload()}
+            >
+              <RefreshCw className="mr-2 h-4 w-4" />
+              Start Over
+            </Button>
 
-          <Button 
-            onClick={handleDownload} 
-            disabled={isLoading}
-            className="w-full sm:w-auto h-12 bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200"
-          >
-            <Download className="mr-2 h-4 w-4" />
-            Download PDF
-          </Button>
+            <Button 
+              onClick={handleDownload} 
+              disabled={isLoading}
+              className="w-full sm:w-auto h-12 bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200"
+            >
+              <Download className="mr-2 h-4 w-4" />
+              Download PDF
+            </Button>
+          </div>
         </div>
       </CardContent>
     </>

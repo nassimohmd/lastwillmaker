@@ -173,10 +173,20 @@ export default function QuestionForm({ questions, onComplete }: QuestionFormProp
               );
             })}
 
-            <div className="pt-4">
+            <div className="pt-4 flex flex-col sm:flex-row gap-3">
+              {form.watch("currentStep") > 0 && (
+                <Button 
+                  type="button"
+                  variant="outline"
+                  className="w-full sm:w-1/3 h-12 text-base hover:bg-muted/50 transition-colors"
+                  onClick={() => form.setValue("currentStep", form.watch("currentStep") - 1)}
+                >
+                  Back
+                </Button>
+              )}
               <Button 
                 type="submit" 
-                className="w-full h-12 text-base bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200"
+                className={`w-full ${form.watch("currentStep") > 0 ? "sm:w-2/3" : ""} h-12 text-base bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200`}
               >
                 {form.watch("currentStep") < questions.length - 1
                   ? "Next"
