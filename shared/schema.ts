@@ -18,5 +18,6 @@ export type Answer = typeof answers.$inferSelect;
 
 export const formSchema = z.object({
   responses: z.record(z.any()),
-  currentStep: z.number()
+  currentStep: z.number(),
+  language: z.enum(['en', 'ml']).optional()
 });

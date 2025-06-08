@@ -16,7 +16,8 @@ export default function Questionnaire() {
   const [language, setLanguage] = useState<'en' | 'ml'>('en');
   const [formData, setFormData] = useState<FormData>({
     responses: {},
-    currentStep: 0
+    currentStep: 0,
+    language: 'en'
   });
   const [location] = useLocation();
 

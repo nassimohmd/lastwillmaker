@@ -1363,11 +1363,126 @@ const questionsMl = [
   }
 ];
 
+function generateMalayalamContent(responses: Record<string, any>): string {
+  let content = "അന്തിമ ഇഛാപത്രം\n\n";
+  
+  content += "ഞാൻ, ആരോഗ്യമുള്ള മനസ്സും ശരീരവുമുള്ള വ്യക്തിയായി, ഇത് എന്റെ അന്തിമ ഇഛാപത്രമായി ഉണ്ടാക്കുകയും പ്രസിദ്ധീകരിക്കുകയും പ്രഖ്യാപിക്കുകയും ചെയ്യുന്നു, അതുവഴി മുമ്പ് ഞാൻ ഉണ്ടാക്കിയ എല്ലാ ഇഛാപത്രങ്ങളും അനുബന്ധങ്ങളും റദ്ദാക്കുന്നു.\n\n";
+
+  // അന്തിമ ആഗ്രഹങ്ങൾ
+  if (responses.remains_handling) {
+    const remainsHandling: Record<string, string> = {
+      cremated: "എന്നെ ദഹിപ്പിക്കാൻ ഞാൻ ആഗ്രഹിക്കുന്നു.",
+      buried: "എന്നെ അടക്കം ചെയ്യാൻ ഞാൻ ആഗ്രഹിക്കുന്നു.",
+      no_preference: "എന്റെ മൃതദേഹം കൈകാര്യം ചെയ്യുന്നതിൽ എനിക്ക് മുൻഗണനയില്ല.",
+      other: responses.remains_other || "എന്റെ മൃതദേഹത്തിന് മറ്റ് മുൻഗണനകൾ ഞാൻ വ്യക്തമാക്കിയിട്ടുണ്ട്."
+    };
+    content += `എന്റെ മൃതദേഹത്തെ സംബന്ധിച്ച്, ${remainsHandling[responses.remains_handling]} `;
+  }
+
+  if (responses.memorial_service) {
+    const memorialService: Record<string, string> = {
+      traditional: "ഒരു പരമ്പരാഗത ശവസംസ്കാര സേവനം നടത്താൻ ഞാൻ ആഗ്രഹിക്കുന്നു.",
+      celebration: "കൂടുതൽ അനൗപചാരികമായ ജീവിത ആഘോഷം ഞാൻ ആഗ്രഹിക്കുന്നു.",
+      no_service: "ഞാൻ ഒരു സേവനവും ആഗ്രഹിക്കുന്നില്ല.",
+      other: responses.memorial_other || "എന്റെ സ്മാരക സേവനത്തിന് മറ്റ് മുൻഗണനകൾ ഞാൻ വ്യക്തമാക്കിയിട്ടുണ്ട്."
+    };
+    content += `${memorialService[responses.memorial_service]} `;
+  }
+
+  if (responses.final_resting_place) {
+    const restingPlace: Record<string, string> = {
+      specific: `എന്റെ അന്തിമ വിശ്രമസ്ഥലം ${responses.resting_place_details || "ഞാൻ വ്യക്തമാക്കിയ സ്ഥലത്ത്"} ആയിരിക്കണമെന്ന് ഞാൻ ആഗ്രഹിക്കുന്നു.`,
+      family_decide: "എന്റെ അന്തിമ വിശ്രമസ്ഥലം എവിടെയായിരിക്കണമെന്ന് എന്റെ കുടുംബം തീരുമാനിക്കട്ടെ.",
+      no_preference: "എന്റെ അന്തിമ വിശ്രമസ്ഥലം എവിടെയായിരിക്കണമെന്നതിൽ എനിക്ക് മുൻഗണനയില്ല."
+    };
+    content += `${restingPlace[responses.final_resting_place]}\n\n`;
+  }
+
+  if (responses.organ_donation) {
+    const organDonation: Record<string, string> = {
+      yes_any: "പ്രത്യാരോപണത്തിനോ വൈദ്യ ഗവേഷണത്തിനോ വേണ്ടി എന്റെ ഏതെങ്കിലും അവയവങ്ങളുടെയോ ടിഷ്യൂകളുടെയോ ദാനത്തിന് ഞാൻ സമ്മതിക്കുന്നു.",
+      yes_specific: `ഇനിപ്പറയുന്ന നിർദ്ദിഷ്ട അവയവങ്ങളുടെയോ ടിഷ്യൂകളുടെയോ ദാനത്തിന് ഞാൻ സമ്മതിക്കുന്നു: ${responses.specific_organs || "ഞാൻ വ്യക്തമാക്കിയവ"}.`,
+      no: "ഞാൻ അവയവ ദാതാവാകാൻ ആഗ്രഹിക്കുന്നില്ല."
+    };
+    content += `${organDonation[responses.organ_donation]}\n\n`;
+  }
+
+  // സാമ്പത്തിക സ്വത്തുക്കൾ
+  if (responses.primary_bank_distribution) {
+    const bankDistribution: Record<string, string> = {
+      specific_person: `എന്റെ പ്രാഥമിക ബാങ്ക് അക്കൗണ്ടിലെ ഫണ്ടുകൾ ${responses.primary_bank_person || "ഞാൻ വ്യക്തമാക്കിയ വ്യക്തിക്ക്"} പോകണമെന്ന് ഞാൻ ആഗ്രഹിക്കുന്നു.`,
+      children_equally: "എന്റെ പ്രാഥമിക ബാങ്ക് അക്കൗണ്ടിലെ ഫണ്ടുകൾ എന്റെ കുട്ടികൾക്കിടയിൽ തുല്യമായി വിഭജിക്കണമെന്ന് ഞാൻ ആഗ്രഹിക്കുന്നു.",
+      specific_individuals: `എന്റെ പ്രാഥമിക ബാങ്ക് അക്കൗണ്ടിലെ ഫണ്ടുകൾ ${responses.primary_bank_individuals || "ഞാൻ പട്ടികപ്പെടുത്തിയ വ്യക്തികൾക്കിടയിൽ"} തുല്യമായി വിഭജിക്കണമെന്ന് ഞാൻ ആഗ്രഹിക്കുന്നു.`,
+      residuary_estate: "എന്റെ പ്രാഥമിക ബാങ്ക് അക്കൗണ്ടിലെ ഫണ്ടുകൾ എന്റെ ശേഷിക്കുന്ന സ്വത്തിലേക്ക് ചേർക്കണമെന്ന് ഞാൻ ആഗ്രഹിക്കുന്നു."
+    };
+    content += `${bankDistribution[responses.primary_bank_distribution]} `;
+  }
+
+  // ആളുകൾ ചുമതലയിൽ
+  if (responses.executor_name) {
+    content += `എന്റെ ഭൗതിക സ്വത്തുക്കളുടെ എക്സിക്യൂട്ടറായും കൈകാര്യം ചെയ്യാനായും ഞാൻ ${responses.executor_name}`;
+    if (responses.executor_relationship) {
+      content += `, എന്റെ ${responses.executor_relationship},`;
+    }
+    content += " നെ നിയമിക്കുന്നു. ";
+
+    if (responses.alternate_executor_name) {
+      content += `ഈ വ്യക്തിക്ക് പ്രവർത്തിക്കാൻ കഴിയുകയോ മനസ്സില്ലാത്തതോ ആണെങ്കിൽ, ഞാൻ ${responses.alternate_executor_name}`;
+      if (responses.alternate_executor_relationship) {
+        content += `, എന്റെ ${responses.alternate_executor_relationship},`;
+      }
+      content += " നെ ബദൽ എക്സിക്യൂട്ടറായി നിയമിക്കുന്നു. ";
+    }
+  }
+
+  if (responses.digital_manager_name) {
+    content += `എന്റെ ഡിജിറ്റൽ സ്വത്തുകളും ഓൺലൈൻ സാന്നിധ്യവും കൈകാര്യം ചെയ്യാൻ ഞാൻ ${responses.digital_manager_name}`;
+    if (responses.digital_manager_relationship) {
+      content += `, എന്റെ ${responses.digital_manager_relationship},`;
+    }
+    content += " നെ നിയമിക്കുന്നു. ";
+
+    if (responses.alternate_digital_manager_name) {
+      content += `ഈ വ്യക്തിക്ക് പ്രവർത്തിക്കാൻ കഴിയുകയോ മനസ്സില്ലാത്തതോ ആണെങ്കിൽ, ഞാൻ ${responses.alternate_digital_manager_name}`;
+      if (responses.alternate_digital_manager_relationship) {
+        content += `, എന്റെ ${responses.alternate_digital_manager_relationship},`;
+      }
+      content += " നെ ബദൽ ഡിജിറ്റൽ അസറ്റ് മാനേജറായി നിയമിക്കുന്നു. ";
+    }
+  }
+
+  // ശേഷിക്കുന്ന സ്വത്ത് ക്ലോസ്
+  if (responses.residuary_clause) {
+    const residuary: Record<string, string> = {
+      one_person: `എന്റെ എസ്റ്റേറ്റിൽ ശേഷിക്കുന്ന ഏതെങ്കിലും സ്വത്തുക്കൾ ${responses.residuary_one_person || "ഞാൻ വ്യക്തമാക്കിയ വ്യക്തിക്ക്"} പൂർണ്ണമായും നൽകണമെന്ന് ഞാൻ ആഗ്രഹിക്കുന്നു.`,
+      group_equally: `എന്റെ എസ്റ്റേറ്റിൽ ശേഷിക്കുന്ന ഏതെങ്കിലും സ്വത്തുക്കൾ ${responses.residuary_group || "ഞാൻ പട്ടികപ്പെടുത്തിയ ആളുകൾക്കിടയിൽ"} തുല്യമായി വിഭജിക്കണമെന്ന് ഞാൻ ആഗ്രഹിക്കുന്നു.`,
+      charity: `എന്റെ എസ്റ്റേറ്റിൽ ശേഷിക്കുന്ന ഏതെങ്കിലും സ്വത്തുക്കൾ ${responses.residuary_charity || "ഞാൻ വ്യക്തമാക്കിയ ചാരിറ്റിക്ക്"} സംഭാവന ചെയ്യണമെന്ന് ഞാൻ ആഗ്രഹിക്കുന്നു.`
+    };
+    content += `${residuary[responses.residuary_clause]}\n\n`;
+  }
+
+  content += "ഈ രേഖ എന്റെ സ്വത്തുകളുടെ വിതരണത്തെക്കുറിച്ചും എന്റെ കാര്യങ്ങളുടെ കൈകാര്യത്തെക്കുറിച്ചുമുള്ള എന്റെ അന്തിമ ആഗ്രഹങ്ങളെ പ്രതിനിധീകരിക്കുന്നു. നിയമങ്ങൾ അധികാരപരിധി അനുസരിച്ച് വ്യത്യാസപ്പെടുന്നുവെന്നും ആവശ്യാനുസരണം നിയമ പ്രൊഫഷണലുകളുമായി കൂടിയാലോചിച്ചിട്ടുണ്ടെന്നും ഞാൻ മനസ്സിലാക്കുന്നു.\n\n";
+  
+  content += "തീയതി: " + new Date().toLocaleDateString() + "\n\n";
+  content += "_______________________________\n";
+  content += "ഒപ്പ്\n\n";
+  content += "_______________________________\n";
+  content += "സാക്ഷി 1 ഒപ്പ്\n\n";
+  content += "_______________________________\n";
+  content += "സാക്ഷി 2 ഒപ്പ്\n\n";
+  
+  return content;
+}
+
 export function getQuestions(language: 'en' | 'ml' = 'en') {
   return language === 'ml' ? questionsMl : questionsEn;
 }
 
 export function generateContent(responses: Record<string, any>, language: 'en' | 'ml' = 'en'): string {
+  if (language === 'ml') {
+    return generateMalayalamContent(responses);
+  }
+  
   let content = "LAST WILL AND TESTAMENT\n\n";
   
   content += "I, being of sound mind and body, do hereby make, publish, and declare this to be my Last Will and Testament, hereby revoking all wills and codicils previously made by me.\n\n";
