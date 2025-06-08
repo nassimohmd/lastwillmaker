@@ -902,233 +902,330 @@ export const questions = [
 export function generateContent(responses: Record<string, any>): string {
   let content = "LAST WILL AND TESTAMENT\n\n";
   
-  // Personal Information Header
   content += "I, being of sound mind and body, do hereby make, publish, and declare this to be my Last Will and Testament, hereby revoking all wills and codicils previously made by me.\n\n";
 
-  // Part 1: Final Wishes
-  content += "PART 1: FINAL WISHES\n\n";
-  
+  // Final Wishes
   if (responses.remains_handling) {
     const remainsHandling: Record<string, string> = {
       cremated: "I wish to be cremated.",
       buried: "I wish to be buried.",
       no_preference: "I have no preference for how my remains are handled.",
-      other: responses.remains_other || "Other preference specified."
+      other: responses.remains_other || "I have specified other preferences for my remains."
     };
-    content += `1. Disposition of Remains: ${remainsHandling[responses.remains_handling]}\n\n`;
+    content += `Regarding my remains, ${remainsHandling[responses.remains_handling]} `;
   }
 
   if (responses.memorial_service) {
     const memorialService: Record<string, string> = {
-      traditional: "I prefer a traditional funeral service.",
-      celebration: "I prefer a more informal celebration of life.",
-      no_service: "I prefer no service at all.",
-      other: responses.memorial_other || "Other memorial preference specified."
+      traditional: "I would like a traditional funeral service to be held.",
+      celebration: "I would prefer a more informal celebration of life.",
+      no_service: "I do not want any service at all.",
+      other: responses.memorial_other || "I have specified other preferences for my memorial service."
     };
-    content += `2. Memorial Service: ${memorialService[responses.memorial_service]}\n\n`;
+    content += `${memorialService[responses.memorial_service]} `;
   }
 
   if (responses.final_resting_place) {
     const restingPlace: Record<string, string> = {
-      specific: `I would like my final resting place to be at: ${responses.resting_place_details || "[location specified]"}.`,
-      family_decide: "I would like my family to decide my final resting place.",
-      no_preference: "I have no preference for my final resting place."
+      specific: `I would like my final resting place to be at ${responses.resting_place_details || "the location I have specified"}.`,
+      family_decide: "I would like my family to decide where my final resting place should be.",
+      no_preference: "I have no preference for where my final resting place should be."
     };
-    content += `3. Final Resting Place: ${restingPlace[responses.final_resting_place]}\n\n`;
+    content += `${restingPlace[responses.final_resting_place]}\n\n`;
   }
 
   if (responses.organ_donation) {
     const organDonation: Record<string, string> = {
       yes_any: "I consent to the donation of any of my organs or tissues for transplantation or medical research.",
-      yes_specific: `I consent to the donation of the following specific organs/tissues: ${responses.specific_organs || "[organs specified]"}.`,
+      yes_specific: `I consent to the donation of the following specific organs or tissues: ${responses.specific_organs || "those I have specified"}.`,
       no: "I do not wish to be an organ donor."
     };
-    content += `4. Organ Donation: ${organDonation[responses.organ_donation]}\n\n`;
+    content += `${organDonation[responses.organ_donation]}\n\n`;
   }
 
-  // Part 2: Financial Assets
-  content += "PART 2: FINANCIAL ASSETS\n\n";
-
+  // Financial Assets
   if (responses.primary_bank_distribution) {
     const bankDistribution: Record<string, string> = {
-      specific_person: `My primary bank account funds should go to: ${responses.primary_bank_person || "[person specified]"}.`,
-      children_equally: "My primary bank account funds should be divided equally among my children.",
-      specific_individuals: `My primary bank account funds should be divided equally among: ${responses.primary_bank_individuals || "[individuals specified]"}.`,
-      residuary_estate: "My primary bank account funds should be added to my residuary estate."
+      specific_person: `I want the funds in my primary bank account to go to ${responses.primary_bank_person || "the person I have specified"}.`,
+      children_equally: "I want the funds in my primary bank account to be divided equally among my children.",
+      specific_individuals: `I want the funds in my primary bank account to be divided equally among ${responses.primary_bank_individuals || "the individuals I have listed"}.`,
+      residuary_estate: "I want the funds in my primary bank account to be added to my residuary estate."
     };
-    content += `1. Primary Bank Account: ${bankDistribution[responses.primary_bank_distribution]}\n\n`;
+    content += `${bankDistribution[responses.primary_bank_distribution]} `;
   }
 
   if (responses.other_bank_accounts && responses.other_bank_accounts !== "no") {
     const otherBanks: Record<string, string> = {
       same_distribution: "My other bank accounts should be distributed in the same way as my primary account.",
-      different_wishes: `My other bank accounts should be handled as follows: ${responses.other_bank_details || "[details specified]"}.`
+      different_wishes: `As for my other bank accounts, I want them handled as follows: ${responses.other_bank_details || "according to my detailed instructions"}.`
     };
-    content += `2. Other Bank Accounts: ${otherBanks[responses.other_bank_accounts]}\n\n`;
+    content += `${otherBanks[responses.other_bank_accounts]} `;
   }
 
   if (responses.stocks_bonds_handling) {
     const stocksHandling: Record<string, string> = {
-      specific_person: `My stock portfolio, mutual funds, and bonds should go to: ${responses.stocks_specific_person || "[person specified]"}.`,
-      liquidated: `My stock portfolio, mutual funds, and bonds should be liquidated and the proceeds distributed to: ${responses.stocks_liquidated_to || "[recipient specified]"}.`,
-      divided_equally: `My stock portfolio, mutual funds, and bonds should be divided equally among: ${responses.stocks_divided_among || "[people specified]"}.`,
-      residuary_estate: "My stock portfolio, mutual funds, and bonds should be added to my residuary estate."
+      specific_person: `I want my stock portfolio, mutual funds, and bonds to go to ${responses.stocks_specific_person || "the person I have specified"}.`,
+      liquidated: `I want my stock portfolio, mutual funds, and bonds to be liquidated and the proceeds distributed to ${responses.stocks_liquidated_to || "the recipient I have specified"}.`,
+      divided_equally: `I want my stock portfolio, mutual funds, and bonds to be divided equally among ${responses.stocks_divided_among || "the people I have listed"}.`,
+      residuary_estate: "I want my stock portfolio, mutual funds, and bonds to be added to my residuary estate."
     };
-    content += `3. Stocks, Mutual Funds, and Bonds: ${stocksHandling[responses.stocks_bonds_handling]}\n\n`;
+    content += `${stocksHandling[responses.stocks_bonds_handling]} `;
   }
 
   if (responses.gold_crypto_handling) {
     const goldCryptoHandling: Record<string, string> = {
-      specific_person: `My holdings of gold, digital gold, and cryptocurrencies should go to: ${responses.gold_crypto_person || "[person specified]"}, who will receive the assets and any necessary access information.`,
-      sold: `My holdings of gold, digital gold, and cryptocurrencies should be sold and the proceeds given to: ${responses.gold_crypto_proceeds_to || "[recipient specified]"}.`,
-      residuary_estate: "My holdings of gold, digital gold, and cryptocurrencies should be added to my residuary estate."
+      specific_person: `I want my holdings of gold, digital gold, and cryptocurrencies to go to ${responses.gold_crypto_person || "the person I have specified"}, who will receive the assets and any necessary access information.`,
+      sold: `I want my holdings of gold, digital gold, and cryptocurrencies to be sold and the proceeds given to ${responses.gold_crypto_proceeds_to || "the recipient I have specified"}.`,
+      residuary_estate: "I want my holdings of gold, digital gold, and cryptocurrencies to be added to my residuary estate."
     };
-    content += `4. Gold, Digital Gold, and Cryptocurrencies: ${goldCryptoHandling[responses.gold_crypto_handling]}\n\n`;
+    content += `${goldCryptoHandling[responses.gold_crypto_handling]}\n\n`;
   }
 
-  // Part 3: Debts and Receivables
-  content += "PART 3: DEBTS AND RECEIVABLES\n\n";
-
+  // Debts and Receivables
   if (responses.debt_settlement) {
     const debtSettlement: Record<string, string> = {
-      from_estate: "Any outstanding debts should be paid from my estate before any assets are distributed.",
-      life_insurance: "I have a specific life insurance policy intended to cover my debts.",
-      no_debts: "I have no significant debts."
+      from_estate: "I want any outstanding debts to be paid from my estate before any assets are distributed.",
+      life_insurance: "I have a specific life insurance policy that I intend to cover my debts.",
+      no_debts: "I have no significant debts that need to be settled."
     };
-    content += `1. Debt Settlement: ${debtSettlement[responses.debt_settlement]}\n\n`;
+    content += `${debtSettlement[responses.debt_settlement]} `;
   }
 
   if (responses.major_receivables) {
     const receivables: Record<string, string> = {
-      yes_collect: `The following person owes me money and this amount should be collected and added to my estate: ${responses.receivables_details || "[details specified]"}.`,
+      yes_collect: `${responses.receivables_details || "Someone"} owes me money and I want this amount to be collected and added to my estate.`,
       yes_forgive: "While someone owes me money, I forgive this debt upon my passing.",
       no: "No one owes me any significant amount of money."
     };
-    content += `2. Money Owed to Me: ${receivables[responses.major_receivables]}\n\n`;
+    content += `${receivables[responses.major_receivables]}\n\n`;
   }
 
-  // Part 4: Personal Belongings
-  content += "PART 4: PERSONAL BELONGINGS\n\n";
-
+  // Personal Belongings
   if (responses.jewelry_distribution) {
     const jewelryDist: Record<string, string> = {
-      specific_items: `Specific jewelry and ornaments should go to specific people as follows: ${responses.jewelry_specific_items || "[items and recipients specified]"}.`,
-      all_to_one: `All my jewelry and ornaments should go to: ${responses.jewelry_all_to_one_person || "[person specified]"}.`,
-      divide_among: `My jewelry and ornaments should be divided among: ${responses.jewelry_divide_among_people || "[people specified]"}.`,
-      residuary_estate: "My jewelry and ornaments should be added to my residuary estate."
+      specific_items: `I want specific pieces of my jewelry and ornaments to go to specific people as follows: ${responses.jewelry_specific_items || "according to my detailed list"}.`,
+      all_to_one: `I want all my jewelry and ornaments to go to ${responses.jewelry_all_to_one_person || "the person I have specified"}.`,
+      divide_among: `I want my jewelry and ornaments to be divided among ${responses.jewelry_divide_among_people || "the people I have listed"}.`,
+      residuary_estate: "I want my jewelry and ornaments to be added to my residuary estate."
     };
-    content += `1. Jewelry and Ornaments: ${jewelryDist[responses.jewelry_distribution]}\n\n`;
+    content += `${jewelryDist[responses.jewelry_distribution]} `;
   }
 
   if (responses.primary_residence && responses.primary_residence !== "no_real_estate") {
     const residenceHandling: Record<string, string> = {
-      specific_person: `My primary residence should go to: ${responses.residence_specific_person || "[person specified]"}.`,
-      sold: `My primary residence should be sold and the proceeds distributed to: ${responses.residence_proceeds_to || "[recipient specified]"}.`,
-      trust: `My primary residence should be held in a trust for the benefit of: ${responses.residence_trust_beneficiary || "[beneficiary specified]"}.`
+      specific_person: `I want my primary residence to go to ${responses.residence_specific_person || "the person I have specified"}.`,
+      sold: `I want my primary residence to be sold and the proceeds distributed to ${responses.residence_proceeds_to || "the recipient I have specified"}.`,
+      trust: `I want my primary residence to be held in a trust for the benefit of ${responses.residence_trust_beneficiary || "the beneficiary I have specified"}.`
     };
-    content += `2. Primary Residence: ${residenceHandling[responses.primary_residence]}\n\n`;
+    content += `${residenceHandling[responses.primary_residence]} `;
   }
 
   if (responses.other_properties && responses.other_properties !== "no") {
     const otherProps: Record<string, string> = {
-      same_as_primary: "My other properties should be handled in the same way as my primary residence.",
-      different_wishes: `My other properties should be handled as follows: ${responses.other_properties_details || "[details specified]"}.`
+      same_as_primary: "I want my other properties to be handled in the same way as my primary residence.",
+      different_wishes: `As for my other properties, I want them handled as follows: ${responses.other_properties_details || "according to my specific instructions"}.`
     };
-    content += `3. Other Properties: ${otherProps[responses.other_properties]}\n\n`;
+    content += `${otherProps[responses.other_properties]} `;
   }
 
   if (responses.vehicles && responses.vehicles !== "no_vehicles") {
     const vehicleHandling: Record<string, string> = {
-      specific_person: `My vehicles should go to specific people as follows: ${responses.vehicles_details || "[vehicle and recipient specified]"}.`,
-      sold: `My vehicles should be sold and the proceeds distributed to: ${responses.vehicles_proceeds_to || "[recipient specified]"}.`
+      specific_person: `I want my vehicles to go to specific people as follows: ${responses.vehicles_details || "according to my detailed instructions"}.`,
+      sold: `I want my vehicles to be sold and the proceeds distributed to ${responses.vehicles_proceeds_to || "the recipient I have specified"}.`
     };
-    content += `4. Vehicles: ${vehicleHandling[responses.vehicles]}\n\n`;
+    content += `${vehicleHandling[responses.vehicles]} `;
   }
 
-  // Additional personal belongings sections would continue here...
+  if (responses.collectibles && responses.collectibles !== "no") {
+    const collectiblesHandling: Record<string, string> = {
+      specific_recipient: `I want my collections and valuable items to go to specific people as follows: ${responses.collectibles_specific || "according to my detailed instructions"}.`,
+      appraised_sold: `I want my collections and valuable items to be appraised and sold, with the proceeds going to ${responses.collectibles_proceeds_to || "the recipient I have specified"}.`,
+      residuary_estate: "I want my collections and valuable items to be added to my residuary estate."
+    };
+    content += `${collectiblesHandling[responses.collectibles]} `;
+  }
 
-  // Part 5: Digital Life
-  content += "PART 5: DIGITAL LIFE\n\n";
+  if (responses.intellectual_property && responses.intellectual_property !== "no") {
+    const ipHandling: Record<string, string> = {
+      all_to_one: `I want all my intellectual property rights and future income to go to ${responses.ip_all_to_person || "the person I have specified"}.`,
+      specific_instructions: `I have specific instructions for my different intellectual properties: ${responses.ip_specific_instructions || "as detailed in my instructions"}.`
+    };
+    content += `${ipHandling[responses.intellectual_property]} `;
+  }
 
+  if (responses.certificates_trophies) {
+    const certificatesHandling: Record<string, string> = {
+      specific_person: `I want my important certificates and trophies to be given to ${responses.certificates_person || "the person I have specified"}.`,
+      family: "I want my important certificates and trophies to be kept together and given to my family.",
+      disposed: "My important certificates and trophies can be disposed of."
+    };
+    content += `${certificatesHandling[responses.certificates_trophies]} `;
+  }
+
+  if (responses.physical_diary && responses.physical_diary !== "none") {
+    const diaryHandling: Record<string, string> = {
+      given_readable: `I want my personal diaries or journals to be given to ${responses.diary_person_readable || "the person I have specified"}, with the understanding that they can read them.`,
+      given_not_readable: `I want my personal diaries or journals to be given to ${responses.diary_person_not_readable || "the person I have specified"}, with instructions that they should not be read.`,
+      destroyed: "I want my personal diaries or journals to be destroyed."
+    };
+    content += `${diaryHandling[responses.physical_diary]} `;
+  }
+
+  if (responses.physical_artworks && responses.physical_artworks !== "no") {
+    const artworkHandling: Record<string, string> = {
+      specific_items: `I want specific physical artworks to go to specific people as follows: ${responses.artworks_specific || "according to my detailed list"}.`,
+      all_to_one: `I want all my physical artworks to be given to ${responses.artworks_all_to_person || "the person I have specified"}.`,
+      residuary_estate: "I want my physical artworks to be added to my residuary estate."
+    };
+    content += `${artworkHandling[responses.physical_artworks]}\n\n`;
+  }
+
+  // Digital Life
   if (responses.electronic_devices) {
     const deviceHandling: Record<string, string> = {
-      wiped_given: `My electronic devices should be wiped clean and given to: ${responses.devices_given_to || "[person specified]"}.`,
-      destroyed: "My electronic devices should be physically destroyed to protect my data.",
-      kept_with_data: `My electronic devices should be kept by: ${responses.devices_kept_by || "[person specified]"}, who will also have access to the data on them.`
+      wiped_given: `I want my electronic devices to be wiped clean and given to ${responses.devices_given_to || "the person I have specified"}.`,
+      destroyed: "I want my electronic devices to be physically destroyed to protect my data.",
+      kept_with_data: `I want my electronic devices to be kept by ${responses.devices_kept_by || "the person I have specified"}, who will also have access to the data on them.`
     };
-    content += `1. Electronic Devices: ${deviceHandling[responses.electronic_devices]}\n\n`;
+    content += `${deviceHandling[responses.electronic_devices]} `;
   }
 
   if (responses.phone_number) {
     const phoneHandling: Record<string, string> = {
-      terminated: "My primary mobile phone number should be terminated.",
-      transferred: `I would like the following person to take over my phone number: ${responses.phone_number_person || "[person specified]"}.`
+      terminated: "I want my primary mobile phone number to be terminated.",
+      transferred: `I want ${responses.phone_number_person || "the person I have specified"} to take over my phone number.`
     };
-    content += `2. Phone Number: ${phoneHandling[responses.phone_number]}\n\n`;
+    content += `${phoneHandling[responses.phone_number]} `;
   }
 
-  // Part 6: Data Backup Consent
-  content += "PART 6: CONSENT FOR DATA BACKUP AND ACCESS\n\n";
+  if (responses.password_manager === "yes") {
+    content += "I use a password manager and will provide the master password and instructions to my chosen digital asset manager. ";
+  }
 
+  if (responses.subscriptions) {
+    const subscriptionHandling: Record<string, string> = {
+      canceled: "I want all my paid subscriptions to be canceled.",
+      list_instructions: "I have a list of subscriptions with instructions for my digital asset manager."
+    };
+    content += `${subscriptionHandling[responses.subscriptions]} `;
+  }
+
+  if (responses.digital_items && responses.digital_items !== "no") {
+    const digitalItemsHandling: Record<string, string> = {
+      transferred: `I want my digital items to be transferred to ${responses.digital_items_transferred_to || "the person I have specified"}.`,
+      list_instructions: "I have a list with specific instructions for my digital items."
+    };
+    content += `${digitalItemsHandling[responses.digital_items]}\n\n`;
+  }
+
+  // Data Backup Consent
   if (responses.transaction_history_backup) {
     const backupConsent = responses.transaction_history_backup === "yes" ? 
       "I consent to my executor backing up my financial transaction history to provide a clear financial record." :
       "I do not consent to backing up my financial transaction history.";
-    content += `1. Financial Records Backup: ${backupConsent}\n\n`;
+    content += `${backupConsent} `;
   }
 
   if (responses.social_media_handling) {
     const socialMedia: Record<string, string> = {
-      memorialized: "I want my social media accounts to be memorialized (if the platform offers this).",
+      memorialized: "I want my social media accounts to be memorialized if the platform offers this option.",
       deleted: "I want my social media accounts to be permanently deleted.",
       manager_authority: "I give my digital asset manager the authority to manage my social media accounts as they see fit."
     };
-    content += `2. Social Media: ${socialMedia[responses.social_media_handling]}\n\n`;
+    content += `${socialMedia[responses.social_media_handling]} `;
   }
 
-  // Part 7: People in Charge
-  content += "PART 7: APPOINTMENTS\n\n";
+  if (responses.photos_videos_backup) {
+    const photosBackup: Record<string, string> = {
+      full_backup: "I consent to my digital asset manager backing up all my photos and videos from my devices and cloud storage to be shared with my loved ones.",
+      specific_folders: `I consent to my digital asset manager backing up only specific folders or albums: ${responses.specific_photo_folders || "those I have specified"}.`,
+      no: "I do not want my photos and videos backed up or shared."
+    };
+    content += `${photosBackup[responses.photos_videos_backup]} `;
+  }
 
+  if (responses.chat_backup) {
+    const chatBackup: Record<string, string> = {
+      all_chats: "I consent to a backup of all my chat histories from messaging apps.",
+      specific_chats: `I consent to a backup of only specific chats with: ${responses.specific_chats || "those I have specified"}.`,
+      no: "I do not consent to backing up my chat histories."
+    };
+    content += `${chatBackup[responses.chat_backup]} `;
+  }
+
+  const digitalConsents = [];
+  if (responses.digital_notes_backup === "yes") digitalConsents.push("digital notes");
+  if (responses.call_history_backup === "yes") digitalConsents.push("call history and recordings");
+  if (responses.contacts_backup === "yes") digitalConsents.push("contacts list");
+  if (responses.local_files_backup === "yes") digitalConsents.push("local device files");
+  if (responses.google_takeout === "yes") digitalConsents.push("Google data via Google Takeout");
+
+  if (digitalConsents.length > 0) {
+    content += `I also consent to the backup of my ${digitalConsents.join(", ")}. `;
+  }
+
+  if (responses.mail_backup) {
+    const mailBackup: Record<string, string> = {
+      all_accounts: "I consent to my digital asset manager accessing and backing up all my email accounts.",
+      specific_accounts: `I consent to my digital asset manager accessing and backing up only these specific email accounts: ${responses.specific_email_accounts || "those I have listed"}.`,
+      no: "I do not consent to accessing or backing up my email accounts."
+    };
+    content += `${mailBackup[responses.mail_backup]} `;
+  }
+
+  if (responses.important_app_data === "yes") {
+    content += `I want to ensure that data from these specific apps is backed up: ${responses.specific_apps || "those I have listed"}. `;
+  }
+
+  if (responses.digital_art && responses.digital_art !== "none") {
+    const digitalArtHandling: Record<string, string> = {
+      preserved: `I want my digital art to be preserved and given to ${responses.digital_art_recipient || "the person I have specified"}.`,
+      deleted: "I want my digital art to be deleted."
+    };
+    content += `${digitalArtHandling[responses.digital_art]}\n\n`;
+  }
+
+  // People in Charge
   if (responses.executor_name) {
-    content += `1. Executor: I appoint ${responses.executor_name}`;
+    content += `I appoint ${responses.executor_name}`;
     if (responses.executor_relationship) {
-      content += ` (${responses.executor_relationship})`;
+      content += `, my ${responses.executor_relationship},`;
     }
-    content += " to be the executor of my will and handle my physical assets.\n\n";
+    content += " to be the executor of my will and handle my physical assets. ";
 
     if (responses.alternate_executor_name) {
-      content += `   Alternate Executor: If the above person is unable or unwilling to act, I appoint ${responses.alternate_executor_name}`;
+      content += `If this person is unable or unwilling to act, I appoint ${responses.alternate_executor_name}`;
       if (responses.alternate_executor_relationship) {
-        content += ` (${responses.alternate_executor_relationship})`;
+        content += `, my ${responses.alternate_executor_relationship},`;
       }
-      content += " as alternate executor.\n\n";
+      content += " as alternate executor. ";
     }
   }
 
   if (responses.digital_manager_name) {
-    content += `2. Digital Asset Manager: I appoint ${responses.digital_manager_name}`;
+    content += `I appoint ${responses.digital_manager_name}`;
     if (responses.digital_manager_relationship) {
-      content += ` (${responses.digital_manager_relationship})`;
+      content += `, my ${responses.digital_manager_relationship},`;
     }
-    content += " to manage my digital assets and online presence.\n\n";
+    content += " to manage my digital assets and online presence. ";
 
     if (responses.alternate_digital_manager_name) {
-      content += `   Alternate Digital Asset Manager: If the above person is unable or unwilling to act, I appoint ${responses.alternate_digital_manager_name}`;
+      content += `If this person is unable or unwilling to act, I appoint ${responses.alternate_digital_manager_name}`;
       if (responses.alternate_digital_manager_relationship) {
-        content += ` (${responses.alternate_digital_manager_relationship})`;
+        content += `, my ${responses.alternate_digital_manager_relationship},`;
       }
-      content += " as alternate digital asset manager.\n\n";
+      content += " as alternate digital asset manager. ";
     }
   }
 
   // Residuary Clause
   if (responses.residuary_clause) {
     const residuary: Record<string, string> = {
-      one_person: `Any remaining assets in my estate should be given entirely to: ${responses.residuary_one_person || "[person specified]"}.`,
-      group_equally: `Any remaining assets in my estate should be divided equally among: ${responses.residuary_group || "[people specified]"}.`,
-      charity: `Any remaining assets in my estate should be donated to: ${responses.residuary_charity || "[charity specified]"}.`
+      one_person: `I want any remaining assets in my estate to be given entirely to ${responses.residuary_one_person || "the person I have specified"}.`,
+      group_equally: `I want any remaining assets in my estate to be divided equally among ${responses.residuary_group || "the people I have listed"}.`,
+      charity: `I want any remaining assets in my estate to be donated to ${responses.residuary_charity || "the charity I have specified"}.`
     };
-    content += `3. Residuary Clause: ${residuary[responses.residuary_clause]}\n\n`;
+    content += `${residuary[responses.residuary_clause]}\n\n`;
   }
 
   content += "This document represents my final wishes regarding the distribution of my assets and handling of my affairs. I understand that laws vary by jurisdiction, and I have consulted with legal professionals as necessary.\n\n";
