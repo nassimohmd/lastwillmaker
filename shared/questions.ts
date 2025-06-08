@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const questions = [
+const questionsEn = [
   {
     id: "final_wishes",
     section: "Part 1: Your Final Wishes",
@@ -899,7 +899,475 @@ export const questions = [
   }
 ];
 
-export function generateContent(responses: Record<string, any>): string {
+const questionsMl = [
+  {
+    id: "final_wishes",
+    section: "ഭാഗം 1: നിങ്ങളുടെ അന്തിമ ആഗ്രഹങ്ങൾ",
+    title: "നിങ്ങളുടെ അന്തിമ ആഗ്രഹങ്ങൾ",
+    questions: [
+      {
+        id: "remains_handling",
+        text: "നിങ്ങളുടെ മൃതദേഹം എങ്ങനെ സംസ്കരിക്കണമെന്ന് നിങ്ങൾ ആഗ്രഹിക്കുന്നു?",
+        type: "select",
+        options: [
+          { value: "cremated", label: "എന്നെ ദഹിപ്പിക്കാൻ ഞാൻ ആഗ്രഹിക്കുന്നു." },
+          { value: "buried", label: "എന്നെ അടക്കം ചെയ്യാൻ ഞാൻ ആഗ്രഹിക്കുന്നു." },
+          { value: "no_preference", label: "എനിക്ക് മുൻഗണനയില്ല." },
+          { value: "other", label: "മറ്റുള്ളവ (ദയവായി വ്യക്തമാക്കുക)" }
+        ]
+      },
+      {
+        id: "remains_other",
+        text: "നിങ്ങളുടെ മറ്റ് മുൻഗണന വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "നിങ്ങളുടെ മുൻഗണന നൽകുക",
+        conditional: {
+          field: "remains_handling",
+          value: "other"
+        }
+      },
+      {
+        id: "memorial_service",
+        text: "ഏതുതരം സ്മാരക സേവനമാണ് നിങ്ങൾ ആഗ്രഹിക്കുന്നത്?",
+        type: "select",
+        options: [
+          { value: "traditional", label: "ഒരു പരമ്പരാഗത ശവസംസ്കാര സേവനം." },
+          { value: "celebration", label: "കൂടുതൽ അനൗപചാരികമായ ജീവിത ആഘോഷം." },
+          { value: "no_service", label: "ഒരു സേവനവുമില്ല." },
+          { value: "other", label: "മറ്റുള്ളവ (ദയവായി വ്യക്തമാക്കുക)" }
+        ]
+      },
+      {
+        id: "memorial_other",
+        text: "നിങ്ങളുടെ മറ്റ് മുൻഗണന വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "നിങ്ങളുടെ മുൻഗണന നൽകുക",
+        conditional: {
+          field: "memorial_service",
+          value: "other"
+        }
+      },
+      {
+        id: "final_resting_place",
+        text: "നിങ്ങളുടെ അന്തിമ വിശ്രമസ്ഥലം എവിടെയായിരിക്കണമെന്ന് നിങ്ങൾ ആഗ്രഹിക്കുന്നു?",
+        type: "select",
+        options: [
+          { value: "specific", label: "ഒരു പ്രത്യേക ശ്മശാനം അല്ലെങ്കിൽ സ്ഥലം" },
+          { value: "family_decide", label: "എന്റെ കുടുംബം തീരുമാനിക്കട്ടെ." },
+          { value: "no_preference", label: "മുൻഗണനയില്ല." }
+        ]
+      },
+      {
+        id: "resting_place_details",
+        text: "ശ്മശാനം അല്ലെങ്കിൽ സ്ഥലം വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "നിർദ്ദിഷ്ട സ്ഥലം നൽകുക",
+        conditional: {
+          field: "final_resting_place",
+          value: "specific"
+        }
+      },
+      {
+        id: "organ_donation",
+        text: "നിങ്ങൾ അവയവ ദാതാവാകാൻ ആഗ്രഹിക്കുന്നുണ്ടോ?",
+        type: "select",
+        options: [
+          { value: "yes_any", label: "അതെ, പ്രത്യാരോപണത്തിനോ വൈദ്യ ഗവേഷണത്തിനോ വേണ്ടി എന്റെ ഏതെങ്കിലും അവയവങ്ങളുടെയോ ടിഷ്യൂകളുടെയോ ദാനത്തിന് ഞാൻ സമ്മതിക്കുന്നു." },
+          { value: "yes_specific", label: "അതെ, എന്നാൽ പ്രത്യേക അവയവങ്ങൾ/ടിഷ്യൂകൾ മാത്രം" },
+          { value: "no", label: "ഇല്ല, ഞാൻ അവയവ ദാതാവാകാൻ ആഗ്രഹിക്കുന്നില്ല." }
+        ]
+      },
+      {
+        id: "specific_organs",
+        text: "ഏതെല്ലാം അവയവങ്ങൾ/ടിഷ്യൂകൾ വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "നിർദ്ദിഷ്ട അവയവങ്ങൾ അല്ലെങ്കിൽ ടിഷ്യൂകൾ പട്ടികപ്പെടുത്തുക",
+        conditional: {
+          field: "organ_donation",
+          value: "yes_specific"
+        }
+      }
+    ]
+  },
+  {
+    id: "financial_assets",
+    section: "ഭാഗം 2: നിങ്ങളുടെ സാമ്പത്തിക സ്വത്തുക്കൾ",
+    title: "നിങ്ങളുടെ സാമ്പത്തിക സ്വത്തുക്കൾ",
+    questions: [
+      {
+        id: "primary_bank_distribution",
+        text: "നിങ്ങളുടെ പ്രാഥമിക ബാങ്ക് അക്കൗണ്ടിലെ ഫണ്ടുകൾ എങ്ങനെ വിതരണം ചെയ്യണം?",
+        type: "select",
+        options: [
+          { value: "specific_person", label: "ഒരു പ്രത്യേക വ്യക്തിക്ക്" },
+          { value: "children_equally", label: "എന്റെ കുട്ടികൾക്കിടയിൽ തുല്യമായി വിഭജിക്കണം." },
+          { value: "specific_individuals", label: "നിർദ്ദിഷ്ട വ്യക്തികൾക്കിടയിൽ തുല്യമായി വിഭജിക്കണം" },
+          { value: "residuary_estate", label: "എന്റെ ശേഷിക്കുന്ന സ്വത്തിലേക്ക് (നിങ്ങളുടെ സ്വത്തുകളുടെ ബാക്കി) ചേർക്കണം." }
+        ]
+      },
+      {
+        id: "primary_bank_person",
+        text: "അവരുടെ പൂർണ്ണ നാമവും ബന്ധവും നൽകുക:",
+        type: "text",
+        placeholder: "പൂർണ്ണ നാമവും ബന്ധവും",
+        conditional: {
+          field: "primary_bank_distribution",
+          value: "specific_person"
+        }
+      },
+      {
+        id: "primary_bank_individuals",
+        text: "അവരുടെ പൂർണ്ണ നാമങ്ങൾ പട്ടികപ്പെടുത്തുക:",
+        type: "text",
+        placeholder: "പൂർണ്ണ നാമങ്ങൾ പട്ടികപ്പെടുത്തുക",
+        conditional: {
+          field: "primary_bank_distribution",
+          value: "specific_individuals"
+        }
+      },
+      {
+        id: "other_bank_accounts",
+        text: "നിങ്ങൾക്ക് മറ്റ് ബാങ്ക് അക്കൗണ്ടുകൾ (സേവിംഗ്സ്, ചെക്കിംഗ്, മുതലായവ) ഉണ്ടോ?",
+        type: "select",
+        options: [
+          { value: "same_distribution", label: "അതെ, എന്റെ പ്രാഥമിക അക്കൗണ്ടിന്റെ അതേ രീതിയിൽ ഫണ്ടുകൾ വിതരണം ചെയ്യാൻ ഞാൻ ആഗ്രഹിക്കുന്നു." },
+          { value: "different_wishes", label: "അതെ, ഓരോന്നിനും എനിക്ക് വ്യത്യസ്ത ആഗ്രഹങ്ങളുണ്ട്" },
+          { value: "no", label: "ഇല്ല." }
+        ]
+      },
+      {
+        id: "other_bank_details",
+        text: "ഓരോ അക്കൗണ്ടിനും വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "ഓരോ അക്കൗണ്ടിനുമുള്ള നിങ്ങളുടെ ആഗ്രഹങ്ങൾ വ്യക്തമാക്കുക",
+        conditional: {
+          field: "other_bank_accounts",
+          value: "different_wishes"
+        }
+      },
+      {
+        id: "stocks_bonds_handling",
+        text: "നിങ്ങളുടെ ഓഹരി പോർട്ട്‌ഫോളിയോ, മ്യൂച്വൽ ഫണ്ടുകൾ, ബോണ്ടുകൾ എന്നിവ എങ്ങനെ കൈകാര്യം ചെയ്യണം?",
+        type: "select",
+        options: [
+          { value: "specific_person", label: "ഒരു പ്രത്യേക വ്യക്തിക്ക്" },
+          { value: "liquidated", label: "ലിക്വിഡേറ്റ് ചെയ്ത് വരുമാനം വിതരണം ചെയ്യണം" },
+          { value: "divided_equally", label: "നിർദ്ദിഷ്ട ആളുകൾക്കിടയിൽ തുല്യമായി വിഭജിക്കണം" },
+          { value: "residuary_estate", label: "എന്റെ ശേഷിക്കുന്ന സ്വത്തിലേക്ക് ചേർക്കണം." }
+        ]
+      },
+      {
+        id: "stocks_specific_person",
+        text: "വ്യക്തിയെ വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "വ്യക്തിയുടെ പേര്",
+        conditional: {
+          field: "stocks_bonds_handling",
+          value: "specific_person"
+        }
+      },
+      {
+        id: "stocks_liquidated_to",
+        text: "ആരാണ് വരുമാനം ലഭിക്കേണ്ടതെന്ന് വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "ആർക്കാണ് വരുമാനം ലഭിക്കേണ്ടത്",
+        conditional: {
+          field: "stocks_bonds_handling",
+          value: "liquidated"
+        }
+      },
+      {
+        id: "stocks_divided_among",
+        text: "ആരാരുടെ ഇടയിൽ വിഭജിക്കണമെന്ന് വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "ആളുകളെ പട്ടികപ്പെടുത്തുക",
+        conditional: {
+          field: "stocks_bonds_handling",
+          value: "divided_equally"
+        }
+      },
+      {
+        id: "gold_crypto_handling",
+        text: "നിങ്ങളുടെ സ്വർണ്ണം, ഡിജിറ്റൽ സ്വർണ്ണം, ക്രിപ്റ്റോകറൻസികൾ എന്നിവയുടെ കൈവശമുള്ളവയ്ക്ക് എന്ത് സംഭവിക്കണം?",
+        type: "select",
+        options: [
+          { value: "specific_person", label: "ആസ്തികളും ആവശ്യമായ ആക്സസ് വിവരങ്ങളും ലഭിക്കുന്ന ഒരു പ്രത്യേക വ്യക്തിക്ക്" },
+          { value: "sold", label: "വിറ്റ് വരുമാനം ആർക്കെങ്കിലും നൽകണം" },
+          { value: "residuary_estate", label: "എന്റെ ശേഷിക്കുന്ന സ്വത്തിലേക്ക് ചേർക്കണം." }
+        ]
+      },
+      {
+        id: "gold_crypto_person",
+        text: "വ്യക്തിയെ വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "വ്യക്തിയുടെ പേര്",
+        conditional: {
+          field: "gold_crypto_handling",
+          value: "specific_person"
+        }
+      },
+      {
+        id: "gold_crypto_proceeds_to",
+        text: "ആരാണ് വരുമാനം ലഭിക്കേണ്ടതെന്ന് വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "ആർക്കാണ് വരുമാനം ലഭിക്കേണ്ടത്",
+        conditional: {
+          field: "gold_crypto_handling",
+          value: "sold"
+        }
+      }
+    ]
+  },
+  {
+    id: "debts_receivables",
+    section: "ഭാഗം 3: കടങ്ങളും സ്വീകാര്യതകളും",
+    title: "കടങ്ങളും സ്വീകാര്യതകളും",
+    questions: [
+      {
+        id: "debt_settlement",
+        text: "ഏതെങ്കിലും കുടിശ്ശിക കടങ്ങൾ (വായ്പകൾ, EMI കൾ, ക്രെഡിറ്റ് കാർഡ് ബാലൻസുകൾ, \"ഇപ്പോൾ വാങ്ങുക, പിന്നീട് പണമടയ്ക്കുക\" സേവനങ്ങൾ) എങ്ങനെ തീർപ്പാക്കണം?",
+        type: "select",
+        options: [
+          { value: "from_estate", label: "ഏതെങ്കിലും സ്വത്തുക്കൾ വിതരണം ചെയ്യുന്നതിന് മുമ്പ് എന്റെ സ്വത്തിൽ നിന്ന് പണമടയ്ക്കണം." },
+          { value: "life_insurance", label: "ഈ കടങ്ങൾ കവർ ചെയ്യാൻ ഉദ്ദേശിച്ചുള്ള ഒരു പ്രത്യേക ലൈഫ് ഇൻഷുറൻസ് പോളിസി എനിക്കുണ്ട്." },
+          { value: "no_debts", label: "എനിക്ക് കാര്യമായ കടങ്ങളൊന്നുമില്ല." }
+        ]
+      },
+      {
+        id: "major_receivables",
+        text: "നിങ്ങൾക്ക് കാര്യമായ തുക കടപ്പെട്ടിരിക്കുന്ന ആരെങ്കിലും ഉണ്ടോ?",
+        type: "select",
+        options: [
+          { value: "yes_collect", label: "അതെ, ഈ തുക ശേഖരിച്ച് എന്റെ സ്വത്തിലേക്ക് ചേർക്കാൻ ഞാൻ ആഗ്രഹിക്കുന്നു" },
+          { value: "yes_forgive", label: "അതെ, പക്ഷേ എന്റെ മരണത്തിൽ ഞാൻ കടം ക്ഷമിക്കുന്നു." },
+          { value: "no", label: "ഇല്ല." }
+        ]
+      },
+      {
+        id: "receivables_details",
+        text: "അവരുടെ പേരും കടപ്പെട്ട ഏകദേശ തുകയും നൽകുക:",
+        type: "text",
+        placeholder: "പേരും കടപ്പെട്ട തുകയും",
+        conditional: {
+          field: "major_receivables",
+          value: "yes_collect"
+        }
+      }
+    ]
+  },
+  {
+    id: "personal_belongings",
+    section: "ഭാഗം 4: നിങ്ങളുടെ വ്യക്തിഗത വസ്തുക്കൾ",
+    title: "നിങ്ങളുടെ വ്യക്തിഗത വസ്തുക്കൾ",
+    questions: [
+      {
+        id: "jewelry_distribution",
+        text: "നിർദ്ദിഷ്ട ആളുകളിലേക്ക് പോകാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്ന നിർദ്ദിഷ്ട ആഭരണങ്ങളോ അലങ്കാരങ്ങളോ നിങ്ങൾക്കുണ്ടോ?",
+        type: "select",
+        options: [
+          { value: "specific_items", label: "അതെ, നിർദ്ദിഷ്ട ആളുകൾക്കായി എനിക്ക് നിർദ്ദിഷ്ട ഇനങ്ങളുണ്ട്" },
+          { value: "all_to_one", label: "എന്റെ എല്ലാ ആഭരണങ്ങളും അലങ്കാരങ്ങളും ഒരാൾക്ക് പോകണം" },
+          { value: "divide_among", label: "എന്റെ ആഭരണങ്ങളും അലങ്കാരങ്ങളും നിർദ്ദിഷ്ട ആളുകൾക്കിടയിൽ വിഭജിക്കണം" },
+          { value: "residuary_estate", label: "എന്റെ ശേഷിക്കുന്ന സ്വത്തിലേക്ക് ചേർക്കണം." }
+        ]
+      },
+      {
+        id: "jewelry_specific_items",
+        text: "ഇനവും സ്വീകർത്താവും പട്ടികപ്പെടുത്തുക:",
+        type: "text",
+        placeholder: "ഇനം: സ്വീകർത്താവ്",
+        conditional: {
+          field: "jewelry_distribution",
+          value: "specific_items"
+        }
+      },
+      {
+        id: "jewelry_all_to_one_person",
+        text: "വ്യക്തിയെ വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "വ്യക്തിയുടെ പേര്",
+        conditional: {
+          field: "jewelry_distribution",
+          value: "all_to_one"
+        }
+      },
+      {
+        id: "jewelry_divide_among_people",
+        text: "ആരാരുടെ ഇടയിൽ വിഭജിക്കണമെന്ന് വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "ആളുകളെ പട്ടികപ്പെടുത്തുക",
+        conditional: {
+          field: "jewelry_distribution",
+          value: "divide_among"
+        }
+      }
+    ]
+  },
+  {
+    id: "digital_life",
+    section: "ഭാഗം 5: നിങ്ങളുടെ ഡിജിറ്റൽ ജീവിതം",
+    title: "നിങ്ങളുടെ ഡിജിറ്റൽ ജീവിതം",
+    questions: [
+      {
+        id: "electronic_devices",
+        text: "നിങ്ങളുടെ വ്യക്തിഗത ഇലക്ട്രോണിക് ഉപകരണങ്ങൾക്ക് (സ്മാർട്ട്ഫോണുകൾ, ലാപ്ടോപ്പുകൾ, ടാബ്ലെറ്റുകൾ മുതലായവ) എന്ത് സംഭവിക്കണം?",
+        type: "select",
+        options: [
+          { value: "wiped_given", label: "ഉപകരണങ്ങൾ വൃത്തിയാക്കി ആർക്കെങ്കിലും നൽകാം" },
+          { value: "destroyed", label: "എന്റെ ഡാറ്റ സംരക്ഷിക്കാൻ ഉപകരണങ്ങൾ ഭൗതികമായി നശിപ്പിക്കണം." },
+          { value: "kept_with_data", label: "ഉപകരണങ്ങൾ ആർക്കെങ്കിലും സൂക്ഷിക്കാം, അവർക്ക് അവയിലെ ഡാറ്റയിലേക്കും പ്രവേശനമുണ്ടാകും." }
+        ]
+      },
+      {
+        id: "devices_given_to",
+        text: "ആർക്കാണ് ഉപകരണങ്ങൾ ലഭിക്കേണ്ടതെന്ന് വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "വ്യക്തിയുടെ പേര്",
+        conditional: {
+          field: "electronic_devices",
+          value: "wiped_given"
+        }
+      },
+      {
+        id: "devices_kept_by",
+        text: "ആർ ഉപകരണങ്ങൾ സൂക്ഷിക്കണമെന്ന് വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "വ്യക്തിയുടെ പേര്",
+        conditional: {
+          field: "electronic_devices",
+          value: "kept_with_data"
+        }
+      }
+    ]
+  },
+  {
+    id: "data_backup_consent",
+    section: "ഭാഗം 6: ഡാറ്റ ബാക്കപ്പിനും ആക്സസിനുമുള്ള സമ്മതം",
+    title: "ഡാറ്റ ബാക്കപ്പിനും ആക്സസിനുമുള്ള സമ്മതം",
+    questions: [
+      {
+        id: "transaction_history_backup",
+        text: "നിങ്ങൾ പോയതിനുശേഷം എന്തെങ്കിലും സാമ്പത്തിക തർക്കങ്ങൾ തീർപ്പാക്കാൻ സഹായിക്കുന്നതിന്, നിങ്ങളുടെ സാമ്പത്തിക ഇടപാട് ചരിത്രം (ബാങ്ക് സ്റ്റേറ്റ്‌മെന്റുകൾ, ക്രെഡിറ്റ് കാർഡ് സ്റ്റേറ്റ്‌മെന്റുകൾ, മുതലായവ) ബാക്കപ്പ് ചെയ്യാൻ നിങ്ങളുടെ എക്സിക്യൂട്ടറിന് നിങ്ങൾ സമ്മതം നൽകുന്നുണ്ടോ?",
+        type: "radio",
+        options: [
+          { value: "yes", label: "അതെ, വ്യക്തമായ സാമ്പത്തിക രേഖ നൽകാൻ ഞാൻ ഇതിന് സമ്മതിക്കുന്നു." },
+          { value: "no", label: "ഇല്ല." }
+        ]
+      },
+      {
+        id: "social_media_handling",
+        text: "നിങ്ങളുടെ സോഷ്യൽ മീഡിയ അക്കൗണ്ടുകൾക്ക് എന്ത് സംഭവിക്കണം?",
+        type: "select",
+        options: [
+          { value: "memorialized", label: "അവ സ്മാരകമാക്കാൻ ഞാൻ ആഗ്രഹിക്കുന്നു (പ്ലാറ്റ്ഫോം ഇത് വാഗ്ദാനം ചെയ്യുന്നുവെങ്കിൽ)." },
+          { value: "deleted", label: "അവ ശാശ്വതമായി ഇല്ലാതാക്കാൻ ഞാൻ ആഗ്രഹിക്കുന്നു." },
+          { value: "manager_authority", label: "എന്റെ ഡിജിറ്റൽ അസറ്റ് മാനേജർക്ക് അവ അനുയോജ്യമെന്ന് തോന്നുന്ന രീതിയിൽ കൈകാര്യം ചെയ്യാനുള്ള അധികാരം ഞാൻ നൽകുന്നു." }
+        ]
+      }
+    ]
+  },
+  {
+    id: "people_in_charge",
+    section: "ഭാഗം 7: ചുമതലയുള്ള ആളുകൾ",
+    title: "ചുമതലയുള്ള ആളുകൾ",
+    questions: [
+      {
+        id: "executor_name",
+        text: "നിങ്ങളുടെ ഭൗതിക സ്വത്തുക്കൾ കൈകാര്യം ചെയ്യേണ്ടത് ആരാണ്? (പൂർണ്ണ നാമം)",
+        type: "text",
+        placeholder: "എക്സിക്യൂട്ടറുടെ പൂർണ്ണ നാമം"
+      },
+      {
+        id: "executor_relationship",
+        text: "അവരുമായുള്ള നിങ്ങളുടെ ബന്ധമെന്താണ്?",
+        type: "text",
+        placeholder: "നിങ്ങളുമായുള്ള ബന്ധം"
+      },
+      {
+        id: "alternate_executor_name",
+        text: "ഈ വ്യക്തിക്ക് പ്രവർത്തിക്കാൻ കഴിയുകയോ മനസ്സില്ലാത്തതോ ആണെങ്കിൽ, ആരായിരിക്കണം ബദൽ? (പൂർണ്ണ നാമം)",
+        type: "text",
+        placeholder: "ബദൽ എക്സിക്യൂട്ടറുടെ പൂർണ്ണ നാമം"
+      },
+      {
+        id: "alternate_executor_relationship",
+        text: "അവരുമായുള്ള നിങ്ങളുടെ ബന്ധമെന്താണ്?",
+        type: "text",
+        placeholder: "നിങ്ങളുമായുള്ള ബന്ധം"
+      },
+      {
+        id: "digital_manager_name",
+        text: "നിങ്ങളുടെ ഡിജിറ്റൽ സ്വത്തുക്കൾ കൈകാര്യം ചെയ്യേണ്ടത് ആരാണ്? (പൂർണ്ണ നാമം)",
+        type: "text",
+        placeholder: "ഡിജിറ്റൽ അസറ്റ് മാനേജറുടെ പൂർണ്ണ നാമം"
+      },
+      {
+        id: "digital_manager_relationship",
+        text: "അവരുമായുള്ള നിങ്ങളുടെ ബന്ധമെന്താണ്?",
+        type: "text",
+        placeholder: "നിങ്ങളുമായുള്ള ബന്ധം"
+      },
+      {
+        id: "alternate_digital_manager_name",
+        text: "ഈ വ്യക്തിക്ക് പ്രവർത്തിക്കാൻ കഴിയുകയോ മനസ്സില്ലാത്തതോ ആണെങ്കിൽ, ആരായിരിക്കണം ബദൽ? (പൂർണ്ണ നാമം)",
+        type: "text",
+        placeholder: "ബദൽ ഡിജിറ്റൽ അസറ്റ് മാനേജറുടെ പൂർണ്ണ നാമം"
+      },
+      {
+        id: "alternate_digital_manager_relationship",
+        text: "അവരുമായുള്ള നിങ്ങളുടെ ബന്ധമെന്താണ്?",
+        type: "text",
+        placeholder: "നിങ്ങളുമായുള്ള ബന്ധം"
+      },
+      {
+        id: "residuary_clause",
+        text: "നിങ്ങളുടെ എസ്റ്റേറ്റിൽ ശേഷിക്കുന്ന എന്തെങ്കിലും സ്വത്തുക്കൾ എങ്ങനെ കൈകാര്യം ചെയ്യണം?",
+        type: "select",
+        options: [
+          { value: "one_person", label: "ഒരാൾക്ക് പൂർണ്ണമായും നൽകണം" },
+          { value: "group_equally", label: "ഒരു കൂട്ടം ആളുകൾക്കിടയിൽ തുല്യമായി വിഭജിക്കണം" },
+          { value: "charity", label: "ഒരു പ്രത്യേക ചാരിറ്റിക്ക് സംഭാവന ചെയ്യണം" }
+        ]
+      },
+      {
+        id: "residuary_one_person",
+        text: "വ്യക്തിയെ വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "വ്യക്തിയുടെ പേര്",
+        conditional: {
+          field: "residuary_clause",
+          value: "one_person"
+        }
+      },
+      {
+        id: "residuary_group",
+        text: "അവരുടെ പൂർണ്ണ നാമങ്ങൾ പട്ടികപ്പെടുത്തുക:",
+        type: "text",
+        placeholder: "പൂർണ്ണ നാമങ്ങൾ പട്ടികപ്പെടുത്തുക",
+        conditional: {
+          field: "residuary_clause",
+          value: "group_equally"
+        }
+      },
+      {
+        id: "residuary_charity",
+        text: "ചാരിറ്റിയുടെ പേര് നൽകുക:",
+        type: "text",
+        placeholder: "ചാരിറ്റിയുടെ പേര്",
+        conditional: {
+          field: "residuary_clause",
+          value: "charity"
+        }
+      }
+    ]
+  }
+];
+
+export function getQuestions(language: 'en' | 'ml' = 'en') {
+  return language === 'ml' ? questionsMl : questionsEn;
+}
+
+export function generateContent(responses: Record<string, any>, language: 'en' | 'ml' = 'en'): string {
   let content = "LAST WILL AND TESTAMENT\n\n";
   
   content += "I, being of sound mind and body, do hereby make, publish, and declare this to be my Last Will and Testament, hereby revoking all wills and codicils previously made by me.\n\n";

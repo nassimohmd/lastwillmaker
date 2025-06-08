@@ -1,27 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import QuestionForm from "@/components/question-form";
 import PdfGenerator from "@/components/pdf-generator";
-import { questions } from "@shared/questions";
+import { getQuestions } from "@shared/questions";
 import { formSchema } from "@shared/schema";
 import type { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 
 type FormData = z.infer<typeof formSchema>;
 
 export default function Questionnaire() {
   const [completed, setCompleted] = useState(false);
+  const [language, setLanguage] = useState<'en' | 'ml'>('en');
   const [formData, setFormData] = useState<FormData>({
     responses: {},
     currentStep: 0
   });
+  const [location] = useLocation();
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const lang = urlParams.get('lang');
+    if (lang === 'ml' || lang === 'en') {
+      setLanguage(lang);
+    }
+  }, [location]);
 
   const handleComplete = (data: FormData) => {
-    setFormData(data);
+    setFormData({ ...data, language });
     setCompleted(true);
   };
+
+  const questions = getQuestions(language);
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-b from-background via-background/80 to-background/50 p-4">
@@ -41,11 +53,13 @@ export default function Questionnaire() {
         {!completed ? (
           <QuestionForm
             questions={questions}
+            language={language}
             onComplete={handleComplete}
           />
         ) : (
           <PdfGenerator 
             responses={formData.responses} 
+            language={language}
             onBack={() => setCompleted(false)} 
           />
         )}

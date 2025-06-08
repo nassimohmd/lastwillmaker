@@ -15,10 +15,11 @@ type FormData = z.infer<typeof formSchema>;
 
 interface QuestionFormProps {
   questions: any[];
+  language?: 'en' | 'ml';
   onComplete: (data: FormData) => void;
 }
 
-export default function QuestionForm({ questions, onComplete }: QuestionFormProps) {
+export default function QuestionForm({ questions, language = 'en', onComplete }: QuestionFormProps) {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {

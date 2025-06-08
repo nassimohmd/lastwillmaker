@@ -8,17 +8,18 @@ import { useToast } from "@/hooks/use-toast";
 
 interface PdfGeneratorProps {
   responses: Record<string, any>;
+  language?: 'en' | 'ml';
   onBack?: () => void;
 }
 
-export default function PdfGenerator({ responses, onBack }: PdfGeneratorProps) {
+export default function PdfGenerator({ responses, language = 'en', onBack }: PdfGeneratorProps) {
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
-    setContent(generateContent(responses));
-  }, [responses]);
+    setContent(generateContent(responses, language));
+  }, [responses, language]);
 
   const handleDownload = async () => {
     setIsLoading(true);
