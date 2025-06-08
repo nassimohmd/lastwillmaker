@@ -1,0 +1,263 @@
+Part 1: Your Final Wishes
+This section addresses your personal preferences for your funeral and the disposition of your remains.
+
+1. Funeral and Memorial Preferences
+
+How would you like your remains to be handled?
+
+a) I wish to be cremated.
+b) I wish to be buried.
+c) I have no preference.
+d) Other (please specify): ____________
+What kind of memorial service would you prefer?
+
+a) A traditional funeral service.
+b) A more informal celebration of life.
+c) No service at all.
+d) Other (please specify): ____________
+Where would you like your final resting place to be?
+
+a) A specific cemetery or location (please specify): ____________
+b) My family to decide.
+c) No preference.
+2. Organ Donation
+
+Do you wish to be an organ donor?
+a) Yes, I consent to the donation of any of my organs or tissues for transplantation or medical research.
+b) Yes, but only for the following specific organs/tissues: ____________
+c) No, I do not wish to be an organ donor.
+Part 2: Your Financial Assets
+This section covers your financial holdings, from bank accounts to digital currencies.
+
+3. Bank Accounts
+
+How should the funds in your primary bank account be distributed?
+
+a) To a specific person (please provide their full name and relationship): ____________
+b) To be divided equally among my children.
+c) To be divided equally among specific individuals (please list their full names): ____________
+d) To be added to my residuary estate (the remainder of your assets).
+Do you have other bank accounts (savings, checking, etc.)?
+
+a) Yes, and I want the funds distributed in the same way as my primary account.
+b) Yes, and I have different wishes for each (please specify for each account): ____________
+c) No.
+4. Investments
+
+Stocks, Mutual Funds, and Bonds:
+
+How should your stock portfolio, mutual funds, and bonds be handled?
+a) To a specific person: ____________
+b) To be liquidated and the proceeds distributed to: ____________
+c) To be divided equally among: ____________
+d) To be added to my residuary estate.
+Digital Gold, Gold, and Cryptocurrencies:
+
+What should happen to your holdings of gold, digital gold, and cryptocurrencies?
+a) To a specific person who will receive the assets and any necessary access information: ____________
+b) To be sold and the proceeds given to: ____________
+c) To be added to my residuary estate.
+Part 3: Debts and Receivables
+This part addresses any outstanding financial obligations you may have or are owed.
+
+5. Debts, Loans, and EMIs
+
+How should any outstanding debts (loans, EMIs, credit card balances, "buy now, pay later" services) be settled?
+a) To be paid from my estate before any assets are distributed.
+b) I have a specific life insurance policy intended to cover these debts.
+c) I have no significant debts.
+6. Major Receivables
+
+Is there anyone who owes you a significant amount of money?
+a) Yes (please provide their name and the approximate amount owed): ____________. I want this amount to be collected and added to my estate.
+b) Yes, but I forgive the debt upon my passing.
+c) No.
+Part 4: Your Personal Belongings
+This section details the distribution of your tangible personal property.
+
+7. Jewelry and Ornaments
+
+Do you have specific pieces of jewelry or ornaments you'd like to go to certain people?
+a) Yes (please list the item and the recipient): ____________
+b) All my jewelry and ornaments should go to one person: ____________
+c) My jewelry and ornaments should be divided among: ____________
+d) To be added to my residuary estate.
+8. Houses, Plots, and Real Estate
+
+What should happen to your primary residence?
+
+a) To a specific person: ____________
+b) To be sold and the proceeds distributed to: ____________
+c) To be held in a trust for the benefit of: ____________
+d) I do not own real estate.
+Do you own other properties?
+
+a) Yes, and I want them handled in the same way as my primary residence.
+b) Yes, and I have different wishes for each (please specify): ____________
+c) No.
+9. Vehicles
+
+What are your wishes for your vehicle(s)?
+a) To a specific person (please specify the vehicle and recipient): ____________
+b) To be sold and the proceeds distributed to: ____________
+c) I do not own any vehicles.
+10. Collectibles and Valuables
+
+Do you have any collections (stamps, coins, art, etc.) or other valuable items?
+a) Yes, and I want them to go to (please specify the collection and recipient): ____________
+b) To be appraised and sold, with the proceeds going to: ____________
+c) To be added to my residuary estate.
+d) No.
+11. Intellectual Properties
+
+Do you own any intellectual property (copyrights, trademarks, patents, royalties)?
+a) Yes, and I want all rights and future income to go to: ____________
+b) Yes, and I have specific instructions for different properties (please specify): ____________
+c) No.
+12. Certificates and Trophies
+
+What should be done with your important certificates and trophies?
+a) To be given to a specific person: ____________
+b) To be kept together and given to my family.
+c) They can be disposed of.
+13. Physical Diary/Journals
+
+What are your wishes for any personal diaries or journals you keep?
+a) To be given to a specific person, with the understanding that they can read them: ____________
+b) To be given to a specific person, with instructions that they should not be read: ____________
+c) To be destroyed.
+d) I do not have any.
+14. Physical Artworks
+
+Do you own any physical artworks that you have not already addressed?
+a) Yes, and I want them to go to (please specify the artwork and recipient): ____________
+b) All my artworks should be given to: ____________
+c) To be added to my residuary estate.
+d) No.
+Part 5: Your Digital Life
+This crucial section covers your digital assets and online presence.
+
+15. Mobiles, Computers, and Other Gadgets
+
+What should happen to your personal electronic devices (smartphones, laptops, tablets, etc.)?
+a) The devices can be wiped clean and given to: ____________
+b) The devices should be physically destroyed to protect my data.
+c) The devices can be kept by: ____________, who will also have access to the data on them.
+16. SIM and Phone Numbers
+
+What should be done with your primary mobile phone number?
+a) The line should be terminated.
+b) I would like a specific person to take over the number: ____________
+17. Password Manager
+
+Do you use a password manager?
+a) Yes, and I will provide the master password and instructions to my chosen digital asset manager.
+b) No.
+18. Subscriptions
+
+What should be done with your paid subscriptions (streaming services, software, etc.)?
+a) All subscriptions should be canceled.
+b) I have a list of subscriptions with instructions for my digital asset manager.
+19. Digitally Owned Things
+
+Do you own other digital items not covered (domain names, NFTs, digital books, music, or movies)?
+a) Yes, and I want them transferred to: ____________
+b) Yes, and I have a list with specific instructions.
+c) No.
+Part 6: Consent for Data Backup and Access
+This section is vital for settling your affairs and preserving your digital legacy. It grants your chosen representative permission to access and manage your digital information.
+
+20. Consent to Backup Transaction History
+
+To help settle any financial disputes after you're gone, do you consent to your executor backing up your financial transaction history (bank statements, credit card statements, etc.)?
+a) Yes, I consent to this to provide a clear financial record.
+b) No.
+21. Social Media (Instagram, Facebook, X, Reddit, etc.)
+
+What should happen to your social media accounts?
+a) I want them to be memorialized (if the platform offers this).
+b) I want them to be permanently deleted.
+c) I give my digital asset manager the authority to manage them as they see fit.
+22. Local/Cloud Photos and Videos (Consent to Backup)
+
+Do you consent to your digital asset manager backing up all your photos and videos from your devices and cloud storage (Google Photos, iCloud, etc.) to be shared with your loved ones?
+a) Yes, I consent to a full backup and sharing.
+b) Yes, but only specific folders or albums (please specify): ____________
+c) No, I do not want my photos and videos backed up or shared.
+23. WhatsApp, Telegram, Instagram Chats (Consent to Backup)
+
+Do you consent to your digital asset manager backing up your chat histories from messaging apps to preserve important conversations?
+a) Yes, I consent to a backup of all chats.
+b) Yes, but only specific chats (please specify with whom): ____________
+c) No.
+24. Digital Notes (Consent to Backup)
+
+Do you consent to the backup of your digital notes (from apps like Apple Notes, Google Keep, Evernote)?
+a) Yes, I consent to a full backup.
+b) No.
+25. Call History and Recordings (Consent to Backup)
+
+Do you consent to the backup of your call history and any call recordings on your devices?
+a) Yes.
+b) No.
+26. Contacts (Consent to Backup)
+
+Do you consent to the backup of your contacts list?
+a) Yes.
+b) No.
+27. Mail (Consent to Backup)
+
+Do you consent to your digital asset manager accessing and backing up your email accounts to manage outstanding affairs and notify contacts?
+a) Yes, I consent to the access and backup of all my email accounts.
+b) Yes, but only specific accounts (please list them): ____________
+c) No.
+28. Local Device Files (Consent to Backup)
+
+Do you consent to a general backup of all files on your local devices (computers, hard drives) to ensure nothing important is missed?
+a) Yes.
+b) No.
+29. Google Takeout (Consent to Backup)
+
+Google Takeout allows for a complete download of your data from various Google services. Do you consent to your digital asset manager using this feature to back up your Google data (Map history, Calendar, GPay transactions, Photos, Docs, etc.)?
+a) Yes.
+b) No.
+30. Any Important App Data to Backup
+
+Are there any other specific apps whose data you want to ensure is backed up?
+a) Yes (please list the apps): ____________
+b) No.
+31. Do you create any sort of art (songs, drawings/painting, writing, dance clips)?
+
+What should happen to any digital art you have created?
+a) I want it to be preserved and given to: ____________
+b) I want it to be deleted.
+c) I have not created any digital art.
+Part 7: The People in Charge
+This final section is for appointing the individuals who will carry out your wishes.
+
+32. Who should handle your physical assets?
+
+I appoint the following person to be the executor of my will and handle my physical assets:
+
+Full Name: ____________
+Relationship: ____________
+If this person is unable or unwilling to act, I appoint the following person as an alternate:
+
+Full Name: ____________
+Relationship: ____________
+33. Who should manage your digital assets?
+
+I appoint the following person to manage my digital assets and online presence as outlined above:
+
+Full Name: ____________
+Relationship: ____________
+If this person is unable or unwilling to act, I appoint the following person as an alternate:
+
+Full Name: ____________
+Relationship: ____________
+34. Residuary Clause
+
+This "catch-all" clause ensures that any assets not specifically mentioned in your will are still distributed according to your wishes. How should any remaining assets in your estate be handled?
+a) To be given entirely to one person: ____________
+b) To be divided equally among a group of people (please list their full names): ____________
+c) To be donated to a specific charity (please provide the charity's name): ____________
