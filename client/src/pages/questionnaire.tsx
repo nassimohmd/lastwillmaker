@@ -7,7 +7,7 @@ import type { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { Link, useLocation } from "wouter";
-import { generateContent } from "@shared/utils"; // Assuming generateContent is in utils
+import { generateContent } from "@shared/questions";
 
 type FormData = z.infer<typeof formSchema>;
 
