@@ -68,7 +68,7 @@ export default function Questionnaire() {
 
             <div className="mb-6">
               <textarea
-                className="w-full h-96 p-4 border rounded-md text-sm font-mono resize-none"
+                className="w-full h-96 p-4 border rounded-md text-sm font-mono resize-none bg-background text-foreground"
                 value={generateContent(formData.responses, language)}
                 readOnly
               />
