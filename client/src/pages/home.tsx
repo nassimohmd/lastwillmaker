@@ -52,14 +52,14 @@ export default function Home() {
                 className="w-full h-12 bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200"
                 onClick={() => setSelectedLanguage('en')}
               >
-                🇺🇸 English
+                English
               </Button>
               <Button 
                 size="lg" 
                 className="w-full h-12 bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200"
                 onClick={() => setSelectedLanguage('ml')}
               >
-                🇮🇳 മലയാളം (Malayalam)
+                 Malayalam
               </Button>
             </div>
           </CardContent>
