@@ -2119,7 +2119,7 @@ function generateMalayalamContent(responses: Record<string, any>): string {
 
   if (responses.officiant_choice) {
     const off: Record<string, string> = {
-      specific_person: `സേവനം ${responses.officiant_name || "ഞാൻ വ്യക്തമാക്കിയ വ്യക്തി"} നയിക്കണം.",
+      specific_person: `സേവനം ${responses.officiant_name || "ഞാൻ വ്യക്തമാക്കിയ വ്യക്തി"} നയിക്കണം.`,
       clergy_of_faith: "എന്റെ മതത്തിലെ ഏതെങ്കിലും പുരോഹിതൻ സേവനം നയിക്കാം.",
       celebrant: "ഒരു പ്രൊഫഷണൽ സെലിബ്രന്റ് സേവനം നയിക്കാം.",
       family_friend: "ഒരു ബന്ധുവോ സുഹൃത്തോ സേവനം നയിക്കാം.",
@@ -2137,7 +2137,7 @@ function generateMalayalamContent(responses: Record<string, any>): string {
       formal_black: "അതിഥികൾ ഔപചാരിക ബ്ലാക്ക് വസ്ത്രധാരണം പാലിക്കണം.",
       any_colors: "അതിഥികൾക്ക് ഏത് നിറവും ധരിക്കാം.",
       bright_colors: "അതിഥികൾ പ്രകാശമുള്ള നിറങ്ങൾ ധരിക്കാം.",
-      specific_color: `അതിഥികൾ ${responses.attire_color_detail || "ഞാൻ വ്യക്തമാക്കിയ നിറം"} നിറം ധരിക്കണം.",
+      specific_color: `അതിഥികൾ ${responses.attire_color_detail || "ഞാൻ വ്യക്തമാക്കിയ നിറം"} നിറം ധരിക്കണം.`,
       no_preference: "വസ്ത്രധാരണത്തെക്കുറിച്ചുള്ള പ്രത്യേക മുൻഗണനയില്ല."
     };
     content += `${attire[responses.attire_theme]} `;
@@ -2146,7 +2146,7 @@ function generateMalayalamContent(responses: Record<string, any>): string {
   if (responses.flowers_or_donations) {
     const flowers: Record<string, string> = {
       flowers_welcome: "പൂക്കൾ സ്വാഗതം.",
-      donations_preferred: `പൂക്കൾക്കു പകരം ${responses.charity_name || "ഞാൻ വ്യക്തമാക്കിയ ഒരു ചാരിറ്റി"} യിലേക്ക് സംഭാവന നൽകുക.",
+      donations_preferred: `പൂക്കൾക്കു പകരം ${responses.charity_name || "ഞാൻ വ്യക്തമാക്കിയ ഒരു ചാരിറ്റി"} യിലേക്ക് സംഭാവന നൽകുക.`,
       no_flowers: "പൂക്കൾ വേണ്ട.",
       family_decide: "പൂക്കൾ/സംഭാവനകൾ സംബന്ധിച്ച് കുടുംബം തീരുമാനിക്കട്ടെ."
     };
