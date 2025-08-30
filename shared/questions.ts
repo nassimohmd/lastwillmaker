@@ -2374,7 +2374,7 @@ export function generateContent(responses: Record<string, any>, language: 'en' |
 
   if (responses.officiant_choice) {
     const off: Record<string, string> = {
-      specific_person: `I would like ${responses.officiant_name || "the person I have specified"} to officiate.",
+      specific_person: `I would like ${responses.officiant_name || "the person I have specified"} to officiate.`,
       clergy_of_faith: "Any clergy of my faith may officiate.",
       celebrant: "A professional celebrant may officiate.",
       family_friend: "A family member or friend may lead the service.",
@@ -2420,7 +2420,7 @@ export function generateContent(responses: Record<string, any>, language: 'en' |
 
   if (responses.memorial_gathering) {
     const gathering: Record<string, string> = {
-      venue: `I would like a gathering after the service at ${responses.gathering_venue || "the venue I have specified"}.",
+      venue: `I would like a gathering after the service at ${responses.gathering_venue || "the venue I have specified"}.`,
       family_home: "I would like a small family gathering at home after the service.",
       no: "I do not want a gathering after the service.",
       family_decide: "I leave any gathering after the service to my family’s judgment."
