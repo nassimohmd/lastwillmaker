@@ -87,6 +87,321 @@ const questionsEn = [
           field: "organ_donation",
           value: "yes_specific"
         }
+      },
+      {
+        id: "service_location",
+        text: "Where should the service take place?",
+        type: "select",
+        options: [
+          { value: "place_of_worship", label: "At a place of worship" },
+          { value: "funeral_home", label: "At a funeral home or chapel" },
+          { value: "graveside", label: "Graveside only" },
+          { value: "outdoors", label: "Outdoors (park, beach, etc.)" },
+          { value: "family_home", label: "At a family home" },
+          { value: "other", label: "Other (please specify)" }
+        ]
+      },
+      {
+        id: "service_location_other",
+        text: "Please specify the location:",
+        type: "text",
+        placeholder: "Venue, address, or description",
+        conditional: {
+          field: "service_location",
+          value: "other"
+        }
+      },
+      {
+        id: "religious_rites",
+        text: "Do you want religious or secular elements?",
+        type: "select",
+        options: [
+          { value: "religious", label: "Religious rites according to my faith" },
+          { value: "secular", label: "Secular/no religious rites" },
+          { value: "unsure", label: "Not sure/Family to decide" }
+        ]
+      },
+      {
+        id: "religious_faith",
+        text: "Please specify your faith or tradition:",
+        type: "text",
+        placeholder: "Faith or tradition",
+        conditional: {
+          field: "religious_rites",
+          value: "religious"
+        }
+      },
+      {
+        id: "viewing_visitation",
+        text: "Do you want a viewing or visitation?",
+        type: "select",
+        options: [
+          { value: "public", label: "Yes, a public viewing" },
+          { value: "private_family", label: "Yes, a private family viewing" },
+          { value: "no", label: "No viewing" }
+        ]
+      },
+      {
+        id: "casket_preference",
+        text: "If there is a viewing, should the casket be open or closed?",
+        type: "select",
+        options: [
+          { value: "open", label: "Open casket" },
+          { value: "closed", label: "Closed casket" },
+          { value: "no_preference", label: "No preference" }
+        ],
+        conditional: {
+          field: "viewing_visitation",
+          value: "public"
+        }
+      },
+      {
+        id: "burial_type",
+        text: "If buried, what burial type do you prefer?",
+        type: "select",
+        options: [
+          { value: "standard", label: "Standard cemetery burial" },
+          { value: "green", label: "Green/natural burial" },
+          { value: "mausoleum", label: "Mausoleum or crypt" },
+          { value: "other", label: "Other (please specify)" }
+        ],
+        conditional: {
+          field: "remains_handling",
+          value: "buried"
+        }
+      },
+      {
+        id: "burial_type_other",
+        text: "Please specify the burial type:",
+        type: "text",
+        placeholder: "Describe your preference",
+        conditional: {
+          field: "burial_type",
+          value: "other"
+        }
+      },
+      {
+        id: "ashes_handling",
+        text: "If cremated, what should happen with your ashes?",
+        type: "select",
+        options: [
+          { value: "scatter", label: "Scatter at a meaningful place" },
+          { value: "keep_home", label: "Kept at home by someone" },
+          { value: "interred", label: "Interred in a cemetery/columbarium" },
+          { value: "split", label: "Split among family" },
+          { value: "other", label: "Other (please specify)" }
+        ],
+        conditional: {
+          field: "remains_handling",
+          value: "cremated"
+        }
+      },
+      {
+        id: "ashes_details",
+        text: "Please provide details for your ashes preference:",
+        type: "text",
+        placeholder: "Location, person, or instructions",
+        conditional: {
+          field: "ashes_handling",
+          value: "scatter"
+        }
+      },
+      {
+        id: "ashes_keeper",
+        text: "Who should keep your ashes at home?",
+        type: "text",
+        placeholder: "Name of the person",
+        conditional: {
+          field: "ashes_handling",
+          value: "keep_home"
+        }
+      },
+      {
+        id: "ashes_interred_place",
+        text: "Where should the ashes be interred?",
+        type: "text",
+        placeholder: "Cemetery/columbarium details",
+        conditional: {
+          field: "ashes_handling",
+          value: "interred"
+        }
+      },
+      {
+        id: "music_preference",
+        text: "Would you like specific music to be played?",
+        type: "select",
+        options: [
+          { value: "yes_specific", label: "Yes, I have specific songs" },
+          { value: "genre_only", label: "Just my favorite genre" },
+          { value: "no", label: "No music preference" }
+        ]
+      },
+      {
+        id: "specific_songs",
+        text: "List any specific songs or artists:",
+        type: "text",
+        placeholder: "Songs/artists",
+        conditional: {
+          field: "music_preference",
+          value: "yes_specific"
+        }
+      },
+      {
+        id: "favorite_genre",
+        text: "What genre should be played?",
+        type: "text",
+        placeholder: "e.g., classical, gospel, jazz",
+        conditional: {
+          field: "music_preference",
+          value: "genre_only"
+        }
+      },
+      {
+        id: "reading_preference",
+        text: "Any readings or prayers during the service?",
+        type: "select",
+        options: [
+          { value: "yes_specific", label: "Yes, specific readings/prayers" },
+          { value: "religious_general", label: "Religious scripture passages (general)" },
+          { value: "poems_quotes", label: "Poems or meaningful quotes (general)" },
+          { value: "none", label: "None" }
+        ]
+      },
+      {
+        id: "specific_readings",
+        text: "List specific readings/prayers:",
+        type: "text",
+        placeholder: "Titles or passages",
+        conditional: {
+          field: "reading_preference",
+          value: "yes_specific"
+        }
+      },
+      {
+        id: "officiant_choice",
+        text: "Who should lead or officiate the service?",
+        type: "select",
+        options: [
+          { value: "specific_person", label: "A specific person (please specify)" },
+          { value: "clergy_of_faith", label: "Any clergy of my faith" },
+          { value: "celebrant", label: "A professional celebrant" },
+          { value: "family_friend", label: "A family member or friend" },
+          { value: "none", label: "No officiant" }
+        ]
+      },
+      {
+        id: "officiant_name",
+        text: "Please provide the officiant's name:",
+        type: "text",
+        placeholder: "Full name",
+        conditional: {
+          field: "officiant_choice",
+          value: "specific_person"
+        }
+      },
+      {
+        id: "pallbearers",
+        text: "Do you wish to name pallbearers?",
+        type: "select",
+        options: [
+          { value: "yes", label: "Yes, I will list names" },
+          { value: "no_preference", label: "No preference" }
+        ]
+      },
+      {
+        id: "pallbearer_names",
+        text: "List pallbearer names:",
+        type: "text",
+        placeholder: "Names separated by commas",
+        conditional: {
+          field: "pallbearers",
+          value: "yes"
+        }
+      },
+      {
+        id: "attire_theme",
+        text: "Any attire or color theme for guests?",
+        type: "select",
+        options: [
+          { value: "formal_black", label: "Formal black attire" },
+          { value: "any_colors", label: "Any colors welcome" },
+          { value: "bright_colors", label: "Wear bright colors" },
+          { value: "specific_color", label: "Specific color (please specify)" },
+          { value: "no_preference", label: "No preference" }
+        ]
+      },
+      {
+        id: "attire_color_detail",
+        text: "Please specify the color:",
+        type: "text",
+        placeholder: "e.g., blue, white",
+        conditional: {
+          field: "attire_theme",
+          value: "specific_color"
+        }
+      },
+      {
+        id: "flowers_or_donations",
+        text: "Flowers or donations?",
+        type: "select",
+        options: [
+          { value: "flowers_welcome", label: "Flowers are welcome" },
+          { value: "donations_preferred", label: "Please donate to a charity instead" },
+          { value: "no_flowers", label: "No flowers, please" },
+          { value: "family_decide", label: "Family to decide" }
+        ]
+      },
+      {
+        id: "charity_name",
+        text: "Please provide the charity name:",
+        type: "text",
+        placeholder: "Charity or cause",
+        conditional: {
+          field: "flowers_or_donations",
+          value: "donations_preferred"
+        }
+      },
+      {
+        id: "obituary_preference",
+        text: "Obituary and announcements?",
+        type: "select",
+        options: [
+          { value: "paper_and_online", label: "Publish in local paper and online" },
+          { value: "online_only", label: "Online only" },
+          { value: "private", label: "Keep private/no announcements" },
+          { value: "family_decide", label: "Family to decide" }
+        ]
+      },
+      {
+        id: "obituary_notes",
+        text: "Any special notes to include in the obituary?",
+        type: "text",
+        placeholder: "Short personal message or highlights",
+        conditional: {
+          field: "obituary_preference",
+          value: "paper_and_online"
+        }
+      },
+      {
+        id: "memorial_gathering",
+        text: "Gathering after the service?",
+        type: "select",
+        options: [
+          { value: "venue", label: "Yes, at a specific venue" },
+          { value: "family_home", label: "Yes, a small family gathering at home" },
+          { value: "no", label: "No gathering" },
+          { value: "family_decide", label: "Family to decide" }
+        ]
+      },
+      {
+        id: "gathering_venue",
+        text: "Please specify the venue:",
+        type: "text",
+        placeholder: "Venue name or address",
+        conditional: {
+          field: "memorial_gathering",
+          value: "venue"
+        }
       }
     ]
   },
@@ -986,6 +1301,321 @@ const questionsMl = [
           field: "organ_donation",
           value: "yes_specific"
         }
+      },
+      {
+        id: "service_location",
+        text: "സേവനം എവിടെ നടത്തണം?",
+        type: "select",
+        options: [
+          { value: "place_of_worship", label: "ഒരു ആരാധനാലയത്തിൽ" },
+          { value: "funeral_home", label: "ഒരു ശവസംസ്കാര ഹോം/ചാപ്പലിൽ" },
+          { value: "graveside", label: "ശവക്കല്ലറയ്ക്കരികിൽ മാത്രം" },
+          { value: "outdoors", label: "ബാഹ്യമായി (പാർക്ക്, ബീച്ച് മുതലായവ)" },
+          { value: "family_home", label: "കുടുംബവീട്ടിൽ" },
+          { value: "other", label: "മറ്റുള്ളവ (ദയവായി വ്യക്തമാക്കുക)" }
+        ]
+      },
+      {
+        id: "service_location_other",
+        text: "സ്ഥലം വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "വേദി/വിലാസം അല്ലെങ്കിൽ വിവരണം",
+        conditional: {
+          field: "service_location",
+          value: "other"
+        }
+      },
+      {
+        id: "religious_rites",
+        text: "മതചടങ്ങുകളോ ലോകീയ/സെക്യൂളർ രീതിയോ വേണമോ?",
+        type: "select",
+        options: [
+          { value: "religious", label: "എന്റെ മതാചാരങ്ങൾ അനുസരിച്ച് മതചടങ്ങുകൾ" },
+          { value: "secular", label: "ലോകീയ/മതചടങ്ങുകളില്ല" },
+          { value: "unsure", label: "ഉറപ്പില്ല/കുടുംബം തീരുമാനിക്കട്ടെ" }
+        ]
+      },
+      {
+        id: "religious_faith",
+        text: "എന്റെ മതം/പരമ്പര്യം വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "മതം അല്ലെങ്കിൽ പരമ്പര്യം",
+        conditional: {
+          field: "religious_rites",
+          value: "religious"
+        }
+      },
+      {
+        id: "viewing_visitation",
+        text: "വ്യൂയിംഗ്/ദർശനം വേണമോ?",
+        type: "select",
+        options: [
+          { value: "public", label: "അതെ, പൊതുവായത്" },
+          { value: "private_family", label: "അതെ, കുടുംബാംഗങ്ങൾക്കായി മാത്രം" },
+          { value: "no", label: "ഇല്ല" }
+        ]
+      },
+      {
+        id: "casket_preference",
+        text: "വ്യൂയിംഗ് ഉണ്ടെങ്കിൽ, കാസ്‌കറ്റ് തുറന്നതോ അടച്ചതോ?",
+        type: "select",
+        options: [
+          { value: "open", label: "തുറന്ന കാസ്‌കറ്റ്" },
+          { value: "closed", label: "അടച്ച കാസ്‌കറ്റ്" },
+          { value: "no_preference", label: "പ്രത്യേക മുൻഗണനയില്ല" }
+        ],
+        conditional: {
+          field: "viewing_visitation",
+          value: "public"
+        }
+      },
+      {
+        id: "burial_type",
+        text: "അടക്കം ചെയ്യുന്നതാണെങ്കിൽ, ഏത് തരത്തിലുള്ള അടക്കം?",
+        type: "select",
+        options: [
+          { value: "standard", label: "സാധാരണ ശ്മശാന അടക്കം" },
+          { value: "green", label: "ഹരിത/നാച്ചുറൽ ബറിയൽ" },
+          { value: "mausoleum", label: "മൗസോളിയം/ക്രിപ്റ്റ്" },
+          { value: "other", label: "മറ്റുള്ളവ (ദയവായി വ്യക്തമാക്കുക)" }
+        ],
+        conditional: {
+          field: "remains_handling",
+          value: "buried"
+        }
+      },
+      {
+        id: "burial_type_other",
+        text: "അടക്കത്തിന്റെประเภท വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "നിങ്ങളുടെ മുൻഗണന വിവരിക്കുക",
+        conditional: {
+          field: "burial_type",
+          value: "other"
+        }
+      },
+      {
+        id: "ashes_handling",
+        text: "ദഹിപ്പിക്കുന്നതാണെങ്കിൽ, അസ്ഥിക്കറി എന്ത് ചെയ്യണം?",
+        type: "select",
+        options: [
+          { value: "scatter", label: "ഒരു പ്രിയപ്പെട്ട സ്ഥലത്ത് ചിതറിക്കുക" },
+          { value: "keep_home", label: "ആർക്കെങ്കിലും വീട്ടിൽ സൂക്ഷിക്കുക" },
+          { value: "interred", label: "ശ്മശാനം/കൊളംബേറിയത്തിൽ സൂക്ഷിക്കുക" },
+          { value: "split", label: "കുടുംബാംഗങ്ങൾക്കിടയിൽ വിഭജിക്കുക" },
+          { value: "other", label: "മറ്റുള്ളവ (ദയവായി വ്യക്തമാക്കുക)" }
+        ],
+        conditional: {
+          field: "remains_handling",
+          value: "cremated"
+        }
+      },
+      {
+        id: "ashes_details",
+        text: "അസ്ഥിക്കറി ചിതറിക്കുന്ന ഇടം/വിശദാംശങ്ങൾ:",
+        type: "text",
+        placeholder: "സ്ഥലവും നിർദ്ദേശങ്ങളും",
+        conditional: {
+          field: "ashes_handling",
+          value: "scatter"
+        }
+      },
+      {
+        id: "ashes_keeper",
+        text: "ആരാണ് വീട്ടിൽ സൂക്ഷിക്കേണ്ടത്?",
+        type: "text",
+        placeholder: "വ്യക്തിയുടെ പേര്",
+        conditional: {
+          field: "ashes_handling",
+          value: "keep_home"
+        }
+      },
+      {
+        id: "ashes_interred_place",
+        text: "എവിടെയാണ് സൂക്ഷിക്കേണ്ടത് (ശ്മശാനം/കൊളംബേറിയം)?",
+        type: "text",
+        placeholder: "വിവരങ്ങൾ",
+        conditional: {
+          field: "ashes_handling",
+          value: "interred"
+        }
+      },
+      {
+        id: "music_preference",
+        text: "സംഗീതം വേണമോ?",
+        type: "select",
+        options: [
+          { value: "yes_specific", label: "അതെ, പ്രത്യേക ഗാനങ്ങൾ" },
+          { value: "genre_only", label: "പ്രിയപ്പെട്ട ശൈലി/ജാനർ മാത്രം" },
+          { value: "no", label: "മുൻഗണനയില്ല" }
+        ]
+      },
+      {
+        id: "specific_songs",
+        text: "പ്രത്യേക ഗാനങ്ങൾ/ഗായകർ പട്ടികപ്പെടുത്തുക:",
+        type: "text",
+        placeholder: "ഗാനങ്ങൾ/ഗായകർ",
+        conditional: {
+          field: "music_preference",
+          value: "yes_specific"
+        }
+      },
+      {
+        id: "favorite_genre",
+        text: "ഏത് ജാനർ/ശൈലി?",
+        type: "text",
+        placeholder: "ഉദാ., ക്ലാസിക്കൽ, ഗോസ്പൽ, ജാസ്",
+        conditional: {
+          field: "music_preference",
+          value: "genre_only"
+        }
+      },
+      {
+        id: "reading_preference",
+        text: "സേവനത്തിൽ വായനകൾ/പ്രാർത്ഥനകൾ വേണമോ?",
+        type: "select",
+        options: [
+          { value: "yes_specific", label: "അതെ, പ്രത്യേക വായനകൾ/പ്രാർത്ഥനകൾ" },
+          { value: "religious_general", label: "മതഗ്രന്ഥ ഭാഗങ്ങൾ (ജനറൽ)" },
+          { value: "poems_quotes", label: "കവിതകൾ/അർത്ഥവത്തായ ചൊല്ലുകൾ (ജനറൽ)" },
+          { value: "none", label: "ഇല്ല" }
+        ]
+      },
+      {
+        id: "specific_readings",
+        text: "പ്രത്യേക വായനകൾ/പ്രാർത്ഥനകൾ പട്ടികപ്പെടുത്തുക:",
+        type: "text",
+        placeholder: "ശീർഷകങ്ങൾ അല്ലെങ്കിൽ ഭാഗങ്ങൾ",
+        conditional: {
+          field: "reading_preference",
+          value: "yes_specific"
+        }
+      },
+      {
+        id: "officiant_choice",
+        text: "ആരാണ് സേവനം നയിക്കേണ്ടത്/ഓഫിഷ്യേറ്റ് ചെയ്യേണ്ടത്?",
+        type: "select",
+        options: [
+          { value: "specific_person", label: "പ്രത്യേക വ്യക്തി (പേര് നൽകുക)" },
+          { value: "clergy_of_faith", label: "എന്റെ മതത്തിലെ ഏതെങ്കിലും പുരോഹിതൻ" },
+          { value: "celebrant", label: "ഒരു പ്രൊഫഷണൽ സെലിബ്രന്റ്" },
+          { value: "family_friend", label: "ഒരു ബന്ധുവോ സുഹൃത്തോ" },
+          { value: "none", label: "ഓഫിഷ്യേന്റ് വേണ്ട" }
+        ]
+      },
+      {
+        id: "officiant_name",
+        text: "ഓഫിഷ്യേന്റിന്റെ പേര് നൽകുക:",
+        type: "text",
+        placeholder: "പൂർണ്ണ പേര്",
+        conditional: {
+          field: "officiant_choice",
+          value: "specific_person"
+        }
+      },
+      {
+        id: "pallbearers",
+        text: "പാൾബിയറുകളെ നിർദ്ദേശിക്കണോ?",
+        type: "select",
+        options: [
+          { value: "yes", label: "അതെ, പേരുകൾ നൽകാം" },
+          { value: "no_preference", label: "പ്രത്യേക മുൻഗണനയില്ല" }
+        ]
+      },
+      {
+        id: "pallbearer_names",
+        text: "പാൾബിയർ പേരുകൾ പട്ടികപ്പെടുത്തുക:",
+        type: "text",
+        placeholder: "കോമ്മ ഉപയോഗിച്ച് വേർതിരിച്ച പേരുകൾ",
+        conditional: {
+          field: "pallbearers",
+          value: "yes"
+        }
+      },
+      {
+        id: "attire_theme",
+        text: "അതിഥികളുടെ വസ്ത്രധാരണ/കലർ തീം?",
+        type: "select",
+        options: [
+          { value: "formal_black", label: "ഫോർമൽ ബ്ലാക്ക്" },
+          { value: "any_colors", label: "ഏതെങ്കിലും നിറങ്ങൾ" },
+          { value: "bright_colors", label: "പ്രകാശമുള്ള നിറങ്ങൾ ധരിക്കുക" },
+          { value: "specific_color", label: "പ്രത്യേക നിറം (വ്യക്തമാക്കുക)" },
+          { value: "no_preference", label: "മുൻഗണനയില്ല" }
+        ]
+      },
+      {
+        id: "attire_color_detail",
+        text: "നിറം വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "ഉദാ., നീലം, വെള്ള",
+        conditional: {
+          field: "attire_theme",
+          value: "specific_color"
+        }
+      },
+      {
+        id: "flowers_or_donations",
+        text: "പൂക്കളോ സംഭാവനകളോ?",
+        type: "select",
+        options: [
+          { value: "flowers_welcome", label: "പൂക്കൾ സ്വാഗതം" },
+          { value: "donations_preferred", label: "പകരം ഒരു ചാരിറ്റിയിലേക്ക് സംഭാവന ചെയ്യുക" },
+          { value: "no_flowers", label: "പൂക്കൾ വേണ്ട" },
+          { value: "family_decide", label: "കുടുംബം തീരുമാനിക്കട്ടെ" }
+        ]
+      },
+      {
+        id: "charity_name",
+        text: "ചാരിറ്റി/കാരണം വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "ചാരിറ്റിയുടെ പേര്",
+        conditional: {
+          field: "flowers_or_donations",
+          value: "donations_preferred"
+        }
+      },
+      {
+        id: "obituary_preference",
+        text: "ഓബിറ്റ്വറിയും അറിയിപ്പുകളും?",
+        type: "select",
+        options: [
+          { value: "paper_and_online", label: "ലോകൽ പത്രത്തിലും ഓൺലൈൻ-ലും പ്രസിദ്ധീകരിക്കുക" },
+          { value: "online_only", label: "ഓൺലൈൻ മാത്രം" },
+          { value: "private", label: "സ്വകാര്യമായി/അറിയിപ്പുകളില്ല" },
+          { value: "family_decide", label: "കുടുംബം തീരുമാനിക്കട്ടെ" }
+        ]
+      },
+      {
+        id: "obituary_notes",
+        text: "ഓബിറ്റ്വറിയിൽ ഉൾപ്പെടുത്തേണ്ട പ്രത്യേക കുറിപ്പുകൾ ഉണ്ടോ?",
+        type: "text",
+        placeholder: "ചുരുക്കത്തിലുള്ള വ്യക്തിഗത സന്ദേശം",
+        conditional: {
+          field: "obituary_preference",
+          value: "paper_and_online"
+        }
+      },
+      {
+        id: "memorial_gathering",
+        text: "സേവനത്തിനു ശേഷം ഗദറിംഗ് വേണമോ?",
+        type: "select",
+        options: [
+          { value: "venue", label: "അതെ, ഒരു പ്രത്യേക വേദിയിൽ" },
+          { value: "family_home", label: "അതെ, വീട്ടിൽ ചെറിയ കുടുംബ സംഗമം" },
+          { value: "no", label: "ഇല്ല" },
+          { value: "family_decide", label: "കുടുംബം തീരുമാനിക്കട്ടെ" }
+        ]
+      },
+      {
+        id: "gathering_venue",
+        text: "വേദി വ്യക്തമാക്കുക:",
+        type: "text",
+        placeholder: "വേദിയുടെ പേര്/വിലാസം",
+        conditional: {
+          field: "memorial_gathering",
+          value: "venue"
+        }
       }
     ]
   },
@@ -1407,6 +2037,142 @@ function generateMalayalamContent(responses: Record<string, any>): string {
     content += `${organDonation[responses.organ_donation]}\n\n`;
   }
 
+  // ശവസംസ്കാര/സ്മാരക മുൻഗണനകൾ
+  if (responses.service_location) {
+    const serviceLocation: Record<string, string> = {
+      place_of_worship: "സ്മാരക സേവനം ഒരു ആരാധനാലയത്തിൽ നടത്തണം.",
+      funeral_home: "സേവനം ഒരു ശവസംസ്കാര ഹോം അല്ലെങ്കിൽ ചാപ്പലിൽ നടത്തണം.",
+      graveside: "സേവനം ശവക്കല്ലറയ്ക്കരികിൽ മാത്രം നടത്തണം.",
+      outdoors: "സേവനം ബാഹ്യമായി നടത്തണം.",
+      family_home: "സേവനം കുടുംബവീട്ടിൽ നടത്തണം.",
+      other: `സേവന സ്ഥലമായി ഞാൻ നിർദ്ദേശിക്കുന്നത്: ${responses.service_location_other || "ഞാൻ വ്യക്തമാക്കിയ സ്ഥലം"}.`
+    };
+    content += `${serviceLocation[responses.service_location]} `;
+  }
+
+  if (responses.religious_rites) {
+    const rites: Record<string, string> = {
+      religious: `എന്റെ മതാചാരങ്ങൾ അനുസരിച്ച് ചടങ്ങുകൾ നടക്കണം${responses.religious_faith ? ` (${responses.religious_faith})` : ""}.`,
+      secular: "ചടങ്ങുകൾ ലോകീയ രീതിയിലായിരിക്കണം, മതചടങ്ങുകളില്ല.",
+      unsure: "ചടങ്ങുകളുടെ സ്വഭാവം കുടുംബം തീരുമാനിക്കട്ടെ."
+    };
+    content += `${rites[responses.religious_rites]} `;
+  }
+
+  if (responses.viewing_visitation) {
+    const viewing: Record<string, string> = {
+      public: "ഒരു പൊതുവായ വ്യൂയിംഗ്/ദർശനം വേണം.",
+      private_family: "കുടുംബാംഗങ്ങൾക്കായി മാത്രം ഒരു സ്വകാര്യ വ്യൂയിംഗ് വേണം.",
+      no: "വ്യൂയിംഗ് വേണ്ട."
+    };
+    content += `${viewing[responses.viewing_visitation]} `;
+  }
+
+  if (responses.casket_preference) {
+    const casket: Record<string, string> = {
+      open: "കാസ്‌കറ്റ് തുറന്നതായിരിക്കണം.",
+      closed: "കാസ്‌കറ്റ് അടച്ചതായിരിക്കണം.",
+      no_preference: "കാസ്‌കറ്റ് സംബന്ധിച്ച് പ്രത്യേക മുൻഗണനയില്ല."
+    };
+    content += `${casket[responses.casket_preference]} `;
+  }
+
+  if (responses.remains_handling === "buried" && responses.burial_type) {
+    const burial: Record<string, string> = {
+      standard: "സാധാരണ ശ്മശാന അടക്കം ഞാൻ ആഗ്രഹിക്കുന്നു.",
+      green: "ഹരിത/നാച്ചുറൽ അടക്കം ഞാൻ മുൻഗണന നൽകുന്നു.",
+      mausoleum: "മൗസോളിയം/ക്രിപ്റ്റ് ഉൾപ്പെടെ അടക്കം വേണം.",
+      other: `അടക്കത്തിനായി ഞാൻ നിർദ്ദേശിക്കുന്നത്: ${responses.burial_type_other || "ഞാൻ വ്യക്തമാക്കിയ രീതിയിൽ"}.`
+    };
+    content += `${burial[responses.burial_type]} `;
+  }
+
+  if (responses.remains_handling === "cremated" && responses.ashes_handling) {
+    const ashes: Record<string, string> = {
+      scatter: `എന്റെ അസ്ഥിക്കരി ${responses.ashes_details || "ഞാൻ വ്യക്തമാക്കിയ ഒരു സ്ഥലത്ത്"} ചിതറിക്കണം.`,
+      keep_home: `എന്റെ അസ്ഥിക്കരി വീട്ടിൽ ${responses.ashes_keeper || "ഞാൻ വ്യക്തമാക്കിയ വ്യക്തി"} സൂക്ഷിക്കണം.`,
+      interred: `എന്റെ അസ്ഥിക്കരി ${responses.ashes_interred_place || "ഞാൻ വ്യക്തമാക്കിയ ശ്മശാനം/കൊളംബേറിയം"} എന്നിവിടങ്ങളിൽ സൂക്ഷിക്കണം.`,
+      split: "എന്റെ അസ്ഥിക്കരി കുടുംബാംഗങ്ങൾക്കിടയിൽ പങ്കിടണം.",
+      other: "അസ്ഥിക്കറി സംബന്ധിച്ച മറ്റു നിർദ്ദേശങ്ങൾ ഞാൻ നൽകിയിട്ടുണ്ട്."
+    };
+    content += `${ashes[responses.ashes_handling]} `;
+  }
+
+  if (responses.music_preference) {
+    const music: Record<string, string> = {
+      yes_specific: `സേവനത്തിൽ ഈ ഗാനങ്ങൾ/കലാകാരന്മാർ അടങ്ങുന്ന സംഗീതം ഉൾപ്പെടുത്തണം: ${responses.specific_songs || "ഞാൻ വ്യക്തമാക്കിയ പട്ടിക"}.`,
+      genre_only: `സേവനത്തിൽ ${responses.favorite_genre || "എന്റെ പ്രിയപ്പെട്ട ജാനർ"} സംഗീതം മാത്രം മതിയാകും.`,
+      no: "സംഗീതത്തെക്കുറിച്ച് പ്രത്യേക മുൻഗണനയില്ല."
+    };
+    content += `${music[responses.music_preference]} `;
+  }
+
+  if (responses.reading_preference) {
+    const readPref: Record<string, string> = {
+      yes_specific: `താഴെപ്പറയുന്ന വായനകൾ/പ്രാർത്ഥനകൾ ഉൾപ്പെടുത്തണം: ${responses.specific_readings || "ഞാൻ വ്യക്തമാക്കിയവ"}.`,
+      religious_general: "സേവനത്തിൽ പൊതുവായ മതഗ്രന്ഥ ഭാഗങ്ങൾ ഉൾപ്പെടുത്താം.",
+      poems_quotes: "സേവനത്തിൽ കവിതകളും അർത്ഥവത്തായ ചൊല്ലുകളും ഉൾപ്പെടുത്താം.",
+      none: "വായനകൾ/പ്രാർത്ഥനകൾ വേണ്ട."
+    };
+    content += `${readPref[responses.reading_preference]} `;
+  }
+
+  if (responses.officiant_choice) {
+    const off: Record<string, string> = {
+      specific_person: `സേവനം ${responses.officiant_name || "ഞാൻ വ്യക്തമാക്കിയ വ്യക്തി"} നയിക്കണം.",
+      clergy_of_faith: "എന്റെ മതത്തിലെ ഏതെങ്കിലും പുരോഹിതൻ സേവനം നയിക്കാം.",
+      celebrant: "ഒരു പ്രൊഫഷണൽ സെലിബ്രന്റ് സേവനം നയിക്കാം.",
+      family_friend: "ഒരു ബന്ധുവോ സുഹൃത്തോ സേവനം നയിക്കാം.",
+      none: "ഓഫിഷ്യേന്റ് ഇല്ലാതെയും മതിയാകും."
+    };
+    content += `${off[responses.officiant_choice]} `;
+  }
+
+  if (responses.pallbearers === "yes") {
+    content += `പാൾബിയറുകളായി: ${responses.pallbearer_names || "ഞാൻ പിന്നീട് നൽകുന്ന പട്ടിക"}. `;
+  }
+
+  if (responses.attire_theme) {
+    const attire: Record<string, string> = {
+      formal_black: "അതിഥികൾ ഔപചാരിക ബ്ലാക്ക് വസ്ത്രധാരണം പാലിക്കണം.",
+      any_colors: "അതിഥികൾക്ക് ഏത് നിറവും ധരിക്കാം.",
+      bright_colors: "അതിഥികൾ പ്രകാശമുള്ള നിറങ്ങൾ ധരിക്കാം.",
+      specific_color: `അതിഥികൾ ${responses.attire_color_detail || "ഞാൻ വ്യക്തമാക്കിയ നിറം"} നിറം ധരിക്കണം.",
+      no_preference: "വസ്ത്രധാരണത്തെക്കുറിച്ചുള്ള പ്രത്യേക മുൻഗണനയില്ല."
+    };
+    content += `${attire[responses.attire_theme]} `;
+  }
+
+  if (responses.flowers_or_donations) {
+    const flowers: Record<string, string> = {
+      flowers_welcome: "പൂക്കൾ സ്വാഗതം.",
+      donations_preferred: `പൂക്കൾക്കു പകരം ${responses.charity_name || "ഞാൻ വ്യക്തമാക്കിയ ഒരു ചാരിറ്റി"} യിലേക്ക് സംഭാവന നൽകുക.",
+      no_flowers: "പൂക്കൾ വേണ്ട.",
+      family_decide: "പൂക്കൾ/സംഭാവനകൾ സംബന്ധിച്ച് കുടുംബം തീരുമാനിക്കട്ടെ."
+    };
+    content += `${flowers[responses.flowers_or_donations]} `;
+  }
+
+  if (responses.obituary_preference) {
+    const obit: Record<string, string> = {
+      paper_and_online: `ഓബിറ്റ്വറി ലോകൽ പത്രത്തിലും ഓൺലൈൻ-ലും പ്രസിദ്ധീകരിക്കണം${responses.obituary_notes ? ` (${responses.obituary_notes})` : ""}.`,
+      online_only: "ഓബിറ്റ്വറി ഓൺലൈൻ-ലുമാത്രം പ്രസിദ്ധീകരിക്കാം.",
+      private: "ഓബിറ്റ്വറിയോ പൊതുഅറിയിപ്പുകളോ വേണ്ട.",
+      family_decide: "ഓബിറ്റ്വറി സംബന്ധിച്ച് കുടുംബം തീരുമാനിക്കട്ടെ."
+    };
+    content += `${obit[responses.obituary_preference]} `;
+  }
+
+  if (responses.memorial_gathering) {
+    const gathering: Record<string, string> = {
+      venue: `സേവനത്തിനു ശേഷം ${responses.gathering_venue || "ഞാൻ വ്യക്തമാക്കിയ വേദിയിൽ"} ഒരു സംഗമം നടത്തണം.`,
+      family_home: "സേവനത്തിനു ശേഷം വീട്ടിൽ ചെറിയ കുടുംബ സംഗമം നടത്താം.",
+      no: "സേവനത്തിനു ശേഷം പ്രത്യേക സംഗമം വേണ്ട.",
+      family_decide: "സേവനാനന്തര സംഗമം കുടുംബം തീരുമാനിക്കട്ടെ."
+    };
+    content += `${gathering[responses.memorial_gathering]}\n\n`;
+  }
+
   // സാമ്പത്തിക സ്വത്തുക്കൾ
   if (responses.primary_bank_distribution) {
     const bankDistribution: Record<string, string> = {
@@ -1524,6 +2290,142 @@ export function generateContent(responses: Record<string, any>, language: 'en' |
       no: "I do not wish to be an organ donor."
     };
     content += `${organDonation[responses.organ_donation]}\n\n`;
+  }
+
+  // Funeral & Memorial Preferences
+  if (responses.service_location) {
+    const serviceLocation: Record<string, string> = {
+      place_of_worship: "I would like the service to be held at a place of worship.",
+      funeral_home: "I would like the service to be held at a funeral home or chapel.",
+      graveside: "I would like a graveside-only service.",
+      outdoors: "I would like the service to be held outdoors.",
+      family_home: "I would like the service to be held at a family home.",
+      other: `I prefer the service to be held at: ${responses.service_location_other || "the location I have specified"}.`
+    };
+    content += `${serviceLocation[responses.service_location]} `;
+  }
+
+  if (responses.religious_rites) {
+    const rites: Record<string, string> = {
+      religious: `I want religious rites according to my faith${responses.religious_faith ? ` (${responses.religious_faith})` : ""}.`,
+      secular: "I prefer a secular service with no religious rites.",
+      unsure: "I leave the choice of religious or secular elements to my family."
+    };
+    content += `${rites[responses.religious_rites]} `;
+  }
+
+  if (responses.viewing_visitation) {
+    const viewing: Record<string, string> = {
+      public: "I would like a public viewing/visitation.",
+      private_family: "I would like a private family viewing/visitation.",
+      no: "I do not want a viewing."
+    };
+    content += `${viewing[responses.viewing_visitation]} `;
+  }
+
+  if (responses.casket_preference) {
+    const casket: Record<string, string> = {
+      open: "I prefer an open casket.",
+      closed: "I prefer a closed casket.",
+      no_preference: "I have no preference regarding the casket."
+    };
+    content += `${casket[responses.casket_preference]} `;
+  }
+
+  if (responses.remains_handling === "buried" && responses.burial_type) {
+    const burial: Record<string, string> = {
+      standard: "I prefer a standard cemetery burial.",
+      green: "I prefer a green/natural burial.",
+      mausoleum: "I prefer interment in a mausoleum or crypt.",
+      other: `For burial, I prefer: ${responses.burial_type_other || "the method I have specified"}.`
+    };
+    content += `${burial[responses.burial_type]} `;
+  }
+
+  if (responses.remains_handling === "cremated" && responses.ashes_handling) {
+    const ashes: Record<string, string> = {
+      scatter: `I would like my ashes to be scattered at ${responses.ashes_details || "a meaningful place I have specified"}.`,
+      keep_home: `I would like my ashes to be kept at home by ${responses.ashes_keeper || "the person I have specified"}.`,
+      interred: `I would like my ashes to be interred at ${responses.ashes_interred_place || "the cemetery/columbarium I have specified"}.`,
+      split: "I would like my ashes to be split among my family.",
+      other: "I have provided other instructions regarding my ashes."
+    };
+    content += `${ashes[responses.ashes_handling]} `;
+  }
+
+  if (responses.music_preference) {
+    const music: Record<string, string> = {
+      yes_specific: `Please include the following songs/artists during the service: ${responses.specific_songs || "as I have listed"}.`,
+      genre_only: `Please play music in my favorite genre: ${responses.favorite_genre || "as I have specified"}.`,
+      no: "I have no specific music preference."
+    };
+    content += `${music[responses.music_preference]} `;
+  }
+
+  if (responses.reading_preference) {
+    const readPref: Record<string, string> = {
+      yes_specific: `Please include these specific readings/prayers: ${responses.specific_readings || "as I have listed"}.`,
+      religious_general: "Religious scripture passages may be included.",
+      poems_quotes: "Poems or meaningful quotes may be included.",
+      none: "No readings or prayers."
+    };
+    content += `${readPref[responses.reading_preference]} `;
+  }
+
+  if (responses.officiant_choice) {
+    const off: Record<string, string> = {
+      specific_person: `I would like ${responses.officiant_name || "the person I have specified"} to officiate.",
+      clergy_of_faith: "Any clergy of my faith may officiate.",
+      celebrant: "A professional celebrant may officiate.",
+      family_friend: "A family member or friend may lead the service.",
+      none: "No officiant is necessary."
+    };
+    content += `${off[responses.officiant_choice]} `;
+  }
+
+  if (responses.pallbearers === "yes") {
+    content += `Pallbearers: ${responses.pallbearer_names || "to be provided"}. `;
+  }
+
+  if (responses.attire_theme) {
+    const attire: Record<string, string> = {
+      formal_black: "Guests should wear formal black attire.",
+      any_colors: "Guests may wear any colors.",
+      bright_colors: "Guests may wear bright colors.",
+      specific_color: `Guests are requested to wear ${responses.attire_color_detail || "the color I have specified"}.`,
+      no_preference: "I have no attire preference for guests."
+    };
+    content += `${attire[responses.attire_theme]} `;
+  }
+
+  if (responses.flowers_or_donations) {
+    const flowers: Record<string, string> = {
+      flowers_welcome: "Flowers are welcome.",
+      donations_preferred: `In lieu of flowers, please donate to ${responses.charity_name || "the charity I have specified"}.`,
+      no_flowers: "Please, no flowers.",
+      family_decide: "I leave flowers or donations to my family’s judgment."
+    };
+    content += `${flowers[responses.flowers_or_donations]} `;
+  }
+
+  if (responses.obituary_preference) {
+    const obit: Record<string, string> = {
+      paper_and_online: `Please publish an obituary in the local paper and online${responses.obituary_notes ? ` (including: ${responses.obituary_notes})` : ""}.`,
+      online_only: "Please publish an obituary online only.",
+      private: "Please keep matters private with no public announcements.",
+      family_decide: "I leave obituary and announcements to my family’s judgment."
+    };
+    content += `${obit[responses.obituary_preference]} `;
+  }
+
+  if (responses.memorial_gathering) {
+    const gathering: Record<string, string> = {
+      venue: `I would like a gathering after the service at ${responses.gathering_venue || "the venue I have specified"}.",
+      family_home: "I would like a small family gathering at home after the service.",
+      no: "I do not want a gathering after the service.",
+      family_decide: "I leave any gathering after the service to my family’s judgment."
+    };
+    content += `${gathering[responses.memorial_gathering]}\n\n`;
   }
 
   // Financial Assets
