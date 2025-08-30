@@ -9,7 +9,7 @@ export default function Home() {
 
   const content = {
     en: {
-      title: "Will & Testament Creator",
+      title: "Will & Testament Generator",
       description: "Create your comprehensive will easily by answering simple questions. We'll help you document your wishes for all your assets and generate a downloadable document.",
       selectLanguage: "Select Language",
       english: "English",
